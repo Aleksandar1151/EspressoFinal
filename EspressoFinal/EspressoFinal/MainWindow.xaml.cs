@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EspressoFinal.Forms.Login;
+using EspressoFinal.Forms.MainPage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,12 @@ namespace EspressoFinal
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Login LoginPage = new Login();
+        public static MainPage MainPage = new MainPage();
         public MainWindow()
         {
             InitializeComponent();
+            MainGrid.Children.Add(MainPage);
         }
     }
 }
