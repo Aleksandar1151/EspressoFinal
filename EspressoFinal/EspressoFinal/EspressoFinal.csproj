@@ -71,7 +71,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Forms\Tabs\OtpisPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Tabs\ProdajaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Forms\Tabs\StornirajPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -89,8 +97,14 @@
     <Compile Include="Forms\MainPage\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Tabs\OtpisPage.xaml.cs">
+      <DependentUpon>OtpisPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Tabs\ProdajaPage.xaml.cs">
       <DependentUpon>ProdajaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Tabs\StornirajPage.xaml.cs">
+      <DependentUpon>StornirajPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

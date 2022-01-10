@@ -26,11 +26,13 @@ namespace EspressoFinal
         public static Login LoginPage = new Login();
         public static MainPage MainPage = new MainPage();
         public static ProdajaPage prodajaPage = new ProdajaPage();
+        public static StornirajPage stornirajPage = new StornirajPage();
+        public static OtpisPage otpisPage = new OtpisPage();
         public MainWindow()
         {
             InitializeComponent();
             MainGrid.Children.Clear();
-            MainGrid.Children.Add(prodajaPage);
+            MainGrid.Children.Add(otpisPage);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

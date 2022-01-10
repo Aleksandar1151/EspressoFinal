@@ -1,5 +1,6 @@
 ﻿<UserControl x:Class="EspressoFinal.Forms.Tabs.StornirajPage"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -7,7 +8,15 @@
              mc:Ignorable="d" 
             d:DesignHeight="688" d:DesignWidth="1366">
     <Grid Background="White" >
-        <Label Content="ID računa" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="136,100,0,0" Height="54" Width="75"/>
+        <StackPanel VerticalAlignment="Top" Margin="0,50,0,0" Height="80" Width="500" Orientation="Horizontal">
+            <Label Content="ID računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="100" />
+            <TextBox HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0"/>
+
+        </StackPanel>
+        <ListBox Background="LightGray" HorizontalAlignment="Left" Height="353" Margin="226,140,0,0" VerticalAlignment="Top" Width="908"/>
+        <Button Content="ŠTAMPAJ" HorizontalAlignment="Left" Margin="943,528,0,0" VerticalAlignment="Top" Width="193" Height="65"/>
+
 
     </Grid>
 </UserControl>

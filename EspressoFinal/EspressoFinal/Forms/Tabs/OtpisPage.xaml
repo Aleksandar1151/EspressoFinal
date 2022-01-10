@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="EspressoFinal.Forms.Tabs.OtpisPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
+             mc:Ignorable="d" 
+              d:DesignHeight="688" d:DesignWidth="1366">
+    <Grid Background="White" >
+
+        <ListBox Background="LightGray" HorizontalAlignment="Left" Height="471" Margin="108,107,0,0" VerticalAlignment="Top" Width="433"/>
+        <Button Content="OTPIŠI" HorizontalAlignment="Left" Margin="769,426,0,0" VerticalAlignment="Top" Width="298" Height="65"/>
+        <ListBox Background="Beige" HorizontalAlignment="Left" Height="258" Margin="702,106,0,0" VerticalAlignment="Top" Width="430"/>
+
+
+        <Label Content="Lista artikala" FontSize="20" HorizontalAlignment="Left" Margin="108,67,0,0" VerticalAlignment="Top"/>
+        <Label Content="Lista otpisanih artikala" FontSize="20" HorizontalAlignment="Left" Margin="704,67,0,0" VerticalAlignment="Top"/>
+        <materialDesign:PackIcon Kind="ArrowRightBold" Width="128" Height="68"  Margin="556,201,0,0"/>
+
+
+    </Grid>
+</UserControl>
