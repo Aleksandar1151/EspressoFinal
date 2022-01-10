@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EspressoFinal", "EspressoFinal\EspressoFinal.csproj", "{DCEDCC1F-DCFA-45E5-BAA3-79F787FFCB06}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCEDCC1F-DCFA-45E5-BAA3-79F787FFCB06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCEDCC1F-DCFA-45E5-BAA3-79F787FFCB06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCEDCC1F-DCFA-45E5-BAA3-79F787FFCB06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCEDCC1F-DCFA-45E5-BAA3-79F787FFCB06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {92F58DDA-8B31-4D5F-82DA-ED6AFF1CBE6E}
+	EndGlobalSection
+EndGlobal
