@@ -24,3 +24,5 @@ C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFi
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\EspressoFinal.pdb
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\MainPage\MainPage.g.cs
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\MainPage\MainPage.baml
+C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\ProdajaPage.g.cs
+C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\ProdajaPage.baml

@@ -8,19 +8,5 @@
              xmlns:local="clr-namespace:EspressoFinal.Forms.MainPage"
              mc:Ignorable="d" 
              d:DesignHeight="768" d:DesignWidth="1366">
-    <Grid x:Name="MainGrid" Background="White">
-        <Grid Height="100" Margin="0,0,0,0" VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="10 0">
-                <Button Uid="0" Width="400" Content="PRODAJA" Height="50" Style="{StaticResource MaterialDesignRaisedLightButton}" BorderBrush="{x:Null}"  Click="Button_Click"/>
-                <Button Uid="1" Width="200" Content="STORNIRAJ" Height="50"  Style="{StaticResource MaterialDesignRaisedLightButton}"  BorderBrush="{x:Null}"  Click="Button_Click"/>
-                <Button Uid="2" Width="200" Content="OTPIS" Height="50"  Style="{StaticResource MaterialDesignRaisedLightButton}" BorderBrush="{x:Null}"  Click="Button_Click"/>
-                <Button Uid="3" Width="300" Content="SKLADIŠTE" Height="50"  Style="{StaticResource MaterialDesignRaisedLightButton}" BorderBrush="{x:Null}"  Click="Button_Click"/>
-                <Button Uid="4" Width="100"  Height="50"  Style="{StaticResource MaterialDesignRaisedLightButton}" BorderBrush="{x:Null}" Margin="146,0,0,0"  Click="Button_Click">
-                    <materialDesign:PackIcon Kind="Settings" Width="25" Height="25"/>
-                </Button>
-
-            </StackPanel>
-            
-        </Grid>
-    </Grid>
+    
 </UserControl>

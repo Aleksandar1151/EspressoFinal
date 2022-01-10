@@ -1,5 +1,6 @@
 ﻿using EspressoFinal.Forms.Login;
 using EspressoFinal.Forms.MainPage;
+using EspressoFinal.Forms.Tabs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,17 @@ namespace EspressoFinal
     {
         public static Login LoginPage = new Login();
         public static MainPage MainPage = new MainPage();
+        public static ProdajaPage prodajaPage = new ProdajaPage();
         public MainWindow()
         {
             InitializeComponent();
-            MainGrid.Children.Add(MainPage);
+            MainGrid.Children.Clear();
+            MainGrid.Children.Add(prodajaPage);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
