@@ -47,14 +47,14 @@ namespace EspressoFinal.Data
 
                 while (reader.Read())
                 {
-                    Console.WriteLine("2");
+                    
                     int idNalog = Convert.ToInt32(reader["idNalog"]);
                     string ime = reader["ime"].ToString();
                     string lozinka = reader["lozinka"].ToString();
                     bool privilegije = Convert.ToBoolean(reader["privilegije"]);
                     Nalog user = new Nalog(idNalog, ime, lozinka, privilegije);
                     KolekcijaNaloga.Add(user);
-                    Console.WriteLine("3");
+                   
                 }
                 Database.dbConn.Close();
             }
