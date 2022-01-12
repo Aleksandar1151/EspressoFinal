@@ -10,10 +10,11 @@
     <Grid x:Name="LoginGrid" Background="WhiteSmoke">
         <StackPanel Margin="400,100,400,100">
             <materialDesign:PackIcon Kind="Person" Foreground="#FF474747" Width="100" Height="120" HorizontalAlignment="Center" />
-            <Label Content="Korisničko ime" FontSize="20" Foreground="Gray" Margin="40,0,0,0" Padding="0,30,0,0"/>
-            <TextBox  TextWrapping="Wrap" Text="" Width="500" FontSize="25" />
-            <Label Content="Lozinka" FontSize="20" Foreground="Gray" Margin="40,0,0,0" Padding="0,50,0,0"/>
-            <PasswordBox x:Name="PasswordBox" Width="500" FontSize="25" />
+            
+            <TextBox materialDesign:HintAssist.Hint="Korisničko ime"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" Text="" Width="500" FontSize="25" />
+            <PasswordBox   x:Name="PasswordBox" Width="500" FontSize="25"  Margin="0,40,0,0" materialDesign:HintAssist.Hint="Lozinka" />
+            
+            
             <Button Content="Prijava" Margin="80,50,80,0" Height="45" Style="{StaticResource MaterialDesignRaisedDarkButton}"></Button>
             
 

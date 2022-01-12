@@ -8,14 +8,25 @@
              mc:Ignorable="d" 
             d:DesignHeight="688" d:DesignWidth="1366">
     <Grid Background="White" >
-        <StackPanel VerticalAlignment="Top" Margin="0,50,0,0" Height="80" Width="500" Orientation="Horizontal">
-            <Label Content="ID računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="100" />
-            <TextBox HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-            <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0"/>
+        <StackPanel>
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="433,50,511,0" Height="80" Orientation="Horizontal">
+                <Label Content="ID računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="100" />
+                <TextBox HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0"/>
+            </StackPanel>
+
+            <ListView HorizontalAlignment="Center"   Margin="0,0,0,0" Height="450" Width="1300">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Button Content="ŠTAMPAJ" Margin="10" FontSize="20" Width="200" Height="65"/>
+
 
         </StackPanel>
-        <ListBox Background="LightGray" HorizontalAlignment="Left" Height="353" Margin="226,140,0,0" VerticalAlignment="Top" Width="908"/>
-        <Button Content="ŠTAMPAJ" HorizontalAlignment="Left" Margin="943,528,0,0" VerticalAlignment="Top" Width="193" Height="65"/>
+
 
 
     </Grid>

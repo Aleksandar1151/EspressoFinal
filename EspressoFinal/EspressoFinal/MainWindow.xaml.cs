@@ -28,15 +28,77 @@ namespace EspressoFinal
         public static ProdajaPage prodajaPage = new ProdajaPage();
         public static StornirajPage stornirajPage = new StornirajPage();
         public static OtpisPage otpisPage = new OtpisPage();
+        public static SkladistePage skladistePage = new SkladistePage();
         public MainWindow()
         {
             InitializeComponent();
             MainGrid.Children.Clear();
-            MainGrid.Children.Add(otpisPage);
+            MainGrid.Children.Add(prodajaPage);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Transition(object sender, RoutedEventArgs e)
         {
+            var pressedButton = (Button)sender;
+            int index = int.Parse(pressedButton.Uid);
+
+            string lightColor = "#DBEBC0";
+            string darkColor = "#383D3B";
+
+            BrushConverter bc = new BrushConverter(); 
+            
+            ChangeButtonColors(ButtonMenu1,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu2,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu3,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu4,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu5,darkColor,lightColor);
+
+            MainGrid.Children.Clear();
+            switch (index)
+            {
+                 case 1:
+                    {
+                        
+                        MainGrid.Children.Add(prodajaPage);
+                        ChangeButtonColors(pressedButton,lightColor,darkColor);
+                        break;
+                    }
+                    case 2:
+                    {
+                        
+                        MainGrid.Children.Add(stornirajPage);
+                       ChangeButtonColors(pressedButton,lightColor,darkColor);
+                        break;
+                    }
+                    case 3:
+                    {
+                       
+                        MainGrid.Children.Add(otpisPage);
+                        ChangeButtonColors(pressedButton,lightColor,darkColor);
+                        break;
+                    }
+                     case 4:
+                    {
+                       
+                        MainGrid.Children.Add(skladistePage);
+                        ChangeButtonColors(pressedButton,lightColor,darkColor);
+                        break;
+                    }
+                     case 5:
+                    {
+                       
+                       // MainGrid.Children.Add();
+                        ChangeButtonColors(pressedButton,lightColor,darkColor);
+                        break;
+                    }
+            }
+
+        }
+
+        private void ChangeButtonColors(Button button, string foreColor, string backColor)
+        {
+            BrushConverter bc = new BrushConverter(); 
+            button.Background = (Brush)bc.ConvertFrom(backColor); 
+            button.Foreground = (Brush)bc.ConvertFrom(foreColor); 
 
         }
     }

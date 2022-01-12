@@ -7,17 +7,39 @@
              xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
              mc:Ignorable="d" 
               d:DesignHeight="688" d:DesignWidth="1366">
-    <Grid Background="White" >
+    <StackPanel Orientation="Horizontal">
+        <Grid Background="White" Width="666" >
+            <StackPanel>
+                <Label Content="Lista artikala" FontSize="20" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+                <ListView   Margin="20" Height="600" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+           
 
-        <ListBox Background="LightGray" HorizontalAlignment="Left" Height="471" Margin="108,107,0,0" VerticalAlignment="Top" Width="433"/>
-        <Button Content="OTPIŠI" HorizontalAlignment="Left" Margin="769,426,0,0" VerticalAlignment="Top" Width="298" Height="65"/>
-        <ListBox Background="Beige" HorizontalAlignment="Left" Height="258" Margin="702,106,0,0" VerticalAlignment="Top" Width="430"/>
 
 
-        <Label Content="Lista artikala" FontSize="20" HorizontalAlignment="Left" Margin="108,67,0,0" VerticalAlignment="Top"/>
-        <Label Content="Lista otpisanih artikala" FontSize="20" HorizontalAlignment="Left" Margin="704,67,0,0" VerticalAlignment="Top"/>
-        <materialDesign:PackIcon Kind="ArrowRightBold" Width="128" Height="68"  Margin="556,201,0,0"/>
 
+        </Grid>
+        <Grid Background="Aquamarine" Width="700">
+            <StackPanel>
+                <Label Content="Lista otpisanih artikala" FontSize="20" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+                <ListView   Margin="20" Height="500" >
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="OTPIŠI" Width="300" FontSize="20" Height="50" />
+            </StackPanel>
 
-    </Grid>
+        </Grid>
+
+    </StackPanel>
+
 </UserControl>

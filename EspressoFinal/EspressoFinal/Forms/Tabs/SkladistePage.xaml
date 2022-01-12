@@ -7,7 +7,53 @@
              xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
              mc:Ignorable="d" 
             d:DesignHeight="688" d:DesignWidth="1366">
-    <Grid Background="White" >
-       
-    </Grid>
+    <StackPanel Orientation="Horizontal">
+        <Grid Background="White" Width="700" >
+            <StackPanel Margin="30">
+                <Label Content="Naziv artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
+                <TextBox HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+                <Label Content="Cijena artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
+                <TextBox HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Količina artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
+                <TextBox HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <ComboBox FontSize="15" Width="200" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Kategorija" Foreground="Black">
+                    <ComboBoxItem>
+                        Android
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        iOS
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Linux
+                    </ComboBoxItem>
+                    <ComboBoxItem>
+                        Windows
+                    </ComboBoxItem>                    
+                </ComboBox>
+                <Button Content="DODAJ NOVI ARTIKAL" Width="300" Margin="20" />
+                <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,30,0,0" Height="4"  VerticalAlignment="Top" Width="640"/>
+                <Label Content="Dodaj količinu" FontSize="20" Margin="0,60,0,0"/>
+                <TextBox HorizontalAlignment="Left" FontSize="20" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="400"/>
+                <Button Content="DODAJ KOLIČINU ARTIKLU" Width="300" />
+               
+
+
+            </StackPanel>
+
+
+
+        </Grid>
+        <Grid Background="#FFDC9393" Width="666">
+            <ListView Margin="20" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </Grid>
+
+    </StackPanel>
+
 </UserControl>
