@@ -46,11 +46,11 @@ namespace EspressoFinal
 
             BrushConverter bc = new BrushConverter(); 
             
-            ChangeButtonColors(ButtonMenu1,darkColor,lightColor);
-            ChangeButtonColors(ButtonMenu2,darkColor,lightColor);
-            ChangeButtonColors(ButtonMenu3,darkColor,lightColor);
-            ChangeButtonColors(ButtonMenu4,darkColor,lightColor);
-            ChangeButtonColors(ButtonMenu5,darkColor,lightColor);
+            ChangeButtonColors(ButtonTab1,darkColor,lightColor);
+            ChangeButtonColors(ButtonTab2,darkColor,lightColor);
+            ChangeButtonColors(ButtonTab3,darkColor,lightColor);
+            ChangeButtonColors(ButtonTab4,darkColor,lightColor);
+            ChangeButtonColors(ButtonTab5,darkColor,lightColor);
 
             MainGrid.Children.Clear();
             switch (index)

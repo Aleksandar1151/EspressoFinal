@@ -1,5 +1,7 @@
-﻿using System;
+﻿using EspressoFinal.Data;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,12 @@ namespace EspressoFinal.Forms.Login
     /// </summary>
     public partial class Login : UserControl
     {
+        public static ObservableCollection<Nalog> KolekcijaNaloga { get;set;}
         public Login()
         {
             InitializeComponent();
+            KolekcijaNaloga = Nalog.Ucitaj();
+            MessageBox.Show(KolekcijaNaloga[1].ime);
         }
     }
 }
