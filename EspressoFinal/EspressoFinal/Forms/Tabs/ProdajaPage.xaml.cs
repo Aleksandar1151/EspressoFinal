@@ -24,42 +24,40 @@ namespace EspressoFinal.Forms.Tabs
     {
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
         List<Button> ListaDugmad = new List<Button>();
-        int SIRINA = 200;
+        int SIRINA = 220;
         int VISINA = 100;
-        double KORAK = 1;
+        double KORAK = 2.3;
+        int YSkok = 120;
 
-        int trenutniX=1;
-        int trenutniY=1;
+        int trenutniX=5;
+        int trenutniY=10;
+
+         string darkColor = "#941B0C";
+         string lightColor = "#C3B299";
 
         public ProdajaPage()
         {
             InitializeComponent();
             KolekcijaArtikal = Artikal.Ucitaj();
-            NapraviDugmad();
+            NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(1)));
 
-            visinaBox.Text = VISINA.ToString();
-            sirinaBox.Text = SIRINA.ToString();
-            korakBox.Text = KORAK.ToString();
         }
 
-        private void NapraviDugmad()
+        private void NapraviDugmad(ObservableCollection<Artikal> Kolekcija)
         {
-            foreach(Artikal artikal in KolekcijaArtikal)
+            foreach(Artikal artikal in Kolekcija)
             {
-                if(artikal.kategorija == 1)
-                {
-                    
-                    Button btnNew = new Button();
-                    btnNew.Tag = artikal.idArtikal;
-                    btnNew.Content = artikal.naziv.ToString();
-                    btnNew.Name="Button" + artikal.idArtikal.ToString();
-                    btnNew.Width=SIRINA;
-                    btnNew.Height = VISINA;
-                   // btnNew.Background = Brushes.White;
-                    ListaDugmad.Add(btnNew);
+                Button btnNew = new Button();
+                btnNew.Tag = artikal.idArtikal;
+                btnNew.Content = artikal.naziv.ToString()+"\n"+ artikal.cijena + " KM (" + artikal.kolicina +")";
+                btnNew.Name="Button" + artikal.idArtikal.ToString();
+                btnNew.Width=SIRINA;
+                btnNew.Height = VISINA;
+                btnNew.Click += new RoutedEventHandler(ArtikalButtonClick);
+                // btnNew.Background = Brushes.White;
+                ListaDugmad.Add(btnNew);
 
-                    
-                }
+              
             }
 
             PostaviDugmad();
@@ -78,9 +76,9 @@ namespace EspressoFinal.Forms.Tabs
                     }
                     else
                     {
-                         trenutniY+=50;
+                         trenutniY+=YSkok;
                     }
-                    trenutniX = 10;
+                    trenutniX = 5;
                    
                     Canvas.SetLeft(item,KORAK*trenutniX);
                     Canvas.SetTop(item,trenutniY);
@@ -100,21 +98,61 @@ namespace EspressoFinal.Forms.Tabs
             }
         }
 
-        private void Click(object sender, RoutedEventArgs e)
+        private void ChangeMenuClick(object sender, RoutedEventArgs e)
         {
-            SIRINA = Convert.ToInt32(sirinaBox.Text);
-            VISINA = Convert.ToInt32(visinaBox.Text);
-            KORAK = Convert.ToDouble(korakBox.Text);
+            RefreshCanvas();
+            var kliknutoDugmeMeni = (Button)sender;
+            ChangeButtonColors(kliknutoDugmeMeni,lightColor,darkColor);
 
-            trenutniX = 1;
-            trenutniY = 1;
+             NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(kliknutoDugmeMeni.Uid)));
+
+        }
+
+        private void ArtikalButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button btn=sender as Button;
+           
+
+            
+
+        }
+
+        private ObservableCollection<Artikal> IzdvojiArtikle(int kategorija)
+        {
+            ObservableCollection<Artikal> ListRezultat = new ObservableCollection<Artikal>() ;
+
+            foreach(Artikal artikal in KolekcijaArtikal)
+            {
+                if(artikal.kategorija == kategorija) ListRezultat.Add(artikal);
+            }
+            return ListRezultat;
+        }
+
+        private void RefreshCanvas()
+        {
+            ButtonCanvas.Children.Clear();
+            SIRINA = 220;
+            VISINA = 100;
+            KORAK = 2.3;
+            YSkok = 120;
+            trenutniX=5;
+            trenutniY=10;
 
             ListaDugmad.Clear();
 
-            ButtonCanvas.Children.Clear();
-            
-            NapraviDugmad();
-            
+            ChangeButtonColors(ButtonMenu1,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu2,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu3,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu4,darkColor,lightColor);
+            ChangeButtonColors(ButtonMenu5,darkColor,lightColor);
+        }
+
+        private void ChangeButtonColors(Button button, string foreColor, string backColor)
+        {
+            BrushConverter bc = new BrushConverter(); 
+            button.Background = (Brush)bc.ConvertFrom(backColor); 
+            button.Foreground = (Brush)bc.ConvertFrom(foreColor); 
+
         }
     }
 }
