@@ -30,7 +30,7 @@ namespace EspressoFinal.Data
 
         public static ObservableCollection<Nalog> Ucitaj()
         {
-            ObservableCollection<Nalog> KolekcijaNaloga = new ObservableCollection<Nalog>();
+            ObservableCollection<Nalog> KolekcijaNalog = new ObservableCollection<Nalog>();
             Database.InitializeDB();
 
             try
@@ -52,15 +52,15 @@ namespace EspressoFinal.Data
                     string ime = reader["ime"].ToString();
                     string lozinka = reader["lozinka"].ToString();
                     bool privilegije = Convert.ToBoolean(reader["privilegije"]);
-                    Nalog user = new Nalog(idNalog, ime, lozinka, privilegije);
-                    KolekcijaNaloga.Add(user);
+                    Nalog element = new Nalog(idNalog, ime, lozinka, privilegije);
+                    KolekcijaNalog.Add(element);
                    
                 }
                 Database.dbConn.Close();
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja naloga iz baze!!!!!\nRazlog: " + ex.Message); }
 
-            return KolekcijaNaloga;
+            return KolekcijaNalog;
         }
 
         #endregion
