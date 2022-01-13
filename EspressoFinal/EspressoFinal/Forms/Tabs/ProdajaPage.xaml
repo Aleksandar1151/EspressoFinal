@@ -6,11 +6,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
              mc:Ignorable="d" 
-             d:DesignHeight="688" d:DesignWidth="1366" Background="White">
+             d:DesignHeight="680" d:DesignWidth="1366" Background="White">
     <StackPanel Orientation="Horizontal">
-        <Grid Width="1000" Height="688" Background="White" >
+        <Grid Width="1000" Height="680" Background="White" >
             <StackPanel Orientation="Horizontal">
-                <Grid Background="#FF383D3B" Width="300" Height="688">
+                <Grid Background="#FF383D3B" Width="300" Height="680">
                     <StackPanel Margin="8">
                         <Button Uid="1" x:Name="ButtonMenu1" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" Height="80" Content="Topli napitci" Margin="0,50,0,10" FontSize="24" Click="ChangeMenuClick"/>
                         <Button Uid="2" x:Name="ButtonMenu2" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}" Height="80" Content="Bezalkoholna pića" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick" />
@@ -30,8 +30,26 @@
             
 
         </Grid>
-        <Grid x:Name="ReceptGrid" Width="366" Height="688" Background="LightGray">
+        <Rectangle Width="2" Fill="LightGray" Height="550"/>
+        <Grid x:Name="ReceptGrid" Width="364" Height="650" Background="White">
+            <StackPanel>
+                <ListView x:Name="ReceiptListView" HorizontalAlignment="Left" Height="450" Margin="20" VerticalAlignment="Top" Width="326">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding Name}" Header="Naziv" Width="100"/>
+                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding Price}" Header="Cijena" Width="100"/>
+                            <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding Quantity}" Header="Količina" Width="120"/>
+                            
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Content="ŠTAMPAJ" Width="300" Height="80" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" />
+                <Button Content="OTPIŠI" Width="300" Height="40" Margin="10" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}"/>
+
+            </StackPanel>
             
+
 
 
 

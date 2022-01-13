@@ -23,6 +23,8 @@ namespace EspressoFinal.Forms.Tabs
     public partial class ProdajaPage : UserControl
     {
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
+        public static ObservableCollection<Artikal> RacunList { get;set;}
+
         List<Button> ListaDugmad = new List<Button>();
         int SIRINA = 220;
         int VISINA = 100;
@@ -41,6 +43,7 @@ namespace EspressoFinal.Forms.Tabs
             KolekcijaArtikal = Artikal.Ucitaj();
             NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(1)));
 
+            ReceiptListView.ItemsSource = RacunList;
         }
 
         private void NapraviDugmad(ObservableCollection<Artikal> Kolekcija)
@@ -103,14 +106,13 @@ namespace EspressoFinal.Forms.Tabs
             RefreshCanvas();
             var kliknutoDugmeMeni = (Button)sender;
             ChangeButtonColors(kliknutoDugmeMeni,lightColor,darkColor);
-
-             NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(kliknutoDugmeMeni.Uid)));
+            NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(kliknutoDugmeMeni.Uid)));
 
         }
 
         private void ArtikalButtonClick(object sender, RoutedEventArgs e)
         {
-            Button btn=sender as Button;
+            Button kliknutoDugme=sender as Button;
            
 
             
