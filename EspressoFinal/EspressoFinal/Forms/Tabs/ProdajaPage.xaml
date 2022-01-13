@@ -23,14 +23,23 @@
                     </StackPanel>
                     
                 </Grid>
-                <Grid>
+                <Canvas Width="700" x:Name="ButtonCanvas" Background="White">
                     
-                </Grid>
+                </Canvas>
             </StackPanel>
             
 
         </Grid>
         <Grid Width="366" Height="688" Background="LightGray">
+            <StackPanel>
+                <TextBox x:Name="visinaBox" materialDesign:HintAssist.Hint="visina" HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="sirinaBox" materialDesign:HintAssist.Hint="sirina" HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="korakBox" materialDesign:HintAssist.Hint="korak"  HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="trenutniXBox" materialDesign:HintAssist.Hint="X"  HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="trenutniYBox" materialDesign:HintAssist.Hint="Y"  HorizontalAlignment="Left" Height="23" Margin="78,10,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="120"/>
+                <Button Content="Pravi" Width="200" Click="Click"/>
+            </StackPanel>
+           
 
         </Grid>
     </StackPanel>

@@ -138,8 +138,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Data\Artikal.cs" />
     <Compile Include="Data\Database.cs" />
+    <Compile Include="Data\Kategorija.cs" />
     <Compile Include="Data\Nalog.cs" />
+    <Compile Include="Data\Otpis.cs" />
+    <Compile Include="Data\Racun.cs" />
+    <Compile Include="Data\Stavka.cs" />
+    <Compile Include="Data\StorniranRacun.cs" />
     <Compile Include="Forms\Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>

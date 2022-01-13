@@ -26,8 +26,7 @@ namespace EspressoFinal.Forms.Login
         public Login()
         {
             InitializeComponent();
-            KolekcijaNaloga = Nalog.Ucitaj();
-            MessageBox.Show(KolekcijaNaloga[1].ime);
+            KolekcijaNaloga = Nalog.Ucitaj();            
         }
     }
 }

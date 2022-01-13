@@ -33,7 +33,7 @@ namespace EspressoFinal.Data
 
             try
             {
-                String query = "SELECT * FROM stavka;";
+                String query = "SELECT * FROM storniranracun;";
                 
                 MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);                
                 
