@@ -112,8 +112,9 @@ namespace EspressoFinal.Forms.Tabs
 
         private void ArtikalButtonClick(object sender, RoutedEventArgs e)
         {
-            Button kliknutoDugme=sender as Button;
+           Button kliknutoDugme=sender as Button;
            
+           //Artikal kliknutArtikal=KolekcijaArtikal.Where(p => p.idArtikal == Convert.ToInt32(kliknutoDugme.Uid));
 
             
 
