@@ -6,26 +6,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
              mc:Ignorable="d" 
-            d:DesignHeight="688" d:DesignWidth="1366">
+            d:DesignHeight="680" d:DesignWidth="1366">
     <Grid Background="White" >
-        <StackPanel>
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="433,50,511,0" Height="80" Orientation="Horizontal">
-                <Label Content="ID računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="100" />
-                <TextBox HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0"/>
-            </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Grid Background="White" Width="700">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" Height="80" Orientation="Horizontal">
+                    <Label Content="Broj računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="110" />
+                    <TextBox HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                    <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0"/>
+                </StackPanel>
 
-            <ListView HorizontalAlignment="Center"   Margin="0,0,0,0" Height="450" Width="1300">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <Button Content="ŠTAMPAJ" Margin="10" FontSize="20" Width="200" Height="65"/>
+                <ListView HorizontalAlignment="Left"   Margin="50,0,0,0" Height="400" Width="600">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="200"/>
+                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding cijena}" Header="Cijena" Width="150"/>
+                            <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding kolicina}" Header="Količina" Width="150"/>
 
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </Grid>
+            <Grid Background="GreenYellow" Width="666">
+                <StackPanel>
+                    <ListView HorizontalAlignment="Center"   Margin="0,60,0,0" Height="400" Width="600">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="Column4" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="200"/>
+                                <GridViewColumn x:Name="Column5" DisplayMemberBinding="{Binding cijena}" Header="Cijena" Width="150"/>
+                                <GridViewColumn x:Name="Column6" DisplayMemberBinding="{Binding kolicina}" Header="Količina" Width="150"/>
+
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button Content="ŠTAMPAJ" Margin="20" FontSize="20" Width="300" Height="65"/>
+                </StackPanel>
+                
+            </Grid>
 
         </StackPanel>
+
+        
+
+
+
 
 
 
