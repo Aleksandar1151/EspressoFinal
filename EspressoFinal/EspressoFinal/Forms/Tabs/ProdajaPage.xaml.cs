@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EspressoFinal.Data;
 using System.Linq;
+using EspressoFinal.Forms.Login;
 
 namespace EspressoFinal.Forms.Tabs
 {
@@ -25,6 +26,7 @@ namespace EspressoFinal.Forms.Tabs
     {
         public class KliknutaStavka
         {
+            
             public int idArtikal { get;set;}   
             public string naziv { get;set;}       
             public double cijena { get;set;}
@@ -47,10 +49,11 @@ namespace EspressoFinal.Forms.Tabs
             }
         }
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
-       // public static ObservableCollection<Stavka> RacunList { get;set;}
+       
         public static ObservableCollection<KliknutaStavka> RacunStavke {get;set;}
 
         double UkupnaCijena = 0;
+        
 
         List<Button> ListaDugmad = new List<Button>();
 
@@ -145,7 +148,8 @@ namespace EspressoFinal.Forms.Tabs
             int index = Convert.ToInt32(kliknutoDugme.Tag);           
             Artikal kliknutArtikal = KolekcijaArtikal.ToList().Find(a => a.idArtikal == index);
 
-
+            kliknutArtikal.kolicina -= 1;
+            kliknutoDugme.Content = kliknutArtikal.naziv.ToString()+"\n"+ kliknutArtikal.cijena + " KM (" + kliknutArtikal.kolicina +")";
             
 
             KliknutaStavka stavka = new KliknutaStavka(kliknutArtikal.idArtikal, kliknutArtikal.naziv.ToString(), 1 ,Convert.ToDouble(kliknutArtikal.cijena));   
@@ -239,6 +243,32 @@ namespace EspressoFinal.Forms.Tabs
 
             Stavka.Sacuvaj(ListStavke);
 
+            OsvjeziRacun();
+        }
+
+        private void OtpisiClick(object sender, RoutedEventArgs e)
+        {
+            
+            List<Otpis> ListOtpis = new List<Otpis>();
+
+            foreach(KliknutaStavka kliknuta_stavka in RacunStavke)
+            { 
+                Otpis otpis = new Otpis(Login.Login.IDNalog, kliknuta_stavka.idArtikal, kliknuta_stavka.kolicina);
+                ListOtpis.Add(otpis);
+            }
+
+            Otpis.Sacuvaj(ListOtpis);            
+           
+            OsvjeziRacun();
+
+        }
+
+        private void OsvjeziRacun()
+        {
+            Artikal.Azuriraj(KolekcijaArtikal);
+            RacunStavke.Clear();
+            UkupnaCijena = 0;
+            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
         }
     }
 }

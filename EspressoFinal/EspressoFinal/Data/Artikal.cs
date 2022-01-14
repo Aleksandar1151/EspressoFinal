@@ -14,13 +14,13 @@ namespace EspressoFinal.Data
     {
         public int idArtikal;
         public string naziv;
-        public string cijena;
-        public string kolicina;
+        public double cijena;
+        public int kolicina;
         public int kategorija;
 
         public Artikal(){}
 
-        public Artikal(int idArtikal, string naziv, string cijena, string kolicina, int kategorija)
+        public Artikal(int idArtikal, string naziv, double cijena, int kolicina, int kategorija)
         {
             this.idArtikal = idArtikal;
             this.naziv = naziv;
@@ -55,8 +55,8 @@ namespace EspressoFinal.Data
                     
                     int idArtikal = Convert.ToInt32(reader["idArtikal"]);
                     string naziv = reader["naziv"].ToString();
-                    string cijena = reader["cijena"].ToString();
-                    string kolicina = reader["kolicina"].ToString();
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    int kolicina = Convert.ToInt32( reader["kolicina"]);
                     int kategorija = Convert.ToInt32(reader["Kategorija_idKategorija"]);
                     Artikal element = new Artikal(idArtikal, naziv, cijena, kolicina,kategorija);
                     KolekcijaArtikal.Add(element);
@@ -69,6 +69,28 @@ namespace EspressoFinal.Data
             return KolekcijaArtikal;
         }
 
+        public static void Azuriraj(ObservableCollection<Artikal> KolekcijaArtikal)
+        {
+            try
+            {
+
+                foreach(Artikal artikal in KolekcijaArtikal)
+                {
+                    String query = string.Format("UPDATE artikal SET " +
+                   "kolicina='{0}' WHERE idArtikal = '{1}'"
+                   ,artikal.kolicina, artikal.idArtikal);
+
+                    MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+                    Database.dbConn.Open();
+                    cmd.ExecuteNonQuery();
+                    Database.dbConn.Close();       
+                }
+
+
+                        
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja artikla u bazi.\nRazlog: " + ex.Message); }
+        }
 
 
         #endregion

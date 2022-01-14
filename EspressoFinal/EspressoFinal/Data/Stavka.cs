@@ -84,23 +84,13 @@ namespace EspressoFinal.Data
         {
             Database.InitializeDB();
 
-            
-
             try
             {
                 foreach(Stavka stavka in ListStavka)
                 {
-                    /*
-                    String query = string.Format("INSERT INTO stavka" +
-                    "(Racun_idRacun, Artikal_idArtikal,cijena,kolicina" +
-                    ") VALUES " +
-                    "(SELECT idRacun FROM racun WHERE idRacun ='{0}', SELECT idArtikal FROM artikal WHERE idArtikal ='{1}', '{2}', '{3}')"
-                    , stavka.idRacun, stavka.idArtikal,stavka.cijena,stavka.kolicina);
-                    */
+                    
 
-                    Console.WriteLine("IDRacun=" +stavka.idRacun);
-                    Console.WriteLine("ID Artikal=" +stavka.idArtikal);
-
+                    //Čuvanje u bazi Stavke
                     String query = string.Format("INSERT INTO stavka SET " +
                         "Racun_idRacun = (SELECT idracun FROM racun WHERE idracun = '{0}')," +
                         "Artikal_idArtikal = (SELECT idartikal FROM artikal where idartikal = '{1}'), " +
