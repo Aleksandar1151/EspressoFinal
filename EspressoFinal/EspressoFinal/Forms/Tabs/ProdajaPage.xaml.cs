@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EspressoFinal.Data;
+using System.Linq;
 
 namespace EspressoFinal.Forms.Tabs
 {
@@ -22,10 +23,35 @@ namespace EspressoFinal.Forms.Tabs
     /// </summary>
     public partial class ProdajaPage : UserControl
     {
+        public class KliknutaStavka
+        {
+            public int idartikla { get;set;}   
+            public string naziv { get;set;}       
+            public double cijena { get;set;}
+            public string kolicina { get;set;}
+
+            public KliknutaStavka()
+            {
+
+            }
+
+            public KliknutaStavka(int id, string naziv, int kolicina, double cijena)
+            {
+                this.idartikla = id;
+                this.naziv = naziv;               
+                this.cijena = cijena;
+                this.kolicina = "x" + kolicina;
+            }
+        }
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
-        public static ObservableCollection<Artikal> RacunList { get;set;}
+       // public static ObservableCollection<Stavka> RacunList { get;set;}
+        public static ObservableCollection<KliknutaStavka> RacunStavke {get;set;}
+
+        public Racun racun;
+        public Stavka stavka;
 
         List<Button> ListaDugmad = new List<Button>();
+
         int SIRINA = 220;
         int VISINA = 100;
         double KORAK = 2.3;
@@ -42,8 +68,9 @@ namespace EspressoFinal.Forms.Tabs
             InitializeComponent();
             KolekcijaArtikal = Artikal.Ucitaj();
             NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(1)));
+            RacunStavke = new ObservableCollection<KliknutaStavka>();
 
-            ReceiptListView.ItemsSource = RacunList;
+            ReceiptListView.ItemsSource = RacunStavke;
         }
 
         private void NapraviDugmad(ObservableCollection<Artikal> Kolekcija)
@@ -112,13 +139,31 @@ namespace EspressoFinal.Forms.Tabs
 
         private void ArtikalButtonClick(object sender, RoutedEventArgs e)
         {
-           Button kliknutoDugme=sender as Button;
-           
-           //Artikal kliknutArtikal=KolekcijaArtikal.Where(p => p.idArtikal == Convert.ToInt32(kliknutoDugme.Uid));
+            Button kliknutoDugme=sender as Button;
+            int index = Convert.ToInt32(kliknutoDugme.Tag);           
+            Artikal kliknutArtikal = KolekcijaArtikal.ToList().Find(a => a.idArtikal == index);
 
+
+            if( RacunStavke.ToList().Find(a => a.)   )
+            {
+
+            }
+
+            KliknutaStavka stavka = new KliknutaStavka(kliknutArtikal.idArtikal, kliknutArtikal.naziv.ToString(), 1 ,Convert.ToDouble(kliknutArtikal.cijena));   
+            
+            
+
+            RacunStavke.Add(stavka);
+            ReceiptListView.ItemsSource = RacunStavke;
+        
+            Console.WriteLine("Stavka naziv:" + stavka.naziv) ;
+
+            
             
 
         }
+
+    
 
         private ObservableCollection<Artikal> IzdvojiArtikle(int kategorija)
         {

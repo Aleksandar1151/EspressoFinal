@@ -13,11 +13,22 @@ namespace EspressoFinal.Data
     {
         public int idRacun;
         public int idArtikal;
-        public string kolicina;
+        public int kolicina;
 
-        public Stavka(){}
+        public Stavka()
+        {
+            idRacun = 0;
+            idArtikal = 0;
+            kolicina = 0;
+        }
 
-        public Stavka(int idRacun, int idArtikal, string kolicina)
+        public Stavka(int idArtikal, int kolicina)
+        {           
+            this.idArtikal = idArtikal;
+            this.kolicina = kolicina;
+        }
+
+        public Stavka(int idRacun, int idArtikal, int kolicina)
         {
             this.idRacun = idRacun;
             this.idArtikal = idArtikal;
@@ -45,7 +56,7 @@ namespace EspressoFinal.Data
                     int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
                     int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
                     
-                    string kolicina = reader["kolicina"].ToString();
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
                    
                     
 

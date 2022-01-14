@@ -18,6 +18,13 @@ namespace EspressoFinal.Data
 
         public Racun(){}
 
+        public Racun(int idNalog)
+        {
+            
+            this.datum = DateTime.Today.ToString("dd-MM-yyyy");;           
+            this.idNalog = idNalog;
+        }
+
         public Racun(int idRacun, string datum, string iznos, int idNalog)
         {
             this.idRacun = idRacun;

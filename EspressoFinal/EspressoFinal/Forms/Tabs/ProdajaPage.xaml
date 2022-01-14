@@ -21,7 +21,8 @@
 
 
                     </StackPanel>
-                    
+                    <Label Name="label" Foreground="Wheat" Content="Label" HorizontalAlignment="Left" Margin="164,548,0,0" VerticalAlignment="Top"/>
+
                 </Grid>
                 <Canvas Width="700" x:Name="ButtonCanvas" Background="White">
                     
@@ -33,17 +34,19 @@
         <Rectangle Width="2" Fill="LightGray" Height="550"/>
         <Grid x:Name="ReceptGrid" Width="364" Height="650" Background="White">
             <StackPanel>
-                <ListView x:Name="ReceiptListView" HorizontalAlignment="Left" Height="450" Margin="20" VerticalAlignment="Top" Width="326">
+                <ListView x:Name="ReceiptListView" Foreground="Black" HorizontalAlignment="Left" Height="400" Margin="20" VerticalAlignment="Top" Width="326">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding Name}" Header="Naziv" Width="100"/>
-                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding Price}" Header="Cijena" Width="100"/>
-                            <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding Quantity}" Header="Količina" Width="120"/>
+                            <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="100"/>
+                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding cijena}" Header="Cijena" Width="100"/>
+                            <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding kolicina}" Header="Količina" Width="120"/>
                             
 
                         </GridView>
                     </ListView.View>
+                    
                 </ListView>
+                <Label x:Name="UkupnoLabel" Height="40" Content="Ukupno:" FontSize="24" Padding="20,0,0,0" Foreground="Gray"></Label>
                 <Button Content="ŠTAMPAJ" Width="300" Height="80" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" />
                 <Button Content="OTPIŠI" Width="300" Height="40" Margin="10" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}"/>
 

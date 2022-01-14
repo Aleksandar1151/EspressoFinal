@@ -29,6 +29,8 @@ namespace EspressoFinal.Data
             this.kategorija = kategorija;
         }
 
+       
+
         #region Baza podataka
 
         public static ObservableCollection<Artikal> Ucitaj()
