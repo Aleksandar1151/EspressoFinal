@@ -25,7 +25,7 @@ namespace EspressoFinal.Forms.Tabs
     {
         public class KliknutaStavka
         {
-            public int idartikla { get;set;}   
+            public int idArtikal { get;set;}   
             public string naziv { get;set;}       
             public double cijena { get;set;}
             public int kolicina { get;set;}
@@ -38,7 +38,7 @@ namespace EspressoFinal.Forms.Tabs
 
             public KliknutaStavka(int id, string naziv, int kolicina, double cijena)
             {
-                this.idartikla = id;
+                this.idArtikal = id;
                 this.naziv = naziv;               
                 this.cijena = cijena;
                 this.kolicina = kolicina;
@@ -157,7 +157,7 @@ namespace EspressoFinal.Forms.Tabs
             }
             else
             {
-                int i = RacunStavke.ToList().FindIndex(item => item.idartikla == index);
+                int i = RacunStavke.ToList().FindIndex(item => item.idArtikal == index);
 
                 if(i != -1)
                 {
@@ -226,6 +226,18 @@ namespace EspressoFinal.Forms.Tabs
 
         private void StampajClick(object sender, RoutedEventArgs e)
         {
+            Racun racun = new Racun();
+            racun.Sacuvaj();
+
+            List<Stavka> ListStavke = new List<Stavka>();
+
+            foreach(KliknutaStavka kliknuta_stavka in RacunStavke)
+            {
+                Stavka stavka = new Stavka(racun.idRacun,kliknuta_stavka.idArtikal,kliknuta_stavka.naziv,kliknuta_stavka.cijena,kliknuta_stavka.kolicina);
+                ListStavke.Add(stavka);
+            }
+
+            Stavka.Sacuvaj(ListStavke);
 
         }
     }

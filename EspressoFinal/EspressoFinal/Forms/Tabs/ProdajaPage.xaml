@@ -47,7 +47,7 @@
                     
                 </ListView>
                 <Label x:Name="UkupnoLabel" Height="40" Content="Ukupno:" FontSize="24" Padding="20,0,0,0" Foreground="Gray"></Label>
-                <Button Content="ŠTAMPAJ" Width="300" Height="80" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" />
+                <Button Content="ŠTAMPAJ" Width="300" Height="80" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" Click="StampajClick" />
                 <Button Content="OTPIŠI" Width="300" Height="40" Margin="10" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}"/>
 
             </StackPanel>
