@@ -28,7 +28,8 @@ namespace EspressoFinal.Forms.Tabs
             public int idartikla { get;set;}   
             public string naziv { get;set;}       
             public double cijena { get;set;}
-            public string kolicina { get;set;}
+            public int kolicina { get;set;}
+            //public string ispisKolicina { get;set;}
 
             public KliknutaStavka()
             {
@@ -40,15 +41,16 @@ namespace EspressoFinal.Forms.Tabs
                 this.idartikla = id;
                 this.naziv = naziv;               
                 this.cijena = cijena;
-                this.kolicina = "x" + kolicina;
+                this.kolicina = kolicina;
+               // this.ispisKolicina = "x"+kolicina;
+
             }
         }
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
        // public static ObservableCollection<Stavka> RacunList { get;set;}
         public static ObservableCollection<KliknutaStavka> RacunStavke {get;set;}
 
-        public Racun racun;
-        public Stavka stavka;
+        double UkupnaCijena = 0;
 
         List<Button> ListaDugmad = new List<Button>();
 
@@ -144,20 +146,39 @@ namespace EspressoFinal.Forms.Tabs
             Artikal kliknutArtikal = KolekcijaArtikal.ToList().Find(a => a.idArtikal == index);
 
 
-            if( RacunStavke.ToList().Find(a => a.)   )
-            {
-
-            }
+            
 
             KliknutaStavka stavka = new KliknutaStavka(kliknutArtikal.idArtikal, kliknutArtikal.naziv.ToString(), 1 ,Convert.ToDouble(kliknutArtikal.cijena));   
             
-            
 
-            RacunStavke.Add(stavka);
+            if(RacunStavke.Count == 0)
+            {
+                RacunStavke.Add(stavka);
+            }
+            else
+            {
+                int i = RacunStavke.ToList().FindIndex(item => item.idartikla == index);
+
+                if(i != -1)
+                {
+                   RacunStavke[i].kolicina += 1;
+                    Console.WriteLine("Kolicina="+RacunStavke[i].kolicina);
+                        ReceiptListView.ItemsSource = null;
+                }
+                else
+                {
+                     RacunStavke.Add(stavka);
+                }
+
+            }
+            
+          
+
+            
+            UkupnaCijena += stavka.cijena;
             ReceiptListView.ItemsSource = RacunStavke;
         
-            Console.WriteLine("Stavka naziv:" + stavka.naziv) ;
-
+            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
             
             
 
@@ -200,6 +221,11 @@ namespace EspressoFinal.Forms.Tabs
             BrushConverter bc = new BrushConverter(); 
             button.Background = (Brush)bc.ConvertFrom(backColor); 
             button.Foreground = (Brush)bc.ConvertFrom(foreColor); 
+
+        }
+
+        private void StampajClick(object sender, RoutedEventArgs e)
+        {
 
         }
     }
