@@ -30,9 +30,9 @@
                 <Button Content="KREIRAJ NOVI ARTIKAL" Width="300" FontSize="18" Height="50" Margin="20" Click="DodajArtikal_Click" />
                 <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,30,0,0" Height="1"  VerticalAlignment="Top" Width="640"/>
 
-                <Label Content="DODAVANJE KOLIČINE" FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,20,0,0" />
-                <TextBox x:Name="KolicinaDodajBox" materialDesign:HintAssist.Hint="Količina artikla"  HorizontalAlignment="Left" FontSize="20"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
-                <Button Content="DODAJ KOLIČINU" FontSize="18" Height="50" Width="300" Margin="0,30,0,30" />
+                <Label x:Name="LabelArtikal" Content="DODAVANJE KOLIČINE ARTIKLU: " FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,20,0,0" />
+                <TextBox x:Name="KolicinaDodajBox" IsEnabled="False" materialDesign:HintAssist.Hint="Količina artikla"  HorizontalAlignment="Left" FontSize="20"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
+                <Button x:Name="DodajKolicinuButton" Content="DODAJ KOLIČINU" FontSize="18" IsEnabled="False" Height="50" Width="300" Margin="0,30,0,30" Click="DodajKolicinu_Click" />
                
 
 
@@ -47,8 +47,8 @@
         <Grid Background="White" Width="666">
             <StackPanel Margin="30">
                 <Label Content="ARTIKLI U SKLADIŠTU" FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,00,0,0" />
-                <ListView x:Name="SkladisteListView" Background="White"  >
-                    
+                
+                <ListView x:Name="SkladisteListView" Background="White" PreviewMouseLeftButtonUp="ListElement_Click"  >                   
 
                     <ListView.View>
                         <GridView>

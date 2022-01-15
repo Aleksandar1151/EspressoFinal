@@ -53,7 +53,7 @@ namespace EspressoFinal.Forms.Tabs
         public static ObservableCollection<KliknutaStavka> RacunStavke {get;set;}
 
         double UkupnaCijena = 0;
-        
+         int kliknutIdStavka;
 
         List<Button> ListaDugmad = new List<Button>();
 
@@ -176,18 +176,13 @@ namespace EspressoFinal.Forms.Tabs
                      RacunStavke.Add(stavka);
                 }
 
-            }
-            
-          
-
-            
-            UkupnaCijena += stavka.cijena;
+            }    
+           
             ReceiptListView.ItemsSource = RacunStavke;
-        
-            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
-            
-            
 
+
+            UkupnaCijena += stavka.cijena;
+            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
         }
 
     
@@ -201,7 +196,7 @@ namespace EspressoFinal.Forms.Tabs
                 if(artikal.kategorija == kategorija)
                 {
                     ListRezultat.Add(artikal);
-                    Console.WriteLine("ArtikalNaziv:" + artikal.naziv);
+                    
                 }
                 
             }
@@ -276,6 +271,39 @@ namespace EspressoFinal.Forms.Tabs
             RacunStavke.Clear();
             UkupnaCijena = 0;
             UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
+        }
+
+        private void ListStavka_Click(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var item = (sender as ListView).SelectedItem; 
+                if (item != null)
+                {
+                    System.Windows.Controls.ListView list = (System.Windows.Controls.ListView)sender;
+                    KliknutaStavka izabranaStavka = (KliknutaStavka)list.SelectedItem;
+                    kliknutIdStavka = izabranaStavka.idArtikal;
+
+                    int index = RacunStavke.ToList().FindIndex(num => num.idArtikal == kliknutIdStavka);
+                    RacunStavke[index].kolicina -= 1;
+
+                    UkupnaCijena -= RacunStavke[index].cijena;
+                    UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM";
+
+                    if(RacunStavke[index].kolicina == 0)
+                    {
+                        RacunStavke.RemoveAt(index);
+                    }
+                    
+                    
+        
+                }
+               (sender as ListView).SelectedItem = null;
+                ReceiptListView.ItemsSource = null;
+
+                ReceiptListView.ItemsSource = RacunStavke;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
     }
 }

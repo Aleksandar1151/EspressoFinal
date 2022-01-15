@@ -25,6 +25,7 @@ namespace EspressoFinal.Forms.Tabs
     {
         public static ObservableCollection<Kategorija> KolekcijaKategorija { get;set;}
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
+        int kliknutIdArtikal;
         public SkladistePage()
         {
             InitializeComponent();
@@ -64,6 +65,48 @@ namespace EspressoFinal.Forms.Tabs
             KategorijaCombo.SelectedItem = null;
 
             
+        }
+
+        private void ListElement_Click(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var item = (sender as ListView).SelectedItem; 
+                if (item != null)
+                {
+                    System.Windows.Controls.ListView list = (System.Windows.Controls.ListView)sender;
+                    Artikal izabranArtikal = (Artikal)list.SelectedItem;
+                    kliknutIdArtikal = izabranArtikal.idArtikal;
+
+                    LabelArtikal.Content = "DODAVANJE KOLIČINE ARTIKLU: [ " + izabranArtikal.naziv + " ]";
+                    LabelArtikal.Foreground  = Brushes.Gray;
+
+                    KolicinaDodajBox.IsEnabled = true;
+                    DodajKolicinuButton.IsEnabled = true;
+
+                    
+
+                }
+               (sender as ListView).SelectedItem = null;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private void DodajKolicinu_Click(object sender, RoutedEventArgs e)
+        {
+            SkladisteListView.ItemsSource = null;            
+
+            int index = KolekcijaArtikal.ToList().FindIndex(num => num.idArtikal == kliknutIdArtikal);
+            KolekcijaArtikal[index].kolicina += Convert.ToInt32(KolicinaDodajBox.Text); 
+
+            Artikal.Azuriraj(KolekcijaArtikal);
+
+            SkladisteListView.ItemsSource = KolekcijaArtikal;
+            KolicinaDodajBox.IsEnabled = false;
+            DodajKolicinuButton.IsEnabled = false;
+            KolicinaDodajBox.Text = null;
+            LabelArtikal.Foreground  = Brushes.LightGray;
+
         }
     }
 }
