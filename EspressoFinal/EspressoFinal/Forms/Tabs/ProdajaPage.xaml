@@ -25,6 +25,7 @@
 
                 </Grid>               
                     <Canvas Width="700"  x:Name="ButtonCanvas" Background="White">
+                        
 
                     </Canvas>
                 
@@ -36,12 +37,8 @@
         <Rectangle Width="2" Fill="LightGray" Height="550"/>
         <Grid x:Name="ReceptGrid" Width="364" Height="650" Background="White">
             <StackPanel>
-                <ListView x:Name="ReceiptListView" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Height="400" Margin="10" VerticalAlignment="Top" Width="346" PreviewMouseLeftButtonUp="ListStavka_Click">
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <StackPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
+                <ListView x:Name="ReceiptListView"  Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Height="400" Margin="10" VerticalAlignment="Top" Width="346" PreviewMouseLeftButtonUp="ListStavka_Click">
+                   
                     <ListView.View>
                         
                         <GridView>

@@ -15,15 +15,33 @@
                     <Button Uid="1" x:Name="ButtonTab1" Width="400" Content="PRODAJA" Height="50" Background="#ff383D3B" Foreground="#ffDBEBC0" BorderBrush="{x:Null}" Click="Button_Transition"  />
                     <Button Uid="2"  x:Name="ButtonTab2" Width="200" Content="STORNIRAJ" Height="50" Background="#ffDBEBC0" Foreground="#ff383D3B"  BorderBrush="{x:Null}" Click="Button_Transition" />
                     <Button Uid="3"  x:Name="ButtonTab3" Width="300" Content="SKLADIŠTE" Height="50"  Background="#ffDBEBC0" Foreground="#ff383D3B" BorderBrush="{x:Null}"  Click="Button_Transition" />
-                    <Button Uid="4" x:Name="ButtonTab4" Width="200" Content="IZVJEŠTAJ" Height="50"  Background="#ffDBEBC0" Foreground="#ff383D3B" BorderBrush="{x:Null}" Click="Button_Transition" />
-                    <Button Uid="5"  x:Name="ButtonTab5" HorizontalAlignment="Right" Width="100"  Background="#ffDBEBC0" Foreground="#ff383D3B" Height="50"   BorderBrush="{x:Null}" Click="Button_Transition" >
-                            <materialDesign:PackIcon Kind="Settings" Width="25" Height="25"/>
-                        </Button>
+                    <Button Uid="4"  x:Name="ButtonTab4"  Width="100" Content="NALOZI" Background="#ffDBEBC0" Foreground="#ff383D3B" Height="50"   BorderBrush="{x:Null}" Click="Button_Transition" />
+
+
+
+                    <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" FontSize="20" HorizontalAlignment="Right"  >
+                        <materialDesign:PopupBox.ToggleContent  >
+                            <materialDesign:PackIcon Kind="FileDocumentOutline" FontSize="25" Background="#ffDBEBC0" Foreground="#ff383D3B" Margin="2,0,10,0" Height="46" Width="50" />
+                        </materialDesign:PopupBox.ToggleContent>                        
+                        <StackPanel Width="300">
+                            <Button Content="Dnevni izvještaj"/>
+                            
+                            <Button Content="Mjesečni izvještaj"/>
+                            
+                            <Button Content="Godišnji izvještaj"/>
+                      
+                            
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+
+                   
+
+                    
                 </DockPanel>
                     
                 
             </Grid>
-            <Grid x:Name="MainGrid" Height="670" Width="1366" Background="LightCyan">
+            <Grid x:Name="MainGrid" Height="670"  Width="1366" Background="LightCyan">
 
             </Grid>
 

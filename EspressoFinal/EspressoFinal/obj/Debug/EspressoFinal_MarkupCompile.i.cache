@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\App.xaml
-6-1896993926
+7-1580893745
 
-191387282862
+20-1718172372
 34-57062504
-Forms\Login\Login.xaml;Forms\MainPage\MainPage.xaml;Forms\Tabs\ProdajaPage.xaml;Forms\Tabs\SkladistePage.xaml;Forms\Tabs\StornirajPage.xaml;MainWindow.xaml;
+Forms\Login\Login.xaml;Forms\MainPage\MainPage.xaml;Forms\Tabs\NalogPage.xaml;Forms\Tabs\ProdajaPage.xaml;Forms\Tabs\SkladistePage.xaml;Forms\Tabs\StornirajPage.xaml;MainWindow.xaml;
 
-True
+False
 

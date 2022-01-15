@@ -25,6 +25,8 @@ namespace EspressoFinal
     {
         public static Login LoginPage = new Login();
         public static MainPage MainPage = new MainPage();
+
+
        
         
         
@@ -51,7 +53,7 @@ namespace EspressoFinal
             ChangeButtonColors(ButtonTab2,darkColor,lightColor);
             ChangeButtonColors(ButtonTab3,darkColor,lightColor);
             ChangeButtonColors(ButtonTab4,darkColor,lightColor);
-            ChangeButtonColors(ButtonTab5,darkColor,lightColor);
+           // ChangeButtonColors(ButtonTab5,darkColor,lightColor);
 
             MainGrid.Children.Clear();
             switch (index)
@@ -80,6 +82,8 @@ namespace EspressoFinal
                     }
                     case 4:
                     {
+                        NalogPage naloziPage = new NalogPage();
+                        MainGrid.Children.Add(naloziPage);
                         ChangeButtonColors(pressedButton,lightColor,darkColor);
                         break;
                     }

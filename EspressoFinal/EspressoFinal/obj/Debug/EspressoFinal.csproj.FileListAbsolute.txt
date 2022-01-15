@@ -52,3 +52,5 @@ C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFi
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\bin\Debug\System.Memory.xml
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\bin\Debug\System.Numerics.Vectors.xml
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\NalogPage.g.cs
+C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\NalogPage.baml
