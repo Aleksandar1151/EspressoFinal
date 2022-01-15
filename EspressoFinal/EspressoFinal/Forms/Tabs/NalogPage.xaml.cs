@@ -29,5 +29,15 @@ namespace EspressoFinal.Forms.Tabs
         {
 
         }
+
+        private void AzurirajNalog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ObrisiNalog_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -87,13 +87,7 @@ namespace EspressoFinal
                         ChangeButtonColors(pressedButton,lightColor,darkColor);
                         break;
                     }
-                     case 5:
-                    {
-                       
-                       // MainGrid.Children.Add();
-                        ChangeButtonColors(pressedButton,lightColor,darkColor);
-                        break;
-                    }
+                    
             }
 
         }
