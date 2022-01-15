@@ -13,13 +13,22 @@ namespace EspressoFinal.Data
     public class Artikal
     {
         public int idArtikal;
-        public string naziv;
-        public double cijena;
-        public int kolicina;
-        public int kategorija;
+        public string naziv { get;set;}   
+        public double cijena { get;set;}   
+        public int kolicina { get;set;}   
+        public int kategorija { get;set;}   
 
         public Artikal(){}
 
+
+        public Artikal(string naziv, double cijena, int kolicina, int kategorija)
+        {
+            
+            this.naziv = naziv;
+            this.cijena = cijena;
+            this.kolicina = kolicina;
+            this.kategorija = kategorija;
+        }
         public Artikal(int idArtikal, string naziv, double cijena, int kolicina, int kategorija)
         {
             this.idArtikal = idArtikal;
@@ -91,6 +100,30 @@ namespace EspressoFinal.Data
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja artikla u bazi.\nRazlog: " + ex.Message); }
         }
+
+        public static void Dodaj(Artikal noviArtikal)
+        {
+            try
+            {
+                 String query = string.Format("INSERT INTO artikal SET " +
+                        "Kategorija_idKategorija = (SELECT idkategorija FROM kategorija WHERE idkategorija = '{0}')," +                        
+                        " naziv = '{1}', cijena = '{2}', kolicina = '{3}'" , noviArtikal.kategorija, noviArtikal.naziv, noviArtikal.cijena, noviArtikal.kolicina);
+
+                    
+
+                    MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+                    Database.dbConn.Open();
+                    cmd.ExecuteNonQuery();
+                    Database.dbConn.Close();       
+              
+
+
+                        
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja artikla u bazi.\nRazlog: " + ex.Message); }
+        }
+
+
 
 
         #endregion

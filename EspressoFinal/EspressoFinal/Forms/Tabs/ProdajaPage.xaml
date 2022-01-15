@@ -21,12 +21,14 @@
 
 
                     </StackPanel>
-                    <Label Name="label" Foreground="Wheat" Content="Label" HorizontalAlignment="Left" Margin="164,548,0,0" VerticalAlignment="Top"/>
-
-                </Grid>
-                <Canvas Width="700" x:Name="ButtonCanvas" Background="White">
                     
-                </Canvas>
+
+                </Grid>               
+                    <Canvas Width="700"  x:Name="ButtonCanvas" Background="White">
+
+                    </Canvas>
+                
+                
             </StackPanel>
             
 

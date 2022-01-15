@@ -68,11 +68,14 @@ namespace EspressoFinal.Forms.Tabs
          string darkColor = "#941B0C";
          string lightColor = "#C3B299";
 
+        string redColor = "#ae2012";
+
         public ProdajaPage()
         {
             InitializeComponent();
             KolekcijaArtikal = Artikal.Ucitaj();
             NapraviDugmad(IzdvojiArtikle(Convert.ToInt32(1)));
+
             RacunStavke = new ObservableCollection<KliknutaStavka>();
 
             ReceiptListView.ItemsSource = RacunStavke;
@@ -100,25 +103,18 @@ namespace EspressoFinal.Forms.Tabs
 
         private void PostaviDugmad()
         {
-
+            int noviRed = 1;
             foreach(var item in ListaDugmad)
             {
-                if(Convert.ToInt32(item.Tag) % 4 ==0)
+                if(noviRed % 4 ==0)
                 {
-                    if(Convert.ToInt32(item.Tag) == 0)
-                    {
-
-                    }
-                    else
-                    {
-                         trenutniY+=YSkok;
-                    }
+                    trenutniY+=YSkok;                    
                     trenutniX = 5;
                    
                     Canvas.SetLeft(item,KORAK*trenutniX);
                     Canvas.SetTop(item,trenutniY);
                     trenutniX += 100;
-                    
+                    noviRed = 1;
                 }
                 else
                 {
@@ -128,7 +124,7 @@ namespace EspressoFinal.Forms.Tabs
                    
                 }
 
-                 
+                 noviRed++;
                  ButtonCanvas.Children.Add(item);
             }
         }
@@ -151,6 +147,12 @@ namespace EspressoFinal.Forms.Tabs
             kliknutArtikal.kolicina -= 1;
             kliknutoDugme.Content = kliknutArtikal.naziv.ToString()+"\n"+ kliknutArtikal.cijena + " KM (" + kliknutArtikal.kolicina +")";
             
+            if(kliknutArtikal.kolicina == 0)
+            {
+                BrushConverter bc = new BrushConverter(); 
+                kliknutoDugme.Background = (Brush)bc.ConvertFrom(redColor); 
+                kliknutoDugme.IsEnabled = false;
+            }
 
             KliknutaStavka stavka = new KliknutaStavka(kliknutArtikal.idArtikal, kliknutArtikal.naziv.ToString(), 1 ,Convert.ToDouble(kliknutArtikal.cijena));   
             
@@ -196,7 +198,12 @@ namespace EspressoFinal.Forms.Tabs
 
             foreach(Artikal artikal in KolekcijaArtikal)
             {
-                if(artikal.kategorija == kategorija) ListRezultat.Add(artikal);
+                if(artikal.kategorija == kategorija)
+                {
+                    ListRezultat.Add(artikal);
+                    Console.WriteLine("ArtikalNaziv:" + artikal.naziv);
+                }
+                
             }
             return ListRezultat;
         }

@@ -23,30 +23,47 @@ namespace EspressoFinal.Forms.Tabs
     /// </summary>
     public partial class SkladistePage : UserControl
     {
-        public static ObservableCollection<Kategorija> KategorijaKolekcija { get;set;}
+        public static ObservableCollection<Kategorija> KolekcijaKategorija { get;set;}
+        public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
         public SkladistePage()
         {
             InitializeComponent();
 
-            KategorijaKolekcija = Kategorija.Ucitaj();
+            KolekcijaKategorija = Kategorija.Ucitaj();
+            KolekcijaArtikal = Artikal.Ucitaj();
 
-            foreach(Kategorija kategorija in KategorijaKolekcija)
+            foreach(Kategorija kategorija in KolekcijaKategorija)
             {
                 ComboBoxItem item = new ComboBoxItem();  
                 item.Content = kategorija.naziv;  
                 KategorijaCombo.Items.Add(item);
             }
 
+            //KolekcijaArtikal = new ObservableCollection<Artikal>();
+            SkladisteListView.ItemsSource = KolekcijaArtikal;
+
            
         }
 
         private void DodajArtikal_Click(object sender, RoutedEventArgs e)
         {
-             string izabranaKategorija = KategorijaCombo.SelectedItem.ToString();
+            
+            //ComboBoxItem comboBoxItem = (ComboBoxItem)KategorijaCombo.SelectedIndex;
+            //string izabranaKategorija = comboBoxItem.Content.ToString();   
+        
+
+            Artikal artikal = new Artikal(NazivBox.Text,Convert.ToDouble(CijenaBox.Text), Convert.ToInt32(KolicinaBox.Text), (KategorijaCombo.SelectedIndex + 1) );
+            
+            KolekcijaArtikal.Add(artikal);
+            Artikal.Dodaj(artikal);
+
+            NazivBox.Text = null;
+            CijenaBox.Text = null;
+            KolicinaBox.Text = null;
+
+            KategorijaCombo.SelectedItem = null;
 
             
-
-            NazivBox.Text = izabranaKategorija;
         }
     }
 }

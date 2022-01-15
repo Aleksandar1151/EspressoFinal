@@ -25,15 +25,16 @@ namespace EspressoFinal
     {
         public static Login LoginPage = new Login();
         public static MainPage MainPage = new MainPage();
-        public static ProdajaPage prodajaPage = new ProdajaPage();
-        public static StornirajPage stornirajPage = new StornirajPage();
-        public static OtpisPage otpisPage = new OtpisPage();
-        public static SkladistePage skladistePage = new SkladistePage();
+       
+        
+        
+       
         public MainWindow()
         {
             InitializeComponent();
             MainGrid.Children.Clear();
-            MainGrid.Children.Add(skladistePage);
+            ProdajaPage prodajaPage = new ProdajaPage();
+            MainGrid.Children.Add(prodajaPage);
         }
 
         private void Button_Transition(object sender, RoutedEventArgs e)
@@ -57,29 +58,28 @@ namespace EspressoFinal
             {
                  case 1:
                     {
-                        
+                        ProdajaPage prodajaPage = new ProdajaPage();
                         MainGrid.Children.Add(prodajaPage);
                         ChangeButtonColors(pressedButton,lightColor,darkColor);
                         break;
                     }
                     case 2:
                     {
-                        
+                        StornirajPage stornirajPage = new StornirajPage();
                         MainGrid.Children.Add(stornirajPage);
-                       ChangeButtonColors(pressedButton,lightColor,darkColor);
+                        ChangeButtonColors(pressedButton,lightColor,darkColor);
                         break;
                     }
                     case 3:
                     {
                        
-                        MainGrid.Children.Add(otpisPage);
+                        SkladistePage skladistePage = new SkladistePage();
+                        MainGrid.Children.Add(skladistePage);
                         ChangeButtonColors(pressedButton,lightColor,darkColor);
                         break;
                     }
-                     case 4:
+                    case 4:
                     {
-                       
-                        MainGrid.Children.Add(skladistePage);
                         ChangeButtonColors(pressedButton,lightColor,darkColor);
                         break;
                     }

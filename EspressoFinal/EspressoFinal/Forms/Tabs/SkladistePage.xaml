@@ -6,24 +6,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
              mc:Ignorable="d" 
-            d:DesignHeight="688" d:DesignWidth="1366">
-    <StackPanel Orientation="Horizontal">
+            d:DesignHeight="680" d:DesignWidth="1366">
+    <StackPanel Orientation="Horizontal" Background="White">
         <Grid Background="White" Width="700" >
             <StackPanel Margin="30">
-                <Label Content="Naziv artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
-                <TextBox x:Name="NazivBox" HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-                <Label Content="Cijena artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
-                <TextBox x:Name="CijenaBox" HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Količina artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
-                <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <ComboBox Name="KategorijaCombo" FontSize="18" Width="200" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Kategorija" Foreground="Black">
+                <Label Content="KREIRANJE NOVOG ARTIKLA" FontSize="25" Foreground="LightGray" FontWeight="Bold"  />
+                <TextBox x:Name="NazivBox" materialDesign:HintAssist.Hint="Naziv artikla" HorizontalAlignment="Left" FontSize="20" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="300"/>
+
+                <StackPanel Orientation="Horizontal"  Margin="0,0,0,30" >
+                    <TextBox x:Name="CijenaBox" materialDesign:HintAssist.Hint="Cijena artikla" HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
+                    <Label Content="KM" FontSize="22" Foreground="Gray"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal"  Margin="0,0,0,0" >
+                    <TextBox x:Name="KolicinaBox" materialDesign:HintAssist.Hint="Količina artikla" HorizontalAlignment="Left" FontSize="20" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
+                    <Label Content="( jedinica serviranja )" FontSize="18" Foreground="Gray"/>
+                </StackPanel>
+
+                
+                <ComboBox Name="KategorijaCombo" FontSize="20" Width="200" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Kategorija" Foreground="Black">
                                         
                 </ComboBox>
-                <Button Content="DODAJ NOVI ARTIKAL" Width="300" FontSize="18" Height="35" Margin="20" Click="DodajArtikal_Click" />
-                <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,30,0,0" Height="4"  VerticalAlignment="Top" Width="640"/>
-                <Label Content="Dodaj količinu" FontSize="20" Margin="0,60,0,0"/>
-                <TextBox x:Name="KolicinaDodajBox" HorizontalAlignment="Left" FontSize="20" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="400"/>
-                <Button Content="DODAJ KOLIČINU" FontSize="18" Height="35" Width="300" />
+                <Button Content="KREIRAJ NOVI ARTIKAL" Width="300" FontSize="18" Height="50" Margin="20" Click="DodajArtikal_Click" />
+                <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,30,0,0" Height="1"  VerticalAlignment="Top" Width="640"/>
+
+                <Label Content="DODAVANJE KOLIČINE" FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,20,0,0" />
+                <TextBox x:Name="KolicinaDodajBox" materialDesign:HintAssist.Hint="Količina artikla"  HorizontalAlignment="Left" FontSize="20"  TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
+                <Button Content="DODAJ KOLIČINU" FontSize="18" Height="50" Width="300" Margin="0,30,0,30" />
                
 
 
@@ -32,15 +41,26 @@
 
 
         </Grid>
-        <Grid Background="#FFDC9393" Width="666">
-            <ListView Margin="20" >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        
+        <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Height="620"  VerticalAlignment="Center" Width="1"/>
+        
+        <Grid Background="White" Width="666">
+            <StackPanel Margin="30">
+                <Label Content="ARTIKLI U SKLADIŠTU" FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,00,0,0" />
+                <ListView x:Name="SkladisteListView" Background="White"  >
+                    
 
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="200"/>
+                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding cijena}" Header="Cijena" Width="150"/>
+                            <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding kolicina}" Header="Količina" Width="130"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel>
+            
         </Grid>
 
     </StackPanel>

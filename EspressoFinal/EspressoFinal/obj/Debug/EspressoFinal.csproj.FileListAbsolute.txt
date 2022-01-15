@@ -28,8 +28,6 @@ C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFi
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\ProdajaPage.baml
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\StornirajPage.g.cs
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\StornirajPage.baml
-C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\OtpisPage.g.cs
-C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\OtpisPage.baml
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\SkladistePage.g.cs
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\SkladistePage.baml
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\bin\Debug\BouncyCastle.Crypto.dll
