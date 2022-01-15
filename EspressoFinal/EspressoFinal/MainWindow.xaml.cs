@@ -33,7 +33,7 @@ namespace EspressoFinal
         {
             InitializeComponent();
             MainGrid.Children.Clear();
-            MainGrid.Children.Add(prodajaPage);
+            MainGrid.Children.Add(skladistePage);
         }
 
         private void Button_Transition(object sender, RoutedEventArgs e)

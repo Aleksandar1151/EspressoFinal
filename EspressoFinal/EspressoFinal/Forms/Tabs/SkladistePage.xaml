@@ -11,30 +11,19 @@
         <Grid Background="White" Width="700" >
             <StackPanel Margin="30">
                 <Label Content="Naziv artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
-                <TextBox HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+                <TextBox x:Name="NazivBox" HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
                 <Label Content="Cijena artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
-                <TextBox HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <TextBox x:Name="CijenaBox" HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
                 <Label Content="Količina artikla" FontSize="18" Padding="0" Width="200" HorizontalAlignment="Left"/>
-                <TextBox HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                <ComboBox FontSize="15" Width="200" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Kategorija" Foreground="Black">
-                    <ComboBoxItem>
-                        Android
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        iOS
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Linux
-                    </ComboBoxItem>
-                    <ComboBoxItem>
-                        Windows
-                    </ComboBoxItem>                    
+                <TextBox x:Name="KolicinaBox" HorizontalAlignment="Left" FontSize="18" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <ComboBox Name="KategorijaCombo" FontSize="18" Width="200" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Kategorija" Foreground="Black">
+                                        
                 </ComboBox>
-                <Button Content="DODAJ NOVI ARTIKAL" Width="300" Margin="20" />
+                <Button Content="DODAJ NOVI ARTIKAL" Width="300" FontSize="18" Height="35" Margin="20" Click="DodajArtikal_Click" />
                 <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,30,0,0" Height="4"  VerticalAlignment="Top" Width="640"/>
                 <Label Content="Dodaj količinu" FontSize="20" Margin="0,60,0,0"/>
-                <TextBox HorizontalAlignment="Left" FontSize="20" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="400"/>
-                <Button Content="DODAJ KOLIČINU ARTIKLU" Width="300" />
+                <TextBox x:Name="KolicinaDodajBox" HorizontalAlignment="Left" FontSize="20" Margin="0,0,0,30" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="400"/>
+                <Button Content="DODAJ KOLIČINU" FontSize="18" Height="35" Width="300" />
                
 
 
