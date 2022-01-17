@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace EspressoFinal.Forms.Tabs
 {
@@ -39,5 +40,32 @@ namespace EspressoFinal.Forms.Tabs
         {
 
         }
+
+        private void NoviNalog_Click(object sender, RoutedEventArgs e)
+        {
+            myPopup.AllowsTransparency = true;
+            this.myPopup.IsOpen = true;
+        }
+
+        private void myPopup_Opened(object sender, EventArgs e)
+        {
+            StartCloseTimer();
+        }
+
+        private void StartCloseTimer()
+         {
+             DispatcherTimer timer = new DispatcherTimer();
+             timer.Interval = TimeSpan.FromSeconds(3d);
+             timer.Tick += TimerTick;
+             timer.Start();
+         }
+    
+         private void TimerTick(object sender, EventArgs e)
+         {
+             DispatcherTimer timer = (DispatcherTimer)sender;
+             timer.Stop();
+             timer.Tick -= TimerTick;
+             this.myPopup.IsOpen = false;
+         }
     }
 }

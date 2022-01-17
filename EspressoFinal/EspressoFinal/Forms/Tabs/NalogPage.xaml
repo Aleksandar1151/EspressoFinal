@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:EspressoFinal.Forms.Tabs"
              mc:Ignorable="d" 
               d:DesignHeight="680" d:DesignWidth="1366" Background="White">
-    <StackPanel Orientation="Horizontal" Background="AliceBlue">
+    <StackPanel x:Name="MainPanel" Orientation="Horizontal" Background="AliceBlue">
         <Grid Width="700" >
             <StackPanel Margin="30">
                 <Label Content="KREIRANJE NOVOG NALOGA" FontSize="25" Foreground="LightGray" FontWeight="Bold"  />
@@ -30,8 +30,20 @@
                 </StackPanel>
 
 
-                <Button Content="KREIRAJ NOVI NALOG" Width="300" FontSize="18" Height="50" Margin="20"  />
+                <Button Width="300" FontSize="18" Height="50" Margin="20" Click="NoviNalog_Click"  >
+                    <StackPanel>
+                        <StackPanel>
+                            <TextBlock>KREIRAJ NOVI NALOG</TextBlock>
+                            <Popup Name="myPopup" StaysOpen="True" Opened="myPopup_Opened" PlacementTarget="{Binding ElementName=MainPanel}"  Placement="Center" >
+                                <TextBlock Name="myPopupText" FontSize="30" Background="{x:Null}" Foreground="Green" Height="45" >
+                                     USPJEŠNO KREIRAN NALOG
+                                </TextBlock>
+                            </Popup>
+                        </StackPanel>
+                    </StackPanel>
+                </Button>
                 <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,0,0,0" Height="1"  VerticalAlignment="Top" Width="640"/>
+               
 
                 <Label x:Name="LabelArtikal" Content="AŽURIRANJE NALOGA: " FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,10,0,0" />
                 <StackPanel Orientation="Horizontal"  Margin="0,0,0,0" >
@@ -51,6 +63,7 @@
         </Grid>
 
         <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Height="620"  VerticalAlignment="Center" Width="1"/>
+        
 
         <Grid Width="666">
             <StackPanel Margin="30">
