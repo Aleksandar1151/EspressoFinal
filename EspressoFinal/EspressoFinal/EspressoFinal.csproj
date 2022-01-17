@@ -141,6 +141,7 @@
     <Compile Include="Data\Artikal.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Data\Kategorija.cs" />
+    <Compile Include="Data\KliknutaStavka.cs" />
     <Compile Include="Data\Nalog.cs" />
     <Compile Include="Data\Otpis.cs" />
     <Compile Include="Data\Racun.cs" />

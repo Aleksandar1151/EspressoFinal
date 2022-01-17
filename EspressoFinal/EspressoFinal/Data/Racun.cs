@@ -14,7 +14,7 @@ namespace EspressoFinal.Data
     {
         public int idRacun { get;set;}
         public string datum { get;set;}
-        public string iznos { get;set;}
+        public double iznos { get;set;}
         public int idNalog { get;set;}
 
        
@@ -23,7 +23,7 @@ namespace EspressoFinal.Data
             this.datum = DateTime.Today.ToString("dd-MM-yyyy");;           
         }
 
-        public Racun(int idRacun, string datum, string iznos, int idNalog)
+        public Racun(int idRacun, string datum, double iznos, int idNalog)
         {
             this.idRacun = idRacun;
             this.datum = datum;
@@ -50,10 +50,10 @@ namespace EspressoFinal.Data
                 {                    
                     int idRacun = Convert.ToInt32(reader["idRacun"]);                   
                     string datum = reader["datum"].ToString();
-                    string kolicina = reader["kolicina"].ToString();
+                    double iznos = Convert.ToDouble(reader["iznos"]);
                     int idNalog = Convert.ToInt32(reader["Nalog_idNalog"]);                    
 
-                    Racun element = new Racun(idRacun,datum,kolicina, idNalog );
+                    Racun element = new Racun(idRacun,datum,iznos, idNalog );
 
                     KolekcijaRacun.Add(element);                   
                 }
@@ -70,11 +70,8 @@ namespace EspressoFinal.Data
 
             try
             {
-                String query = string.Format("INSERT INTO racun" +
-                    "(datum, Nalog_idNalog" +
-                    ") VALUES " +
-                    "('{0}', '{1}')"
-                    , datum, Login.IDNalog);
+                String query = string.Format("INSERT INTO racun SET " +
+                    "datum = '{0}', Nalog_idNalog = (SELECT idNalog FROM nalog WHERE idNalog = '{1}')" ,datum, Login.IDNalog);
 
                 MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
 
@@ -102,6 +99,34 @@ namespace EspressoFinal.Data
                 Database.dbConn.Close();               
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja racuna u bazi.\nRazlog: " + ex.Message); }
+        }
+
+        public void PretraziRacun(int id)
+        {
+            try
+            {
+                String query = string.Format("SELECT * from racun where `idracun` = {0}" , id);
+
+                 MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);                
+                
+                Database.dbConn.Open();
+                
+                MySqlDataReader reader = cmd.ExecuteReader();   
+
+                if(reader.Read())
+                {
+                     idRacun = Convert.ToInt32(reader["idRacun"]);                   
+                     datum = reader["datum"].ToString();
+                    // iznos = Convert.ToDouble(reader["iznos"]);
+                     idNalog = Convert.ToInt32(reader["Nalog_idNalog"]);    
+                }
+
+                          
+
+
+                Database.dbConn.Close();               
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom ucitavanja racuna iz baze.\nRazlog: " + ex.Message); }
         }
     }
 }

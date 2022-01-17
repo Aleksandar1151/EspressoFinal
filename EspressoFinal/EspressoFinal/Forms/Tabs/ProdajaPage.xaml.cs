@@ -24,36 +24,13 @@ namespace EspressoFinal.Forms.Tabs
     /// </summary>
     public partial class ProdajaPage : UserControl
     {
-        public class KliknutaStavka
-        {
-            
-            public int idArtikal { get;set;}   
-            public string naziv { get;set;}       
-            public double cijena { get;set;}
-            public int kolicina { get;set;}
-            //public string ispisKolicina { get;set;}
-
-            public KliknutaStavka()
-            {
-
-            }
-
-            public KliknutaStavka(int id, string naziv, int kolicina, double cijena)
-            {
-                this.idArtikal = id;
-                this.naziv = naziv;               
-                this.cijena = cijena;
-                this.kolicina = kolicina;
-               // this.ispisKolicina = "x"+kolicina;
-
-            }
-        }
+        
         public static ObservableCollection<Artikal> KolekcijaArtikal { get;set;}
        
         public static ObservableCollection<KliknutaStavka> RacunStavke {get;set;}
 
         double UkupnaCijena = 0;
-         int kliknutIdStavka;
+        int kliknutIdStavka;
 
         List<Button> ListaDugmad = new List<Button>();
 
@@ -294,9 +271,7 @@ namespace EspressoFinal.Forms.Tabs
                     {
                         RacunStavke.RemoveAt(index);
                     }
-                    
-                    
-        
+
                 }
                (sender as ListView).SelectedItem = null;
                 ReceiptListView.ItemsSource = null;

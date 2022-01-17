@@ -10,28 +10,36 @@
     <Grid Background="White" >
         <StackPanel Orientation="Horizontal">
             <Grid Background="White" Width="700">
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" Height="80" Orientation="Horizontal">
-                    <Label Content="Broj računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="110" />
-                    <TextBox HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-                    <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0"/>
+                <StackPanel>
+                    <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,20,0,0" Height="80" Orientation="Horizontal">
+                        <Label Content="Broj računa" FontSize="20" HorizontalAlignment="Left"  Height="54" Width="110" />
+                        <TextBox x:Name="RacunBox" HorizontalAlignment="Left" FontSize="20" Height="50" HorizontalContentAlignment="Center" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                        <Button Content="PRETRAŽI" Height="50" Width="150" Margin="50,0,0,0" Click="PretraziRacun_Click"/>
+                    </StackPanel>
+                    <Label Content="STAVKE RAČUNA:" Foreground="DarkGray" Margin="20,0,0,0" FontSize="20" FontWeight="Bold"/>
+
+
+                    <ListView x:Name="RacunListView" HorizontalAlignment="Left"   Margin="50,0,0,0" Height="400" Width="600" PreviewMouseLeftButtonUp="ListStavka_Click">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="200"/>
+                                <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding cijena}" Header="Cijena" Width="150"/>
+                                <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding kolicina}" Header="Količina" Width="150"/>
+
+
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
                 </StackPanel>
-
-                <ListView HorizontalAlignment="Left"   Margin="50,0,0,0" Height="400" Width="600">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="200"/>
-                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding cijena}" Header="Cijena" Width="150"/>
-                            <GridViewColumn x:Name="Column3" DisplayMemberBinding="{Binding kolicina}" Header="Količina" Width="150"/>
-
-
-                        </GridView>
-                    </ListView.View>
-                </ListView>
+                
 
             </Grid>
-            <Grid Background="GreenYellow" Width="666">
+            <Rectangle Width="2" Fill="LightGray" Height="600" />
+            <Grid Background="White" Width="666">
                 <StackPanel>
-                    <ListView HorizontalAlignment="Center"   Margin="0,60,0,0" Height="400" Width="600">
+                    <Label Content="STORNIRAN RAČUN:" Foreground="DarkGray" Margin="20,40,0,0" FontSize="20" FontWeight="Bold"/>
+                    <ListView x:Name="StorniranListView" HorizontalAlignment="Center"   Margin="0,0,0,0" Height="400" Width="600">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn x:Name="Column4" DisplayMemberBinding="{Binding naziv}" Header="Naziv" Width="200"/>
@@ -42,7 +50,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Content="ŠTAMPAJ" Margin="20" FontSize="20" Width="300" Height="65"/>
+                    <Button Content="ŠTAMPAJ" Margin="20" FontSize="20" Width="300" Height="65" Click="Stampa_Click"/>
                 </StackPanel>
                 
             </Grid>

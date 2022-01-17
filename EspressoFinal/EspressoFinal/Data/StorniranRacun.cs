@@ -13,6 +13,8 @@ namespace EspressoFinal.Data
     {
         public int idStorniranRacun;
         public int idRacun;
+
+
         public int idArtikal;
         public string kolicina;
 
@@ -24,6 +26,29 @@ namespace EspressoFinal.Data
             this.idRacun = idRacun;
             this.idArtikal = idArtikal;
             this.kolicina = kolicina;
+        }
+
+        public void Sacuvaj(int id_racun)
+        {
+            Database.InitializeDB();
+
+            try
+            {
+                String query = string.Format("INSERT INTO storniranracun SET " +
+                    "Racun_idRacun = (SELECT idRacun FROM racun WHERE idRacun = '{0}')" ,id_racun);
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                cmd.ExecuteNonQuery();
+
+                idStorniranRacun = (int)cmd.LastInsertedId;
+                Database.dbConn.Close();               
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom unosa Storniranog racuna u bazu.\nRazlog: " + ex.Message); }
+             
+
         }
 
          public static ObservableCollection<StorniranRacun> Ucitaj()
