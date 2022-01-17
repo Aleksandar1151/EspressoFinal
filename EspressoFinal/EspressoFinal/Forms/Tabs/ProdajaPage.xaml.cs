@@ -62,15 +62,20 @@ namespace EspressoFinal.Forms.Tabs
         {
             foreach(Artikal artikal in Kolekcija)
             {
-                Button btnNew = new Button();
-                btnNew.Tag = artikal.idArtikal;
-                btnNew.Content = artikal.naziv.ToString()+"\n"+ artikal.cijena + " KM (" + artikal.kolicina +")";
-                btnNew.Name="Button" + artikal.idArtikal.ToString();
-                btnNew.Width=SIRINA;
-                btnNew.Height = VISINA;
-                btnNew.Click += new RoutedEventHandler(ArtikalButtonClick);
-                // btnNew.Background = Brushes.White;
-                ListaDugmad.Add(btnNew);
+                if(artikal.kolicina > 0)
+                {
+                    Button btnNew = new Button();
+                    btnNew.Tag = artikal.idArtikal;
+                    btnNew.Content = artikal.naziv.ToString()+"\n"+ artikal.cijena + " KM (" + artikal.kolicina +")";
+                    btnNew.Name="Button" + artikal.idArtikal.ToString();
+                    btnNew.Width=SIRINA;
+                    btnNew.Height = VISINA;
+                    btnNew.Click += new RoutedEventHandler(ArtikalButtonClick);
+                    // btnNew.Background = Brushes.White;
+                    ListaDugmad.Add(btnNew);
+                }
+                
+                
 
               
             }

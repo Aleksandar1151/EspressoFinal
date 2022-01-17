@@ -68,7 +68,11 @@ namespace EspressoFinal.Data
                     int kolicina = Convert.ToInt32( reader["kolicina"]);
                     int kategorija = Convert.ToInt32(reader["Kategorija_idKategorija"]);
                     Artikal element = new Artikal(idArtikal, naziv, cijena, kolicina,kategorija);
+
+                    
                     KolekcijaArtikal.Add(element);
+                    
+                    
                    
                 }
                 Database.dbConn.Close();

@@ -126,7 +126,14 @@ namespace EspressoFinal.Forms.Tabs
         {
             KolekcijaArtikal = Artikal.Ucitaj();
 
+            foreach(Stavka stornirana_stavka in KolekcijaStorniran)
+            { 
+                int index = KolekcijaArtikal.ToList().FindIndex(num => num.idArtikal == stornirana_stavka.idArtikal);
+                KolekcijaArtikal[index].kolicina += stornirana_stavka.kolicina;
+                Console.WriteLine("Stavka stornirana količina: "+stornirana_stavka.kolicina);
+            }
 
+            Artikal.Azuriraj(KolekcijaArtikal);
         }
     }
 }
