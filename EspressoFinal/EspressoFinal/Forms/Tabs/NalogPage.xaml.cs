@@ -33,17 +33,22 @@ namespace EspressoFinal.Forms.Tabs
 
         private void AzurirajNalog_Click(object sender, RoutedEventArgs e)
         {
-
+             myPopup.AllowsTransparency = true;
+             myPopupText.Text = "USPJEŠNO AŽURIRAN NALOG";
+             this.myPopup.IsOpen = true;
         }
 
         private void ObrisiNalog_Click(object sender, RoutedEventArgs e)
         {
-
+            myPopup.AllowsTransparency = true;
+            myPopupText.Text = "USPJEŠNO OBRISAN NALOG";
+            this.myPopup.IsOpen = true;
         }
 
         private void NoviNalog_Click(object sender, RoutedEventArgs e)
         {
             myPopup.AllowsTransparency = true;
+            myPopupText.Text = "USPJEŠNO KREIRAN NALOG";
             this.myPopup.IsOpen = true;
         }
 
