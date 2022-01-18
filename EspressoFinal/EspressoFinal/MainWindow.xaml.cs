@@ -25,11 +25,6 @@ namespace EspressoFinal
     {
         public static Login LoginPage = new Login();
         public static MainPage MainPage = new MainPage();
-
-
-       
-        
-        
        
         public MainWindow()
         {
@@ -44,8 +39,8 @@ namespace EspressoFinal
             var pressedButton = (Button)sender;
             int index = int.Parse(pressedButton.Uid);
 
-            string lightColor = "#DBEBC0";
-            string darkColor = "#383D3B";
+            string lightColor = "#CAD2C5";
+            string darkColor = "#52796F";
 
             BrushConverter bc = new BrushConverter(); 
             
@@ -97,6 +92,7 @@ namespace EspressoFinal
             BrushConverter bc = new BrushConverter(); 
             button.Background = (Brush)bc.ConvertFrom(backColor); 
             button.Foreground = (Brush)bc.ConvertFrom(foreColor); 
+            
 
         }
     }

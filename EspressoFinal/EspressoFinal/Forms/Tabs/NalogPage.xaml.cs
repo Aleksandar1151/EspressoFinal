@@ -84,6 +84,13 @@ namespace EspressoFinal.Forms.Tabs
             myPopupText.Text = "USPJEŠNO OBRISAN NALOG";
             this.myPopup.IsOpen = true;
             #endregion
+            int index = KolekcijaNalog.ToList().FindIndex(num => num.idNalog == kliknutiNalog);
+            KolekcijaNalog[index].Obrisi();
+            KolekcijaNalog.RemoveAt(index);
+
+            NalogListView.ItemsSource = null;
+            NalogListView.ItemsSource = KolekcijaNalog;
+
 
 
             RefreshView();

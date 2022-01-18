@@ -122,6 +122,26 @@ namespace EspressoFinal.Data
             catch (Exception ex) { MessageBox.Show("Greška prilikom unosa naloga u bazu.\nRazlog: " + ex.Message); }
         }
 
+        public void Obrisi()
+        {
+            Database.InitializeDB();
+            try
+            {
+                                  
+
+                    String query = string.Format("DELETE FROM nalog WHERE idNalog='{0}';", idNalog);
+
+                    MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                    Database.dbConn.Open();
+                    cmd.ExecuteNonQuery();                
+                    Database.dbConn.Close();  
+                  
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom unosa naloga u bazu.\nRazlog: " + ex.Message); }
+        }
+
+
         #endregion
 
     }

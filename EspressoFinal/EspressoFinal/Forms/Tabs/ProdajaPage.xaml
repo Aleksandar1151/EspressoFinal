@@ -10,13 +10,13 @@
     <StackPanel Orientation="Horizontal">
         <Grid Width="1000" Height="680" Background="White" >
             <StackPanel Orientation="Horizontal">
-                <Grid Background="#FF383D3B" Width="300" Height="680">
+                <Grid Background="#84A98C" Width="300" Height="680">
                     <StackPanel Margin="8">
-                        <Button Uid="1" x:Name="ButtonMenu1" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" Height="80" Content="Topli napitci" Margin="0,50,0,10" FontSize="24" Click="ChangeMenuClick"/>
-                        <Button Uid="2" x:Name="ButtonMenu2" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}" Height="80" Content="Bezalkoholna pića" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick" />
-                        <Button Uid="3" x:Name="ButtonMenu3" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}" Height="80" Content="Pivo" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick"/>
-                        <Button Uid="4" x:Name="ButtonMenu4" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}" Height="80" Content="Vino" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick"/>
-                        <Button Uid="5" x:Name="ButtonMenu5" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}" Height="80" Content="Žestoka pića" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick"/>
+                        <Button Uid="1" x:Name="ButtonMenu1" Background="#52796F" Foreground="#CAD2C5" BorderBrush="{x:Null}" Height="80" Content="Topli napitci" Margin="0,50,0,10" FontSize="24" Click="ChangeMenuClick"/>
+                        <Button Uid="2" x:Name="ButtonMenu2" Background="#CAD2C5" Foreground="#52796F" BorderBrush="{x:Null}" Height="80" Content="Bezalkoholna pića" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick" />
+                        <Button Uid="3" x:Name="ButtonMenu3" Background="#CAD2C5" Foreground="#52796F" BorderBrush="{x:Null}" Height="80" Content="Pivo" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick"/>
+                        <Button Uid="4" x:Name="ButtonMenu4" Background="#CAD2C5" Foreground="#52796F" BorderBrush="{x:Null}" Height="80" Content="Vino" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick"/>
+                        <Button Uid="5" x:Name="ButtonMenu5" Background="#CAD2C5" Foreground="#52796F" BorderBrush="{x:Null}" Height="80" Content="Žestoka pića" Margin="0,0,0,10" FontSize="24"  Click="ChangeMenuClick"/>
                         
 
 
@@ -52,8 +52,8 @@
                     
                 </ListView>
                 <Label x:Name="UkupnoLabel" Height="40" Content="Ukupno:" FontSize="24" Padding="35,0,0,0" Foreground="Gray"></Label>
-                <Button Content="ŠTAMPAJ" FontSize="22" Width="300" Height="80" Background="#941B0C" Foreground="#ffC3B299" BorderBrush="{x:Null}" Click="StampajClick" />
-                <Button Content="OTPIŠI" Width="300" Height="40" Margin="10" Background="#ffC3B299" Foreground="#941B0C" BorderBrush="{x:Null}" Click="OtpisiClick"/>
+                <Button Content="ŠTAMPAJ" FontSize="22" Width="300" Height="80" Background="#52796F" Foreground="#CAD2C5" BorderBrush="{x:Null}" Click="StampajClick" />
+                <Button Content="OTPIŠI" Width="300" Height="40" Margin="10" Background="#CAD2C5" Foreground="#52796F" BorderBrush="{x:Null}" Click="OtpisiClick"/>
 
             </StackPanel>
             

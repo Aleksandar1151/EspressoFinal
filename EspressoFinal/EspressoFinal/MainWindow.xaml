@@ -12,16 +12,16 @@
             <Grid Height="50" Margin="0,0,0,0" VerticalAlignment="Top">
                 
                     <DockPanel  VerticalAlignment="Top" Margin="0 0">
-                    <Button Uid="1" x:Name="ButtonTab1" Width="400" Content="PRODAJA" Height="50" Background="#ff383D3B" Foreground="#ffDBEBC0" BorderBrush="{x:Null}" Click="Button_Transition"  />
-                    <Button Uid="2"  x:Name="ButtonTab2" Width="200" Content="STORNIRAJ" Height="50" Background="#ffDBEBC0" Foreground="#ff383D3B"  BorderBrush="{x:Null}" Click="Button_Transition" />
-                    <Button Uid="3"  x:Name="ButtonTab3" Width="300" Content="SKLADIŠTE" Height="50"  Background="#ffDBEBC0" Foreground="#ff383D3B" BorderBrush="{x:Null}"  Click="Button_Transition" />
-                    <Button Uid="4"  x:Name="ButtonTab4"  Width="100" Content="NALOZI" Background="#ffDBEBC0" Foreground="#ff383D3B" Height="50"   BorderBrush="{x:Null}" Click="Button_Transition" />
+                    <Button Uid="1" x:Name="ButtonTab1" Margin="5,0,5,0" Width="400" Content="PRODAJA" Height="50" Background="#52796F" Foreground="#CAD2C5" BorderBrush="{x:Null}" Click="Button_Transition"  />
+                    <Button Uid="2"  x:Name="ButtonTab2" Margin="0,0,5,0" Width="200" Content="STORNIRAJ" Height="50" Background="#CAD2C5" Foreground="#52796F"  BorderBrush="{x:Null}" Click="Button_Transition" />
+                    <Button Uid="3"  x:Name="ButtonTab3" Margin="0,0,5,0" Width="300" Content="SKLADIŠTE" Height="50"  Background="#CAD2C5" Foreground="#52796F" BorderBrush="{x:Null}"  Click="Button_Transition" />
+                    <Button Uid="4"  x:Name="ButtonTab4" Margin="0,0,5,0" Width="100" Content="NALOZI" Background="#CAD2C5" Foreground="#52796F" Height="50"   BorderBrush="{x:Null}" Click="Button_Transition" />
 
 
 
                     <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" FontSize="20" HorizontalAlignment="Right"  >
                         <materialDesign:PopupBox.ToggleContent  >
-                            <materialDesign:PackIcon Kind="FileDocumentOutline" FontSize="25" Background="#ffDBEBC0" Foreground="#ff383D3B" Margin="2,0,10,0" Height="46" Width="50" />
+                            <materialDesign:PackIcon Kind="FileDocumentOutline" FontSize="25" Background="White" Foreground="#52796F" Margin="2,0,10,0" Height="46" Width="50" />
                         </materialDesign:PopupBox.ToggleContent>                        
                         <StackPanel Width="300">
                             <Button Content="Dnevni izvještaj"/>
@@ -41,7 +41,7 @@
                     
                 
             </Grid>
-            <Grid x:Name="MainGrid" Height="670"  Width="1366" Background="LightCyan">
+            <Grid x:Name="MainGrid" Height="670"  Width="1366" Background="White">
 
             </Grid>
 

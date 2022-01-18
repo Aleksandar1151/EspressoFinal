@@ -42,8 +42,8 @@ namespace EspressoFinal.Forms.Tabs
         int trenutniX=5;
         int trenutniY=10;
 
-         string darkColor = "#941B0C";
-         string lightColor = "#C3B299";
+         string darkColor = "#52796F";
+         string lightColor = "#CAD2C5";
 
         string redColor = "#ae2012";
 
@@ -71,7 +71,11 @@ namespace EspressoFinal.Forms.Tabs
                     btnNew.Width=SIRINA;
                     btnNew.Height = VISINA;
                     btnNew.Click += new RoutedEventHandler(ArtikalButtonClick);
-                    // btnNew.Background = Brushes.White;
+
+                    BrushConverter bc = new BrushConverter(); 
+                    btnNew.Background = (Brush)bc.ConvertFrom("#2F3E46"); 
+                    btnNew.Foreground = (Brush)bc.ConvertFrom("#CAD2C5"); 
+                    
                     ListaDugmad.Add(btnNew);
                 }
                 
