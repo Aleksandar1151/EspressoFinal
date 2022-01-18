@@ -35,7 +35,7 @@
                         <StackPanel>
                             <TextBlock>KREIRAJ NOVI NALOG</TextBlock>
                             <Popup Name="myPopup" StaysOpen="True" Opened="myPopup_Opened" PlacementTarget="{Binding ElementName=MainPanel}"  Placement="Center" >
-                                <TextBlock Name="myPopupText" FontSize="30" Background="{x:Null}" Foreground="#52796F" Height="45" >
+                                <TextBlock Name="myPopupText" FontSize="30" Background="{x:Null}" Foreground="#B5838D" Height="45" >
                                      USPJEŠNO KREIRAN NALOG
                                 </TextBlock>
                             </Popup>
