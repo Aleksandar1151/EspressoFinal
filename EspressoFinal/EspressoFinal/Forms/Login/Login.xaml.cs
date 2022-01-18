@@ -32,5 +32,13 @@ namespace EspressoFinal.Forms.Login
             //Properties.Settings.Default.Nalog;
             //Properties.Settings.Default.Save();
         }
+
+        private void Prijava_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+            Window login = new EspressoFinal.MainWindow();
+            login.Show();
+        }
     }
 }

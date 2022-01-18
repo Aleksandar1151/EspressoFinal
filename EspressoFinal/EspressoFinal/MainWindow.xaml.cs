@@ -23,7 +23,7 @@ namespace EspressoFinal
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static Login LoginPage = new Login();
+        
         public static MainPage MainPage = new MainPage();
        
         public MainWindow()
@@ -31,6 +31,7 @@ namespace EspressoFinal
             InitializeComponent();
             MainGrid.Children.Clear();
             ProdajaPage prodajaPage = new ProdajaPage();
+            //Login LoginPage = new Login();
             MainGrid.Children.Add(prodajaPage);
         }
 
