@@ -9,8 +9,8 @@
               d:DesignHeight="680" d:DesignWidth="1366" Background="White">
     <StackPanel x:Name="MainPanel" Orientation="Horizontal" Background="AliceBlue">
         <Grid Width="700" >
-            <StackPanel Margin="30">
-                <Label Content="KREIRANJE NOVOG NALOGA" FontSize="25" Foreground="LightGray" FontWeight="Bold"  />
+            <StackPanel Margin="40,20,30,30">
+                <Label Content="KREIRANJE NOVOG NALOGA" FontSize="25" Foreground="DarkGray" FontWeight="Bold"  />
 
                 <StackPanel Orientation="Horizontal"  Margin="0,20,0,0" >
                     <materialDesign:PackIcon Kind="Person" FontSize="25" Margin="0,0,10,0"  Foreground="Gray" Height="50" Width="30" />
@@ -20,13 +20,13 @@
 
                 <StackPanel Orientation="Horizontal"  Margin="0,20,0,0" >
                     <materialDesign:PackIcon Kind="Key" FontSize="25" Margin="0,0,10,0"  Foreground="Gray" Height="50" Width="30" />
-                    <TextBox x:Name="CijenaBox" materialDesign:HintAssist.Hint="Lozinka naloga" HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
+                    <TextBox x:Name="LozinkaBox" materialDesign:HintAssist.Hint="Lozinka naloga" HorizontalAlignment="Left" FontSize="20" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="150"/>
 
                 </StackPanel>
                 <StackPanel Orientation="Horizontal"  Margin="0,20,0,30" >
                     <materialDesign:PackIcon Kind="Crown" FontSize="25" Margin="0,0,10,0"  Foreground="Gray" Height="50" Width="30" />
                     <Label Content="Omogući privilegije" FontSize="18" Foreground="Gray" Padding="0,10,0,0"/>
-                    <ToggleButton  Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="10,0,0,0"  ToolTip="Izmijeni privilegije" />
+                    <ToggleButton x:Name="PrivilegijeToogle" Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="10,0,0,0"  ToolTip="Izmijeni privilegije" />
                 </StackPanel>
 
 
@@ -45,13 +45,13 @@
                 <Rectangle Fill="#FF76746A" HorizontalAlignment="Left" Margin="0,0,0,0" Height="1"  VerticalAlignment="Top" Width="640"/>
                
 
-                <Label x:Name="LabelArtikal" Content="AŽURIRANJE NALOGA: " FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,10,0,0" />
+                <Label x:Name="AzuriranjeLabel" Content="AŽURIRANJE NALOGA: " FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,10,0,0" />
                 <StackPanel Orientation="Horizontal"  Margin="0,0,0,0" >
                     <materialDesign:PackIcon Kind="Crown" FontSize="25" Margin="0,0,10,0"  Foreground="Gray" Height="50" Width="30" />
                     <Label Content="Omogući privilegije" FontSize="18" Foreground="Gray" Padding="0,10,0,0"/>
-                    <ToggleButton  Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="10,0,0,0"  ToolTip="Izmijeni privilegije" />
+                    <ToggleButton x:Name="AzurirajPrivilegije" Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="10,0,0,0"  ToolTip="Izmijeni privilegije" />
                 </StackPanel>
-                <Button x:Name="IzmijeniNalogButton" Content="AŽURIRAJ NALOG" FontSize="18" IsEnabled="False" Height="50" Width="300" Margin="0,20,0,0" Click="AzurirajNalog_Click"  />
+                <Button x:Name="AzurirajNalogButton" Content="AŽURIRAJ NALOG" FontSize="18" IsEnabled="False" Height="50" Width="300" Margin="0,20,0,0" Click="AzurirajNalog_Click"  />
                 <Button x:Name="ObrisiNalogButton" Content="OBRIŠI NALOG" FontSize="14" IsEnabled="False" Height="50" Width="300" Margin="0,10,0,0" Click="ObrisiNalog_Click"/>
 
 
@@ -69,12 +69,12 @@
             <StackPanel Margin="30">
                 <Label Content="LISTA NALOGA" FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,00,0,0" />
 
-                <ListView x:Name="SkladisteListView" Background="White" PreviewMouseLeftButtonUp="ListElement_Click"  >
+                <ListView x:Name="NalogListView" FontSize="18" Background="White" PreviewMouseLeftButtonUp="ListElement_Click"  >
 
                     <ListView.View>
                         <GridView>
                             <GridViewColumn x:Name="Column1" DisplayMemberBinding="{Binding ime}" Header="Ime konobara" Width="200"/>
-                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding cijena}" Header="Privilegije" Width="150"/>
+                            <GridViewColumn x:Name="Column2" DisplayMemberBinding="{Binding privilegije}" Header="Privilegije" Width="150"/>
 
                         </GridView>
                     </ListView.View>

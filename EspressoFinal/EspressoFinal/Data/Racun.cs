@@ -90,7 +90,7 @@ namespace EspressoFinal.Data
             try
             {
                 String query = string.Format("UPDATE racun SET " +
-               "iznos='{0}' WHERE idRacun = '{1}')"
+               "iznos='{0}' WHERE idRacun = '{1}'"
                , iznos, idRacun);
 
                 MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
