@@ -71,7 +71,7 @@ namespace EspressoFinal.Data
             try
             {
                 String query = string.Format("INSERT INTO racun SET " +
-                    "datum = '{0}', Nalog_idNalog = (SELECT idNalog FROM nalog WHERE idNalog = '{1}')" ,datum, Login.IDNalog);
+                    "datum = '{0}', Nalog_idNalog = (SELECT idNalog FROM nalog WHERE idNalog = '{1}')" ,datum, LoginWindow.IDNalog);
 
                 MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
 

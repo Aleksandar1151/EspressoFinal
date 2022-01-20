@@ -126,10 +126,9 @@ namespace EspressoFinal.Data
         {
             Database.InitializeDB();
             try
-            {
-                                  
+            {                                  
 
-                    String query = string.Format("DELETE FROM nalog WHERE idNalog='{0}';", idNalog);
+                    String query = string.Format("DELETE FROM nalog WHERE idNalog='{0}'", idNalog);
 
                     MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
 
@@ -138,7 +137,7 @@ namespace EspressoFinal.Data
                     Database.dbConn.Close();  
                   
             }
-            catch (Exception ex) { MessageBox.Show("Greška prilikom unosa naloga u bazu.\nRazlog: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom brisanja naloga iz baze.\nRazlog: " + ex.Message); }
         }
 
 

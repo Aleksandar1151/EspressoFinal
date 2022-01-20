@@ -33,6 +33,7 @@ namespace EspressoFinal.Forms.Tabs
         int kliknutIdStavka;
 
         List<Button> ListaDugmad = new List<Button>();
+       
 
         int SIRINA = 220;
         int VISINA = 100;
@@ -125,8 +126,8 @@ namespace EspressoFinal.Forms.Tabs
         }
 
         private void ArtikalButtonClick(object sender, RoutedEventArgs e)
-        {
-            Button kliknutoDugme=sender as Button;
+        {       
+            Button kliknutoDugme = sender as Button;
             int index = Convert.ToInt32(kliknutoDugme.Tag);           
             Artikal kliknutArtikal = KolekcijaArtikal.ToList().Find(a => a.idArtikal == index);
 
@@ -142,7 +143,6 @@ namespace EspressoFinal.Forms.Tabs
 
             KliknutaStavka stavka = new KliknutaStavka(kliknutArtikal.idArtikal, kliknutArtikal.naziv.ToString(), 1 ,Convert.ToDouble(kliknutArtikal.cijena));   
             
-
             if(RacunStavke.Count == 0)
             {
                 RacunStavke.Add(stavka);
@@ -153,25 +153,22 @@ namespace EspressoFinal.Forms.Tabs
 
                 if(i != -1)
                 {
-                   RacunStavke[i].kolicina += 1;
+                    RacunStavke[i].kolicina += 1;
                     Console.WriteLine("Kolicina="+RacunStavke[i].kolicina);
-                        ReceiptListView.ItemsSource = null;
+                    ReceiptListView.ItemsSource = null;
                 }
                 else
                 {
-                     RacunStavke.Add(stavka);
+                    RacunStavke.Add(stavka);
                 }
 
             }    
            
             ReceiptListView.ItemsSource = RacunStavke;
 
-
             UkupnaCijena += stavka.cijena;
             UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
         }
-
-    
 
         private ObservableCollection<Artikal> IzdvojiArtikle(int kategorija)
         {
@@ -241,7 +238,7 @@ namespace EspressoFinal.Forms.Tabs
 
             foreach(KliknutaStavka kliknuta_stavka in RacunStavke)
             { 
-                Otpis otpis = new Otpis(Login.Login.IDNalog, kliknuta_stavka.idArtikal, kliknuta_stavka.kolicina);
+                Otpis otpis = new Otpis(Login.LoginWindow.IDNalog, kliknuta_stavka.idArtikal, kliknuta_stavka.kolicina);
                 ListOtpis.Add(otpis);
             }
 
@@ -270,10 +267,29 @@ namespace EspressoFinal.Forms.Tabs
                     KliknutaStavka izabranaStavka = (KliknutaStavka)list.SelectedItem;
                     kliknutIdStavka = izabranaStavka.idArtikal;
 
+                    int indexArtikal = KolekcijaArtikal.ToList().FindIndex(num => num.idArtikal == kliknutIdStavka);
+                    KolekcijaArtikal[indexArtikal].kolicina += 1;
+
+
+                    int indexDugme = ListaDugmad.FindIndex(num => Convert.ToInt32(num.Tag) == kliknutIdStavka);
+                    ListaDugmad[indexDugme].Content = KolekcijaArtikal[indexArtikal].naziv.ToString()+"\n"+ KolekcijaArtikal[indexArtikal].cijena + " KM (" + KolekcijaArtikal[indexArtikal].kolicina +")";
+
+                    if( KolekcijaArtikal[indexArtikal].kolicina == 1)
+                    {
+                        ListaDugmad[indexDugme].IsEnabled = true;
+                        BrushConverter bc = new BrushConverter(); 
+                        ListaDugmad[indexDugme].Background = (Brush)bc.ConvertFrom("#2F3E46"); 
+                    }
+
                     int index = RacunStavke.ToList().FindIndex(num => num.idArtikal == kliknutIdStavka);
                     RacunStavke[index].kolicina -= 1;
 
                     UkupnaCijena -= RacunStavke[index].cijena;
+
+                    if(UkupnaCijena < 0.1)
+                    {
+                        UkupnaCijena = 0;
+                    }
                     UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM";
 
                     if(RacunStavke[index].kolicina == 0)
@@ -289,5 +305,11 @@ namespace EspressoFinal.Forms.Tabs
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
+    
+        
+        
+        
+        
     }
+
 }

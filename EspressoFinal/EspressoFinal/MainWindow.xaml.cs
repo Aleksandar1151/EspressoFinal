@@ -29,6 +29,15 @@ namespace EspressoFinal
         public MainWindow()
         {
             InitializeComponent();
+
+
+            if(LoginWindow.NalogPrivilegije == "nema")
+            {
+                ButtonTab3.IsEnabled = false;
+                ButtonTab4.IsEnabled = false;
+            }
+
+
             MainGrid.Children.Clear();
             ProdajaPage prodajaPage = new ProdajaPage();
             //Login LoginPage = new Login();

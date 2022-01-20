@@ -108,6 +108,10 @@ namespace EspressoFinal.Forms.Tabs
             if(PrivilegijeToogle.IsChecked == true)  privilegija_temp = 1;
 
             Nalog noviNalog = new Nalog(NazivBox.Text,LozinkaBox.Text, privilegija_temp);
+            KolekcijaNalog.Add(noviNalog);
+
+            NalogListView.ItemsSource = null;
+            NalogListView.ItemsSource = KolekcijaNalog;
 
             noviNalog.Sacuvaj();
 

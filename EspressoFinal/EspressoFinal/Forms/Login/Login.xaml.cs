@@ -23,7 +23,7 @@ namespace EspressoFinal.Forms.Login
     public partial class Login : UserControl
     {
         public static ObservableCollection<Nalog> KolekcijaNaloga { get;set;}
-        public static int IDNalog = Properties.Settings.Default.Nalog;
+       // public static int IDNalog = Properties.Settings.Default.Nalog;
         public Login()
         {
             InitializeComponent();

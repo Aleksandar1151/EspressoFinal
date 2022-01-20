@@ -23,6 +23,7 @@ namespace EspressoFinal.Forms.Login
     {
         public static ObservableCollection<Nalog> KolekcijaNaloga { get;set;}
         public static int IDNalog = Properties.Settings.Default.Nalog;
+        public static string NalogPrivilegije = "";
         public LoginWindow()
         {
             InitializeComponent();
@@ -37,6 +38,9 @@ namespace EspressoFinal.Forms.Login
             {
                 if(KolekcijaNaloga[index].lozinka == LozinkaBox.Password)
                 {
+                    IDNalog = KolekcijaNaloga[index].idNalog;
+                    NalogPrivilegije = KolekcijaNaloga[index].privilegije;
+
                     Window mainWindow = new EspressoFinal.MainWindow();
                     mainWindow.Show();
                     this.Close();
