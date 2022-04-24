@@ -128,5 +128,42 @@ namespace EspressoFinal.Data
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom ucitavanja racuna iz baze.\nRazlog: " + ex.Message); }
         }
+    
+        
+        
+         public static ObservableCollection<Racun> UcitajStornirane()
+        {
+            ObservableCollection<Racun> KolekcijaRacun = new ObservableCollection<Racun>();
+            Database.InitializeDB();
+            string DanasnjiDatum = DateTime.Today.ToString("dd-MM-yyyy"); ;
+            try
+            {
+                String query = String.Format("SELECT * FROM racun WHERE datum = '{0}'", DanasnjiDatum);
+                Console.WriteLine(query);
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int idRacun = Convert.ToInt32(reader["idRacun"]);
+                    string datum = reader["datum"].ToString();
+                    //double iznos = Convert.ToDouble(reader["iznos"]);
+                    int idNalog = Convert.ToInt32(reader["Nalog_idNalog"]);
+
+                    Racun element = new Racun(idRacun, datum, 0, idNalog);
+
+                    KolekcijaRacun.Add(element);
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja racuna iz baze1!!!!!\nRazlog: " + ex.Message); }
+            Console.WriteLine(KolekcijaRacun.Count);
+            return KolekcijaRacun;
+        }
+        
     }
 }

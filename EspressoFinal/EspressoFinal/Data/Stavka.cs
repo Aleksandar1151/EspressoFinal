@@ -195,5 +195,276 @@ namespace EspressoFinal.Data
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom unosa racuna u bazu.\nRazlog: " + ex.Message); }
         }
+    
+        
+        
+            public static ObservableCollection<Stavka> UcitajMjesecneStavkeBezStorniranih()
+        {
+            ObservableCollection<Stavka> KolekcijaStavka = new ObservableCollection<Stavka>();
+            Database.InitializeDB();
+
+            try
+            {
+                String query = "select racun.datum, stavka.Racun_idRacun, stavka.Artikal_idArtikal, stavka.naziv, stavka.kolicina, stavka.cijena from stavka inner join racun where racun.idRacun = stavka.Racun_idRacun and stavka.StorniranRacun_idStorniranRacun is null";
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                string danasnjiDatum = DateTime.Today.ToString("dd-MM-yyyy");
+                string danasnjiMjesec = danasnjiDatum.Split('-')[1];
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
+                    int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+                    String datum = reader["datum"].ToString();
+
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    string naziv = reader["naziv"].ToString();
+
+                    if (datum.Split('-')[1].Equals(danasnjiMjesec))
+                    {
+
+                        Stavka element = new Stavka(idRacun, idArtikal, naziv, cijena, kolicina);
+
+                        KolekcijaStavka.Add(element);
+                    }
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja stavke iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaStavka;
+        }
+
+
+        public static ObservableCollection<Stavka> UcitajMjesecneStavkeSaStorniranim()
+        {
+            ObservableCollection<Stavka> KolekcijaStavka = new ObservableCollection<Stavka>();
+            Database.InitializeDB();
+
+            try
+            {
+                String query = "select racun.datum, stavka.Racun_idRacun, stavka.Artikal_idArtikal, stavka.naziv, stavka.kolicina, stavka.cijena, stavka.StorniranRacun_idStorniranRacun from stavka inner join racun where racun.idRacun = stavka.Racun_idRacun and stavka.StorniranRacun_idStorniranRacun is not null";
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                string danasnjiDatum = DateTime.Today.ToString("dd-MM-yyyy");
+                string danasnjiMjesec = danasnjiDatum.Split('-')[1];
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
+                    int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+                    String datum = reader["datum"].ToString();
+
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    int idStorniran = Convert.ToInt32(reader["StorniranRacun_idStorniranRacun"]);
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    string naziv = reader["naziv"].ToString();
+
+                    if (datum.Split('-')[1].Equals(danasnjiMjesec))
+                    {
+
+                        Stavka element = new Stavka(idRacun, idArtikal, naziv, cijena, kolicina, idStorniran);
+
+                        KolekcijaStavka.Add(element);
+                    }
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja stavke iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaStavka;
+        }
+
+        public static ObservableCollection<Stavka> UcitajGodisnjeStavkeBezStorniranih()
+        {
+            ObservableCollection<Stavka> KolekcijaStavka = new ObservableCollection<Stavka>();
+            Database.InitializeDB();
+
+            try
+            {
+                String query = "select racun.datum, stavka.Racun_idRacun, stavka.Artikal_idArtikal, stavka.naziv, stavka.kolicina, stavka.cijena from stavka inner join racun where racun.idRacun = stavka.Racun_idRacun and stavka.StorniranRacun_idStorniranRacun is null";
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                string danasnjiDatum = DateTime.Today.ToString("dd-MM-yyyy");
+                string trenutnaGodina = danasnjiDatum.Split('-')[2];
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
+                    int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+                    String datum = reader["datum"].ToString();
+
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    string naziv = reader["naziv"].ToString();
+
+                    if (datum.Split('-')[2].Equals(trenutnaGodina))
+                    {
+
+                        Stavka element = new Stavka(idRacun, idArtikal, naziv, cijena, kolicina);
+
+                        KolekcijaStavka.Add(element);
+                    }
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja stavke iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaStavka;
+        }
+
+
+        public static ObservableCollection<Stavka> UcitajGodisnjeStavkeSaStorniranim()
+        {
+            ObservableCollection<Stavka> KolekcijaStavka = new ObservableCollection<Stavka>();
+            Database.InitializeDB();
+
+            try
+            {
+                String query = "select racun.datum, stavka.Racun_idRacun, stavka.naziv, stavka.Artikal_idArtikal, stavka.kolicina, stavka.cijena, stavka.StorniranRacun_idStorniranRacun from stavka inner join racun where racun.idRacun = stavka.Racun_idRacun and stavka.StorniranRacun_idStorniranRacun is not null";
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                string danasnjiDatum = DateTime.Today.ToString("dd-MM-yyyy");
+                string trenutnaGodina = danasnjiDatum.Split('-')[2];
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
+                    int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+                    String datum = reader["datum"].ToString();
+
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    int idStorniran = Convert.ToInt32(reader["StorniranRacun_idStorniranRacun"]);
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    string naziv = reader["naziv"].ToString();
+
+                    if (datum.Split('-')[2].Equals(trenutnaGodina))
+                    {
+
+                        Stavka element = new Stavka(idRacun, idArtikal, naziv, cijena, kolicina, idStorniran);
+
+                        KolekcijaStavka.Add(element);
+                    }
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja stavke iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaStavka;
+        }
+
+        public static ObservableCollection<Stavka> UcitajDnevneStavkeBezStorniranih()
+        {
+            ObservableCollection<Stavka> KolekcijaStavka = new ObservableCollection<Stavka>();
+            Database.InitializeDB();
+
+            string datum = DateTime.Today.ToString("dd-MM-yyyy");
+            try
+            {
+                String query = String.Format("select stavka.Racun_idRacun, stavka.Artikal_idArtikal, stavka.naziv, stavka.kolicina, stavka.cijena from stavka inner join racun where racun.idRacun = stavka.Racun_idRacun and stavka.StorniranRacun_idStorniranRacun is null and racun.datum = '{0}'", datum);
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+             
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
+                    int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    string naziv = reader["naziv"].ToString();
+
+
+
+                        Stavka element = new Stavka(idRacun, idArtikal, naziv, cijena, kolicina);
+
+                        KolekcijaStavka.Add(element);
+
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja stavke iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaStavka;
+        }
+
+        public static ObservableCollection<Stavka> UcitajStavkeRacunaSaStorniranimStavkama()
+        {
+            ObservableCollection<Stavka> KolekcijaStavka = new ObservableCollection<Stavka>();
+            Database.InitializeDB();
+            string datum = DateTime.Today.ToString("dd-MM-yyyy"); ;
+
+            try
+            {
+                String query = string.Format("select stavka.StorniranRacun_idStorniranRacun, stavka.Racun_idRacun, stavka.naziv, stavka.cijena, stavka.kolicina from stavka  inner join racun where stavka.Racun_idRacun = racun.idRacun AND racun.datum='{0}'  AND stavka.StorniranRacun_idStorniranRacun is not null", datum);
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idRacun = Convert.ToInt32(reader["Racun_idRacun"]);
+                    //int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    string naziv = reader["naziv"].ToString();
+                    int idStorniranRacun = Convert.ToInt32(reader["StorniranRacun_idStorniranRacun"]);
+
+
+
+                    Stavka element = new Stavka(idRacun, 0, naziv, cijena, kolicina, idStorniranRacun);
+
+                    KolekcijaStavka.Add(element);
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja stavke iz baze!\nRazlog: " + ex.Message); }
+
+            return KolekcijaStavka;
+        }
+    
     }
 }

@@ -15,6 +15,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Collections.ObjectModel;
+using EspressoFinal.Data;
+using System.IO;
 
 namespace EspressoFinal
 {
@@ -25,7 +30,29 @@ namespace EspressoFinal
     {
         
         public static MainPage MainPage = new MainPage();
-       
+
+        #region PDF Varijable
+        public static ObservableCollection<Racun> Racuni { get; set; }
+        public static ObservableCollection<Racun> StorniraniRacuni { get; set; }
+
+        public static ObservableCollection<Artikal> Artikli { get; set; }
+
+        public static ObservableCollection<Stavka> prodaneStavke = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Stavka> ProdaneStavkeRacuna = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Stavka> ProdaneStavkeZaIspis = new ObservableCollection<Stavka>(); //stavke za dnevni izvjestaj
+
+        public static ObservableCollection<Stavka> StorniraneStavke = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Stavka> StorniraneStavkeRacuna = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Stavka> StorniraneStavkeZaIspis = new ObservableCollection<Stavka>(); //stornirane stavke za dnevni izvjestaj
+        public static ObservableCollection<Otpis> otpis = new ObservableCollection<Otpis>(); // otpis
+        public static ObservableCollection<Stavka> MjesecneStavke = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Stavka> MjesecneStorniraneStavke = new ObservableCollection<Stavka>();
+
+        public static ObservableCollection<Stavka> GodisnjeStavke = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Stavka> GodisnjeStorniraneStavke = new ObservableCollection<Stavka>();
+        #endregion
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -105,5 +132,450 @@ namespace EspressoFinal
             
 
         }
+    
+        private void ProdaneStavkeZaDnevniIzvjestaj()
+        {
+            string datum = DateTime.Today.ToString("dd-MM-yyyy"); ;
+            Racuni = Racun.UcitajStornirane();
+
+            Artikli = Artikal.Ucitaj();
+
+            prodaneStavke = Stavka.UcitajDnevneStavkeBezStorniranih();
+
+
+
+            foreach (Artikal artikal in Artikli)
+            {
+                Stavka stavka = new Stavka(0, artikal.idArtikal, artikal.naziv, artikal.cijena, 0);
+                
+                foreach(Stavka stavka1 in prodaneStavke)
+                {
+
+                    if(stavka1.idArtikal == artikal.idArtikal)
+                    {
+  
+                        stavka.kolicina = stavka1.kolicina + stavka.kolicina;
+                        
+                    } 
+                }
+
+                if (stavka.kolicina != 0)
+                {
+                    ProdaneStavkeZaIspis.Add(stavka);
+                }
+            }
+
+            StorniraneStavke = Stavka.UcitajStavkeRacunaSaStorniranimStavkama();
+
+            otpis = Otpis.UcitajZaDnevniIzvjestaj();
+            
+        }
+
+        private void MejsecniIzvjestaj()
+        {
+            ProdaneStavkeRacuna = Stavka.UcitajMjesecneStavkeBezStorniranih();
+            Artikli = Artikal.Ucitaj();
+            foreach (Artikal artikal in Artikli)
+            {
+                Stavka stavka = new Stavka(0, artikal.idArtikal, artikal.naziv, artikal.cijena, 0);
+
+                foreach (Stavka stavka1 in ProdaneStavkeRacuna)
+                {
+
+                    if (stavka1.idArtikal == artikal.idArtikal)
+                    {
+
+                        stavka.kolicina = stavka1.kolicina + stavka.kolicina;
+
+                    }
+                }
+                if (stavka.kolicina != 0)
+                {
+                    MjesecneStavke.Add(stavka);
+                }
+            }
+            MjesecneStorniraneStavke = Stavka.UcitajMjesecneStavkeSaStorniranim();
+            otpis = Otpis.UcitajZaMjesecniIzvjestaj();
+        }
+
+        private void GodisnjiIzvjestaj()
+        {
+            ProdaneStavkeRacuna = Stavka.UcitajGodisnjeStavkeBezStorniranih();
+            Artikli = Artikal.Ucitaj();
+            foreach (Artikal artikal in Artikli)
+            {
+                Stavka stavka = new Stavka(0, artikal.idArtikal, artikal.naziv, artikal.cijena, 0);
+
+                foreach (Stavka stavka1 in ProdaneStavkeRacuna)
+                {
+
+                    if (stavka1.idArtikal == artikal.idArtikal)
+                    {
+
+                        stavka.kolicina = stavka1.kolicina + stavka.kolicina;
+
+                    }
+                }
+                GodisnjeStavke.Add(stavka);
+            }
+            GodisnjeStorniraneStavke = Stavka.UcitajGodisnjeStavkeSaStorniranim();
+            otpis = Otpis.UcitajZaGodisnjiIzvjestaj();
+        }
+
+        private void DnevniIzvjestaj_Click(object sender, RoutedEventArgs e)
+        {
+            ProdaneStavkeZaDnevniIzvjestaj();
+            string dir = @"C:\\Izvjestaji";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
+            string path = "C:\\Izvjestaji\\" + datum + ".pdf";
+            Document doc1 = new Document();
+            doc1.SetMargins(5, 0, 0, 0);
+            doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
+            PdfWriter pdfWriter = PdfWriter.GetInstance(doc1, new FileStream(path, FileMode.Create));
+            PdfDestination pdfDest = new PdfDestination(PdfDestination.XYZ, 0, doc1.PageSize.Height, 0.75f);
+
+
+
+
+
+            doc1.Open();
+            PdfContentByte cb = pdfWriter.DirectContent;
+            //Font font = FontFactory.GetFont("HELVETICA", 6);
+            Font font1 = FontFactory.GetFont("HELVETICA", 20);
+            Font font2 = FontFactory.GetFont("HELVETICA", 15);
+            Font font3 = FontFactory.GetFont("HELVETICA", 10);
+            iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
+            iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
+            iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("DNEVNI IZVJESTAJ ZA DATUM " + DateTime.Today.ToString("dd-MM-yyyy"), font2));
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font3));
+            PdfPTable table1 = new PdfPTable(5);
+            table1.AddCell("ID artikla");
+            table1.AddCell("Naziv");
+            table1.AddCell("Cijena [KM]");
+            table1.AddCell("Kolicina [kom.]");
+            table1.AddCell("Ukupno [KM]");
+            double Ukupno1 = 0;
+            foreach(Stavka stavka in ProdaneStavkeZaIspis)
+            {
+                table1.AddCell(stavka.idArtikal.ToString());
+                table1.AddCell(stavka.naziv);
+                table1.AddCell(stavka.cijena.ToString());
+                table1.AddCell(stavka.kolicina.ToString());
+                table1.AddCell((stavka.kolicina * stavka.cijena).ToString());
+                Ukupno1 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell.Colspan = 4;
+            table1.AddCell(cell);
+            table1.AddCell(Ukupno1.ToString());
+            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font3));
+            PdfPTable table2 = new PdfPTable(5);
+            table2.AddCell("ID storniranog racuna");
+            table2.AddCell("ID racuna");
+            table2.AddCell("Naziv");
+            table2.AddCell("Cijena [KM]");
+            table2.AddCell("Kolicina [kom.]");
+            double Ukupno2 = 0;
+            foreach (Stavka stavka in StorniraneStavke)
+            {
+                table2.AddCell(stavka.idStorniranRacun.ToString());
+                table2.AddCell(stavka.idRacun.ToString());
+                table2.AddCell(stavka.naziv);
+                table2.AddCell(stavka.cijena.ToString());
+                table2.AddCell(stavka.kolicina.ToString());
+                Ukupno2 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell1 = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell1.Colspan = 4;
+            table2.AddCell(cell1);
+            table2.AddCell(Ukupno2.ToString());
+            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font3));
+            PdfPTable table3 = new PdfPTable(4);
+            table3.AddCell("ID storniranog racuna");
+            table3.AddCell("ID racuna");
+            table3.AddCell("Naziv");
+            table3.AddCell("Cijena [KM]");
+            double Ukupno3 = 0;
+            foreach (Otpis stavka in otpis)
+            {
+                table3.AddCell(stavka.idOtpis.ToString());
+                table3.AddCell(stavka.nazivArtikla);
+                table3.AddCell(stavka.cijena.ToString());
+                table3.AddCell(stavka.kolicina.ToString());
+                Ukupno3 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell2 = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell2.Colspan = 3;
+            table3.AddCell(cell2);
+            table3.AddCell(Ukupno3.ToString());
+            p1.Alignment = Element.ALIGN_CENTER;
+            p2.Alignment = Element.ALIGN_CENTER;
+            p3.Alignment = Element.ALIGN_CENTER;
+            p4.Alignment = Element.ALIGN_CENTER;
+            p5.Alignment = Element.ALIGN_CENTER;
+            doc1.Add(p1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p2);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p3);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE); 
+            doc1.Add(p4);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table2);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p5);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table3);
+
+            doc1.Close();
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
+        }
+
+        private void Mjesecni_izvjestaj(object sender, RoutedEventArgs e)
+        {
+            MejsecniIzvjestaj();
+            string dir = @"C:\\Izvjestaji";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
+            string path = "C:\\Izvjestaji\\" + datum + ".pdf";
+            Document doc1 = new Document();
+            doc1.SetMargins(5, 0, 0, 0);
+            doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
+            PdfWriter pdfWriter = PdfWriter.GetInstance(doc1, new FileStream(path, FileMode.Create));
+            PdfDestination pdfDest = new PdfDestination(PdfDestination.XYZ, 0, doc1.PageSize.Height, 0.75f);
+
+
+
+
+
+            doc1.Open();
+            PdfContentByte cb = pdfWriter.DirectContent;
+            //Font font = FontFactory.GetFont("HELVETICA", 6);
+            Font font1 = FontFactory.GetFont("HELVETICA", 20);
+            Font font2 = FontFactory.GetFont("HELVETICA", 15);
+            Font font3 = FontFactory.GetFont("HELVETICA", 10);
+            iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
+            iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
+            iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("MJESECNI IZVJESTAJ ZA " + DateTime.Today.ToString("dd-MM-yyyy").Split('-')[1] + ". MJESEC", font2));
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font3));
+            PdfPTable table1 = new PdfPTable(5);
+            table1.AddCell("ID artikla");
+            table1.AddCell("Naziv");
+            table1.AddCell("Cijena [KM]");
+            table1.AddCell("Kolicina [kom.]");
+            table1.AddCell("Ukupno [KM]");
+            double Ukupno1 = 0;
+            foreach (Stavka stavka in MjesecneStavke)
+            {
+                table1.AddCell(stavka.idArtikal.ToString());
+                table1.AddCell(stavka.naziv);
+                table1.AddCell(stavka.cijena.ToString());
+                table1.AddCell(stavka.kolicina.ToString());
+                table1.AddCell((stavka.kolicina * stavka.cijena).ToString());
+                Ukupno1 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell.Colspan = 4;
+            table1.AddCell(cell);
+            table1.AddCell(Ukupno1.ToString());
+            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font3));
+            PdfPTable table2 = new PdfPTable(5);
+            table2.AddCell("ID storniranog racuna");
+            table2.AddCell("ID racuna");
+            table2.AddCell("Naziv");
+            table2.AddCell("Cijena [KM]");
+            table2.AddCell("Kolicina [kom.]");
+            double Ukupno2 = 0;
+            foreach (Stavka stavka in MjesecneStorniraneStavke)
+            {
+                table2.AddCell(stavka.idStorniranRacun.ToString());
+                table2.AddCell(stavka.idRacun.ToString());
+                table2.AddCell(stavka.naziv);
+                table2.AddCell(stavka.cijena.ToString());
+                table2.AddCell(stavka.kolicina.ToString());
+                Ukupno2 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell1 = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell1.Colspan = 4;
+            table2.AddCell(cell1);
+            table2.AddCell(Ukupno2.ToString());
+            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font3));
+            PdfPTable table3 = new PdfPTable(4);
+            table3.AddCell("ID storniranog racuna");
+            table3.AddCell("ID racuna");
+            table3.AddCell("Naziv");
+            table3.AddCell("Cijena [KM]");
+            double Ukupno3 = 0;
+            foreach (Otpis stavka in otpis)
+            {
+                table3.AddCell(stavka.idOtpis.ToString());
+                table3.AddCell(stavka.nazivArtikla);
+                table3.AddCell(stavka.cijena.ToString());
+                table3.AddCell(stavka.kolicina.ToString());
+                Ukupno3 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell2 = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell2.Colspan = 3;
+            table3.AddCell(cell2);
+            table3.AddCell(Ukupno3.ToString());
+            p1.Alignment = Element.ALIGN_CENTER;
+            p2.Alignment = Element.ALIGN_CENTER;
+            p3.Alignment = Element.ALIGN_CENTER;
+            p4.Alignment = Element.ALIGN_CENTER;
+            p5.Alignment = Element.ALIGN_CENTER;
+            doc1.Add(p1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p2);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p3);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p4);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table2);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p5);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table3);
+            doc1.Close();
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
+        }
+
+        private void GodisnjiIzvjestaj_Click(object sender, RoutedEventArgs e)
+        {
+            GodisnjiIzvjestaj();
+            string dir = @"C:\\Izvjestaji";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
+            string path = "C:\\Izvjestaji\\" + datum + ".pdf";
+            Document doc1 = new Document();
+            doc1.SetMargins(5, 0, 0, 0);
+            doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
+            PdfWriter pdfWriter = PdfWriter.GetInstance(doc1, new FileStream(path, FileMode.Create));
+            PdfDestination pdfDest = new PdfDestination(PdfDestination.XYZ, 0, doc1.PageSize.Height, 0.75f);
+
+
+
+
+
+            doc1.Open();
+            PdfContentByte cb = pdfWriter.DirectContent;
+            //Font font = FontFactory.GetFont("HELVETICA", 6);
+            Font font1 = FontFactory.GetFont("HELVETICA", 20);
+            Font font2 = FontFactory.GetFont("HELVETICA", 15);
+            Font font3 = FontFactory.GetFont("HELVETICA", 10);
+            iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
+            iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
+            iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("GODISNJI IZVJESTAJ ZA " + DateTime.Today.ToString("dd-MM-yyyy").Split('-')[2] + ". GODINU", font2));
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font3));
+            PdfPTable table1 = new PdfPTable(5);
+            table1.AddCell("ID artikla");
+            table1.AddCell("Naziv");
+            table1.AddCell("Cijena [KM]");
+            table1.AddCell("Kolicina [kom.]");
+            table1.AddCell("Ukupno [KM]");
+            double Ukupno1 = 0;
+            foreach (Stavka stavka in GodisnjeStavke)
+            {
+                table1.AddCell(stavka.idArtikal.ToString());
+                table1.AddCell(stavka.naziv);
+                table1.AddCell(stavka.cijena.ToString());
+                table1.AddCell(stavka.kolicina.ToString());
+                table1.AddCell((stavka.kolicina * stavka.cijena).ToString());
+                Ukupno1 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell.Colspan = 4;
+            table1.AddCell(cell);
+            table1.AddCell(Ukupno1.ToString());
+            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font3));
+            PdfPTable table2 = new PdfPTable(5);
+            table2.AddCell("ID storniranog racuna");
+            table2.AddCell("ID racuna");
+            table2.AddCell("Naziv");
+            table2.AddCell("Cijena [KM]");
+            table2.AddCell("Kolicina [kom.]");
+            double Ukupno2 = 0;
+            foreach (Stavka stavka in GodisnjeStorniraneStavke)
+            {
+                table2.AddCell(stavka.idStorniranRacun.ToString());
+                table2.AddCell(stavka.idRacun.ToString());
+                table2.AddCell(stavka.naziv);
+                table2.AddCell(stavka.cijena.ToString());
+                table2.AddCell(stavka.kolicina.ToString());
+                Ukupno2 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell1 = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell1.Colspan = 4;
+            table2.AddCell(cell1);
+            table2.AddCell(Ukupno2.ToString());
+            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font3));
+            PdfPTable table3 = new PdfPTable(4);
+            table3.AddCell("ID storniranog racuna");
+            table3.AddCell("ID racuna");
+            table3.AddCell("Naziv");
+            table3.AddCell("Cijena [KM]");
+            double Ukupno3 = 0;
+            foreach (Otpis stavka in otpis)
+            {
+                table3.AddCell(stavka.idOtpis.ToString());
+                table3.AddCell(stavka.nazivArtikla);
+                table3.AddCell(stavka.cijena.ToString());
+                table3.AddCell(stavka.kolicina.ToString());
+                Ukupno3 += stavka.cijena * stavka.kolicina;
+            }
+            PdfPCell cell2 = new PdfPCell(new Phrase("Ukupno [KM]"));
+            cell2.Colspan = 3;
+            table3.AddCell(cell2);
+            table3.AddCell(Ukupno3.ToString());
+            p1.Alignment = Element.ALIGN_CENTER;
+            p2.Alignment = Element.ALIGN_CENTER;
+            p3.Alignment = Element.ALIGN_CENTER;
+            p4.Alignment = Element.ALIGN_CENTER;
+            p5.Alignment = Element.ALIGN_CENTER;
+            doc1.Add(p1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p2);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p3);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p4);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table2);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p5);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(table3);
+            doc1.Close();
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
+        }
+        
+    
+        
+
     }
 }

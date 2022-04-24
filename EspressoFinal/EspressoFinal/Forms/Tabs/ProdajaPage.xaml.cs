@@ -228,6 +228,8 @@ namespace EspressoFinal.Forms.Tabs
 
             Stavka.Sacuvaj(ListStavke);
 
+            //PDF_Stampa();
+
             OsvjeziRacun();
         }
 
