@@ -34,5 +34,17 @@ namespace EspressoFinal.Properties {
                 this["Nalog"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Admin")]
+        public string Nalog_Naziv {
+            get {
+                return ((string)(this["Nalog_Naziv"]));
+            }
+            set {
+                this["Nalog_Naziv"] = value;
+            }
+        }
     }
 }

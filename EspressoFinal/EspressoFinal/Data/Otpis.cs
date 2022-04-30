@@ -15,6 +15,10 @@ namespace EspressoFinal.Data
         public int idArtikal;
         public int kolicina;
         public int idNalog;
+
+        public string nazivArtikla;
+        public double cijena;
+        public string datum;
        
 
         public Otpis()
@@ -33,6 +37,14 @@ namespace EspressoFinal.Data
             this.idArtikal = idArtikal;
             this.kolicina = kolicina;
             this.idNalog = idNalog;           
+        }
+
+        public Otpis(int idOtpis, string nazivArtikla, double cijena, int kolicina)
+        {
+            this.idOtpis = idOtpis;
+            this.nazivArtikla = nazivArtikla;
+            this.kolicina = kolicina;
+            this.cijena = cijena;
         }
 
         public static ObservableCollection<Otpis> Ucitaj()
@@ -92,5 +104,130 @@ namespace EspressoFinal.Data
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom unosa otpisa u bazu.\nRazlog: " + ex.Message); }
         }
+
+
+        #region Izvještaji
+
+        public static ObservableCollection<Otpis> UcitajZaDnevniIzvjestaj()
+        {
+            ObservableCollection<Otpis> KolekcijaOtpis = new ObservableCollection<Otpis>();
+            Database.InitializeDB();
+            string datum = DateTime.Today.ToString("dd-MM-yyyy");
+            try
+            {
+                String query = String.Format("select otpis.idOtpis, artikal.naziv, artikal.cijena, otpis.kolicina from otpis inner join artikal where otpis.Artikal_idArtikal = artikal.idArtikal and otpis.datum = '{0}';", datum);
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idOtpis = Convert.ToInt32(reader["idOtpis"]);
+                    string nazivArt = reader["naziv"].ToString();
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+
+
+                    Otpis element = new Otpis(idOtpis, nazivArt, cijena, kolicina);
+
+                    KolekcijaOtpis.Add(element);
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja otpisa iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaOtpis;
+        }
+
+        public static ObservableCollection<Otpis> UcitajZaMjesecniIzvjestaj()
+        {
+            ObservableCollection<Otpis> KolekcijaOtpis = new ObservableCollection<Otpis>();
+            Database.InitializeDB();
+            string datum = DateTime.Today.ToString("dd-MM-yyyy");
+            string currentMonth = datum.Split('-')[1];
+            try
+            {
+                String query = "select otpis.idOtpis, artikal.naziv, artikal.cijena, otpis.kolicina, otpis.datum from otpis inner join artikal where otpis.Artikal_idArtikal = artikal.idArtikal;";
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idOtpis = Convert.ToInt32(reader["idOtpis"]);
+                    string nazivArt = reader["naziv"].ToString();
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    string datumIzBaze = reader["datum"].ToString();
+
+                    if (datumIzBaze.Split('-')[1].Equals(currentMonth))
+                    {
+                        Otpis element = new Otpis(idOtpis, nazivArt, cijena, kolicina);
+
+
+                        KolekcijaOtpis.Add(element);
+                    }
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja otpisa iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaOtpis;
+        }
+
+        public static ObservableCollection<Otpis> UcitajZaGodisnjiIzvjestaj()
+        {
+            ObservableCollection<Otpis> KolekcijaOtpis = new ObservableCollection<Otpis>();
+            Database.InitializeDB();
+            string datum = DateTime.Today.ToString("dd-MM-yyyy");
+            string currentYear = datum.Split('-')[2];
+            try
+            {
+                String query = "select otpis.idOtpis, artikal.naziv, artikal.cijena, otpis.kolicina, otpis.datum from otpis inner join artikal where otpis.Artikal_idArtikal = artikal.idArtikal;";
+
+                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+
+                Database.dbConn.Open();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    int idOtpis = Convert.ToInt32(reader["idOtpis"]);
+                    string nazivArt = reader["naziv"].ToString();
+                    double cijena = Convert.ToDouble(reader["cijena"]);
+                    int kolicina = Convert.ToInt32(reader["kolicina"]);
+                    string datumIzBaze = reader["datum"].ToString();
+
+                    if (datumIzBaze.Split('-')[2].Equals(currentYear))
+                    {
+                        Otpis element = new Otpis(idOtpis, nazivArt, cijena, kolicina);
+
+
+                        KolekcijaOtpis.Add(element);
+                    }
+
+                }
+                Database.dbConn.Close();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja otpisa iz baze!!!!!\nRazlog: " + ex.Message); }
+
+            return KolekcijaOtpis;
+        }
+
+        #endregion
+
+
     }
 }              

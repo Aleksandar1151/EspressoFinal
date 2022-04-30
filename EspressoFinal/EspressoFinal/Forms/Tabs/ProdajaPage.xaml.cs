@@ -16,6 +16,11 @@ using System.Windows.Shapes;
 using EspressoFinal.Data;
 using System.Linq;
 using EspressoFinal.Forms.Login;
+using System.IO;
+using iTextSharp.text;
+using Paragraph = iTextSharp.text.Paragraph;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.draw;
 
 namespace EspressoFinal.Forms.Tabs
 {
@@ -228,7 +233,7 @@ namespace EspressoFinal.Forms.Tabs
 
             Stavka.Sacuvaj(ListStavke);
 
-            //PDF_Stampa();
+            StampaPDF(racun.idRacun);
 
             OsvjeziRacun();
         }
@@ -307,11 +312,173 @@ namespace EspressoFinal.Forms.Tabs
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
-    
-        
-        
-        
-        
+
+        #region Stampa
+
+        private void StampaPDF(int id)
+        {
+            Chunk glue = new Chunk(new VerticalPositionMark());
+
+
+            string dir = @"C:\\Racuni";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
+            string path = "C:\\Racuni\\" + datum + ".pdf";
+            Document doc1 = new Document();
+            doc1.SetMargins(5, 0, 0, 0);
+            doc1.SetPageSize(new iTextSharp.text.Rectangle(100, 300));
+            PdfWriter pdfWriter = PdfWriter.GetInstance(doc1, new FileStream(path, FileMode.Create));
+
+
+            
+
+            doc1.Open();
+            PdfContentByte cb = pdfWriter.DirectContent;
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1250, false);
+            Font font_naslov = new Font(bf,5);
+            Font font = new Font(bf,6);
+
+
+            //Font font = FontFactory.GetFont("TIMES", 6);
+            //Font font_naslov = FontFactory.GetFont("TIMES", 5);
+            iTextSharp.text.Paragraph p1 = new Paragraph(new Chunk("YOKOSP", font));
+           // iTextSharp.text.Paragraph p2 = new Paragraph(new Chunk("Konobar: "+Properties.Settings.Default.Nalog_Naziv , font));
+            iTextSharp.text.Paragraph p2 = new Paragraph(new Chunk("IVE ANDRIĆA 3", font));
+            iTextSharp.text.Paragraph p3 = new Paragraph(new Chunk("78000 BANJA LUKA", font));
+            
+            iTextSharp.text.Paragraph p4 = new Paragraph(new Chunk("MALOPRODAJNI FISKALNI RACUN", font_naslov));
+
+            Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1) + "  "));
+            
+            Paragraph p_stavke = new Paragraph();
+            foreach(KliknutaStavka stavka in RacunStavke)
+            {
+                p_stavke.Add(new Chunk(stavka.naziv,font));
+                p_stavke.Add(new Chunk(glue));
+                p_stavke.Add(new Chunk(stavka.kolicina+"x" + "          " + stavka.cijena+" KM  \n",font));
+                
+                
+                //p_stavke.Add(new Chunk(glue));
+                //p_stavke.Add(new Chunk(stavka.cijena+"KM  \n",font));
+                
+                //document.add(p);
+               // stavke += stavka.naziv + "              " + stavka.kolicina + "x                " + stavka.cijena + "\n";
+
+                UkupnaCijena += stavka.kolicina * stavka.cijena;
+            }
+            
+            UkupnaCijena /= 2;
+            double pdvDio = UkupnaCijena * 0.17;
+            double nesto = UkupnaCijena - pdvDio;
+            //iTextSharp.text.Paragraph p6 = new Paragraph(new Chunk(stavke, font));
+            //iTextSharp.text.Paragraph p7 = new Paragraph(new Chunk("CE:             17.00%", font));
+            iTextSharp.text.Paragraph p7 = new Paragraph(new Chunk("CE:", font));
+            p7.Add(new Chunk(glue));
+            p7.Add("17.00%");
+
+            //iTextSharp.text.Paragraph p8 = new Paragraph(new Chunk("VE:             " + , font));
+            iTextSharp.text.Paragraph p8 = new Paragraph(new Chunk("VE:", font));
+            p8.Add(new Chunk(glue));
+            p8.Add(new Chunk(pdvDio.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p9 = new Paragraph(new Chunk("VU:", font));
+            p9.Add(new Chunk(glue));
+            p9.Add(new Chunk(pdvDio.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p10 = new Paragraph(new Chunk("PE:", font));
+            p10.Add(new Chunk(glue));
+            p10.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p11 = new Paragraph(new Chunk("PU:" + UkupnaCijena, font));
+            p11.Add(new Chunk(glue));
+            p11.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p12 = new Paragraph(new Chunk("CE:", font));
+            p12.Add(new Chunk(glue));
+            p12.Add(new Chunk(nesto.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p13 = new Paragraph(new Chunk("ZA UPLATU:", font));
+            p13.Add(new Chunk(glue));
+            p13.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p14 = new Paragraph(new Chunk("GOTOVINA:", font));
+            p14.Add(new Chunk(glue));
+            p14.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p15 = new Paragraph(new Chunk("UPLACENO:", font));
+            p15.Add(new Chunk(glue));
+            p15.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p16 = new Paragraph(new Chunk("POVRAT:", font));
+            p16.Add(new Chunk(glue));
+            p16.Add(new Chunk("0"+"  ",font));
+
+            iTextSharp.text.Paragraph p17 = new Paragraph(new Chunk("BROJ RACUNA:", font));
+            p17.Add(new Chunk(glue));
+            p17.Add(new Chunk(id.ToString()+"  ",font));
+
+            iTextSharp.text.Paragraph p18 = new Paragraph(new Chunk("KONOBAR:", font));
+            p18.Add(new Chunk(glue));
+            p18.Add(new Chunk(Properties.Settings.Default.Nalog_Naziv+"  ",font));
+
+
+            p1.Alignment = Element.ALIGN_CENTER;
+            p2.Alignment = Element.ALIGN_CENTER;
+            p3.Alignment = Element.ALIGN_CENTER;
+            p4.Alignment = Element.ALIGN_CENTER;
+            p.Alignment = Element.ALIGN_LEFT;
+            
+
+            //p6.Alignment = Element.ALIGN_LEFT;
+            //p7.Alignment = Element.ALIGN_LEFT;
+            //p8.Alignment = Element.ALIGN_LEFT;
+            //p9.Alignment = Element.ALIGN_LEFT;
+            //p10.Alignment = Element.ALIGN_LEFT;
+            //p11.Alignment = Element.ALIGN_LEFT;
+            //p12.Alignment = Element.ALIGN_LEFT;
+            //p13.Alignment = Element.ALIGN_LEFT;
+            //p14.Alignment = Element.ALIGN_LEFT;
+            //p15.Alignment = Element.ALIGN_LEFT;
+            //p16.Alignment = Element.ALIGN_LEFT;
+            //p17.Alignment = Element.ALIGN_LEFT;
+            //p18.Alignment = Element.ALIGN_LEFT;
+
+            doc1.Add(p1);
+            doc1.Add(p2);
+            doc1.Add(p3);
+            doc1.Add(p4);
+            doc1.Add(p);
+           
+            doc1.Add(p);
+            doc1.Add(p_stavke);
+            doc1.Add(p);
+            doc1.Add(p7);
+            doc1.Add(p8);
+            doc1.Add(p9);
+            doc1.Add(p10);
+            doc1.Add(p11);
+            doc1.Add(p12);
+            doc1.Add(p);
+            doc1.Add(p13);
+            doc1.Add(p14);
+            doc1.Add(p15);
+            doc1.Add(p16);
+            doc1.Add(p17);
+            doc1.Add(p18);
+            doc1.Add(p);
+            doc1.Close();
+            System.Diagnostics.Process.Start("C:\\Racuni\\" + datum + ".pdf");
+        }
+
+        #endregion
+
+
+
+
+
     }
 
 }

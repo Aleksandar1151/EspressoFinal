@@ -5,5 +5,8 @@
     <Setting Name="Nalog" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="Nalog_Naziv" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Admin</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

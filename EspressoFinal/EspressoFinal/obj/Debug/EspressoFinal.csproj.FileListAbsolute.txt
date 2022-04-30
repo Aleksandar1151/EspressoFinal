@@ -56,3 +56,5 @@ C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFi
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Tabs\NalogPage.baml
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Login\LoginWindow.g.cs
 C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\obj\Debug\Forms\Login\LoginWindow.baml
+C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\bin\Debug\itextsharp.dll
+C:\ETF\Projektovanje softvera\EspressoGit\EspressoFinal\EspressoFinal\EspressoFinal\bin\Debug\itextsharp.xml

@@ -24,13 +24,13 @@
                             <materialDesign:PackIcon Kind="FileDocumentOutline" FontSize="25" Background="White" Foreground="#52796F" Margin="2,0,10,0" Height="46" Width="50" />
                         </materialDesign:PopupBox.ToggleContent>                        
                         <StackPanel Width="300">
-                            <Button Content="Dnevni izvještaj"/>
-                            
-                            <Button Content="Mjesečni izvještaj"/>
-                            
-                            <Button Content="Godišnji izvještaj"/>
-                      
-                            
+                            <Button Content="Dnevni izvještaj" Click="DnevniIzvjestaj_Click"/>
+
+                            <Button Content="Mjesečni izvještaj" Click="Mjesecni_izvjestaj"/>
+
+                            <Button Content="Godišnji izvještaj" Click="GodisnjiIzvjestaj_Click"/>
+
+
                         </StackPanel>
                     </materialDesign:PopupBox>
 
