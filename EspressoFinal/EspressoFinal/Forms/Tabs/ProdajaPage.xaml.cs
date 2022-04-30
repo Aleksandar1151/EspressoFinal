@@ -351,14 +351,43 @@ namespace EspressoFinal.Forms.Tabs
             
             iTextSharp.text.Paragraph p4 = new Paragraph(new Chunk("MALOPRODAJNI FISKALNI RACUN", font_naslov));
 
-            Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1) + "  "));
-            
-            Paragraph p_stavke = new Paragraph();
-            foreach(KliknutaStavka stavka in RacunStavke)
+            //Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1) + "  "));
+            Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F,95.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)) );
+           p.Leading = 5 ;
+
+
+            #region Header
+            p1.Alignment = Element.ALIGN_CENTER;
+            p2.Alignment = Element.ALIGN_CENTER;
+            p3.Alignment = Element.ALIGN_CENTER;
+            p4.Alignment = Element.ALIGN_CENTER;
+           // p.Alignment = Element.ALIGN_CENTER;
+
+            doc1.Add(p1);
+            doc1.Add(p2);
+            doc1.Add(p3);
+            doc1.Add(p);
+            doc1.Add(p4);            
+            doc1.Add(p);
+            #endregion
+
+
+            foreach (KliknutaStavka stavka in RacunStavke)
             {
-                p_stavke.Add(new Chunk(stavka.naziv,font));
+                 Paragraph p_stavke = new Paragraph();
+                 Paragraph p_stavke_naziv = new Paragraph();
+
+                 p_stavke_naziv.Leading = 4;
+                 p_stavke.Leading = 6;
+                UkupnaCijena += stavka.kolicina * stavka.cijena;
+                p_stavke_naziv.Add(new Chunk((""+stavka.naziv),font));
+                p_stavke.Add(new Chunk("  "+stavka.kolicina+"x",font));
                 p_stavke.Add(new Chunk(glue));
-                p_stavke.Add(new Chunk(stavka.kolicina+"x" + "          " + stavka.cijena+" KM  \n",font));
+                //Console.WriteLine("{0,-15}x{1,-5}{2,0:0.00} KM",imena[i],kolicine[i],cijene[i]);
+               // p_stavke.Add(new Chunk(stavka.kolicina+"x" + "          " + stavka.cijena+" KM  \n",font));
+
+                string kolicina_cijena = String.Format("{0,-15:0.00} {1,3:0.00} KM",stavka.cijena, stavka.cijena*stavka.kolicina);
+                p_stavke.Add(new Chunk(kolicina_cijena,font));
                 
                 
                 //p_stavke.Add(new Chunk(glue));
@@ -367,9 +396,12 @@ namespace EspressoFinal.Forms.Tabs
                 //document.add(p);
                // stavke += stavka.naziv + "              " + stavka.kolicina + "x                " + stavka.cijena + "\n";
 
-                UkupnaCijena += stavka.kolicina * stavka.cijena;
+                doc1.Add(p_stavke_naziv);
+                
+                doc1.Add(p_stavke);
+               
             }
-            
+            doc1.Add(p);
             UkupnaCijena /= 2;
             double pdvDio = UkupnaCijena * 0.17;
             double nesto = UkupnaCijena - pdvDio;
@@ -386,35 +418,35 @@ namespace EspressoFinal.Forms.Tabs
 
             iTextSharp.text.Paragraph p9 = new Paragraph(new Chunk("VU:", font));
             p9.Add(new Chunk(glue));
-            p9.Add(new Chunk(pdvDio.ToString()+"  ",font));
+            p9.Add(new Chunk(pdvDio.ToString("0.00")+"  ",font));
 
             iTextSharp.text.Paragraph p10 = new Paragraph(new Chunk("PE:", font));
             p10.Add(new Chunk(glue));
-            p10.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+            p10.Add(new Chunk(UkupnaCijena.ToString("0.00")+"  ",font));
 
-            iTextSharp.text.Paragraph p11 = new Paragraph(new Chunk("PU:" + UkupnaCijena, font));
+            iTextSharp.text.Paragraph p11 = new Paragraph(new Chunk("PU:", font));
             p11.Add(new Chunk(glue));
-            p11.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+            p11.Add(new Chunk(UkupnaCijena.ToString("0.00")+"  ",font));
 
             iTextSharp.text.Paragraph p12 = new Paragraph(new Chunk("CE:", font));
             p12.Add(new Chunk(glue));
-            p12.Add(new Chunk(nesto.ToString()+"  ",font));
+            p12.Add(new Chunk(nesto.ToString("0.00")+"  ",font));
 
             iTextSharp.text.Paragraph p13 = new Paragraph(new Chunk("ZA UPLATU:", font));
             p13.Add(new Chunk(glue));
-            p13.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+            p13.Add(new Chunk(UkupnaCijena.ToString("0.00")+" KM  ",font));
 
             iTextSharp.text.Paragraph p14 = new Paragraph(new Chunk("GOTOVINA:", font));
             p14.Add(new Chunk(glue));
-            p14.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+            p14.Add(new Chunk(UkupnaCijena.ToString("0.00")+" KM  ",font));
 
             iTextSharp.text.Paragraph p15 = new Paragraph(new Chunk("UPLACENO:", font));
             p15.Add(new Chunk(glue));
-            p15.Add(new Chunk(UkupnaCijena.ToString()+"  ",font));
+            p15.Add(new Chunk(UkupnaCijena.ToString("0.00")+" KM  ",font));
 
             iTextSharp.text.Paragraph p16 = new Paragraph(new Chunk("POVRAT:", font));
             p16.Add(new Chunk(glue));
-            p16.Add(new Chunk("0"+"  ",font));
+            p16.Add(new Chunk("0.00"+" KM  ",font));
 
             iTextSharp.text.Paragraph p17 = new Paragraph(new Chunk("BROJ RACUNA:", font));
             p17.Add(new Chunk(glue));
@@ -425,11 +457,7 @@ namespace EspressoFinal.Forms.Tabs
             p18.Add(new Chunk(Properties.Settings.Default.Nalog_Naziv+"  ",font));
 
 
-            p1.Alignment = Element.ALIGN_CENTER;
-            p2.Alignment = Element.ALIGN_CENTER;
-            p3.Alignment = Element.ALIGN_CENTER;
-            p4.Alignment = Element.ALIGN_CENTER;
-            p.Alignment = Element.ALIGN_LEFT;
+          
             
 
             //p6.Alignment = Element.ALIGN_LEFT;
@@ -446,15 +474,11 @@ namespace EspressoFinal.Forms.Tabs
             //p17.Alignment = Element.ALIGN_LEFT;
             //p18.Alignment = Element.ALIGN_LEFT;
 
-            doc1.Add(p1);
-            doc1.Add(p2);
-            doc1.Add(p3);
-            doc1.Add(p4);
-            doc1.Add(p);
            
-            doc1.Add(p);
-            doc1.Add(p_stavke);
-            doc1.Add(p);
+           
+           
+           
+            //doc1.Add(p);
             doc1.Add(p7);
             doc1.Add(p8);
             doc1.Add(p9);
