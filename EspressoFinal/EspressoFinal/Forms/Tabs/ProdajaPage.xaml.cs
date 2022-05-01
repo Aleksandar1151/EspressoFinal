@@ -240,12 +240,12 @@ namespace EspressoFinal.Forms.Tabs
 
         private void OtpisiClick(object sender, RoutedEventArgs e)
         {
-            
+            string datum = DateTime.Today.ToString("dd-MM-yyyy");
             List<Otpis> ListOtpis = new List<Otpis>();
 
             foreach(KliknutaStavka kliknuta_stavka in RacunStavke)
             { 
-                Otpis otpis = new Otpis(Login.LoginWindow.IDNalog, kliknuta_stavka.idArtikal, kliknuta_stavka.kolicina);
+                Otpis otpis = new Otpis(Login.LoginWindow.IDNalog, kliknuta_stavka.idArtikal, kliknuta_stavka.kolicina, datum);
                 ListOtpis.Add(otpis);
             }
 
@@ -377,8 +377,9 @@ namespace EspressoFinal.Forms.Tabs
                  Paragraph p_stavke = new Paragraph();
                  Paragraph p_stavke_naziv = new Paragraph();
 
-                 p_stavke_naziv.Leading = 4;
+                 p_stavke_naziv.Leading = 8;
                  p_stavke.Leading = 6;
+
                 UkupnaCijena += stavka.kolicina * stavka.cijena;
                 p_stavke_naziv.Add(new Chunk((""+stavka.naziv),font));
                 p_stavke.Add(new Chunk("  "+stavka.kolicina+"x",font));

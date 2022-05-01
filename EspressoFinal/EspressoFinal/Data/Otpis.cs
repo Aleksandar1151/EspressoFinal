@@ -15,7 +15,6 @@ namespace EspressoFinal.Data
         public int idArtikal;
         public int kolicina;
         public int idNalog;
-
         public string nazivArtikla;
         public double cijena;
         public string datum;
@@ -23,20 +22,22 @@ namespace EspressoFinal.Data
 
         public Otpis()
         {}
-        public Otpis(int idNalog, int idArtikal , int kolicina )
+        public Otpis(int idNalog, int idArtikal , int kolicina, string datum )
         {
             
             this.idArtikal = idArtikal;
             this.kolicina = kolicina;
-            this.idNalog = idNalog;           
+            this.idNalog = idNalog;
+            this.datum = datum;
         }
 
-        public Otpis(int idOtpis,int idArtikal , int kolicina, int idNalog)
+        public Otpis(int idOtpis,int idArtikal , int kolicina, int idNalog, string datum)
         {
             this.idOtpis = idOtpis;
             this.idArtikal = idArtikal;
             this.kolicina = kolicina;
-            this.idNalog = idNalog;           
+            this.idNalog = idNalog;
+            this.datum = datum;
         }
 
         public Otpis(int idOtpis, string nazivArtikla, double cijena, int kolicina)
@@ -69,9 +70,10 @@ namespace EspressoFinal.Data
                     int idNalog = Convert.ToInt32(reader["Nalog_idNalog"]);
                     int kolicina = Convert.ToInt32(reader["kolicina"]);
                     int idArtikal = Convert.ToInt32(reader["Artikal_idArtikal"]);
+                    string datum = reader["datum"].ToString();
                   
 
-                    Otpis element = new Otpis(idOtpis,idArtikal,kolicina, idNalog );
+                    Otpis element = new Otpis(idOtpis,idArtikal,kolicina, idNalog, datum );
 
                     KolekcijaOtpis.Add(element);
                    
@@ -82,31 +84,6 @@ namespace EspressoFinal.Data
 
             return KolekcijaOtpis;
         }
-
-        public static void Sacuvaj(List<Otpis> ListOtpis)
-        {
-            Database.InitializeDB();
-            try
-            {
-                foreach(Otpis otpis in ListOtpis)
-                {
-                    String query = string.Format("INSERT INTO otpis SET " +
-                        "Nalog_idNalog = (SELECT idnalog FROM nalog WHERE idnalog = '{0}')," +
-                        "Artikal_idArtikal = (SELECT idartikal FROM artikal where idartikal = '{1}'), " +
-                        "kolicina = '{2}'" , otpis.idNalog, otpis.idArtikal, otpis.kolicina);
-
-                    MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
-
-                    Database.dbConn.Open();
-                    cmd.ExecuteNonQuery();                
-                    Database.dbConn.Close();  
-                }      
-            }
-            catch (Exception ex) { MessageBox.Show("Greška prilikom unosa otpisa u bazu.\nRazlog: " + ex.Message); }
-        }
-
-
-        #region Izvještaji
 
         public static ObservableCollection<Otpis> UcitajZaDnevniIzvjestaj()
         {
@@ -226,8 +203,26 @@ namespace EspressoFinal.Data
             return KolekcijaOtpis;
         }
 
-        #endregion
+        public static void Sacuvaj(List<Otpis> ListOtpis)
+        {
+            Database.InitializeDB();
+            try
+            {
+                foreach(Otpis otpis in ListOtpis)
+                {
+                    String query = string.Format("INSERT INTO otpis SET " +
+                        "Nalog_idNalog = (SELECT idnalog FROM nalog WHERE idnalog = '{0}')," +
+                        "Artikal_idArtikal = (SELECT idartikal FROM artikal where idartikal = '{1}'), " +
+                        "kolicina = '{2}', datum = '{3}'" , otpis.idNalog, otpis.idArtikal, otpis.kolicina, otpis.datum);
 
+                    MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
 
+                    Database.dbConn.Open();
+                    cmd.ExecuteNonQuery();                
+                    Database.dbConn.Close();  
+                }      
+            }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom unosa otpisa u bazu.\nRazlog: " + ex.Message); }
+        }
     }
 }              

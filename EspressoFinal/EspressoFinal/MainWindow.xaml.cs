@@ -135,7 +135,10 @@ namespace EspressoFinal
     
         private void ProdaneStavkeZaDnevniIzvjestaj()
         {
-            string datum = DateTime.Today.ToString("dd-MM-yyyy"); ;
+            string datum = DateTime.Today.ToString("dd-MM-yyyy"); 
+
+             
+
             Racuni = Racun.UcitajStornirane();
 
             Artikli = Artikal.Ucitaj();
@@ -245,13 +248,18 @@ namespace EspressoFinal
             doc1.Open();
             PdfContentByte cb = pdfWriter.DirectContent;
             //Font font = FontFactory.GetFont("HELVETICA", 6);
-            Font font1 = FontFactory.GetFont("HELVETICA", 20);
-            Font font2 = FontFactory.GetFont("HELVETICA", 15);
-            Font font3 = FontFactory.GetFont("HELVETICA", 10);
+             
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1250, false);
+            Font font1 = new Font(bf,20);
+            Font font2 = new Font(bf,15);
+            Font font3 = new Font(bf,10);
+
+
+
             iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
             iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
             iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("DNEVNI IZVJESTAJ ZA DATUM " + DateTime.Today.ToString("dd-MM-yyyy"), font2));
-            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font3));
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font2));
             PdfPTable table1 = new PdfPTable(5);
             table1.AddCell("ID artikla");
             table1.AddCell("Naziv");
@@ -261,18 +269,18 @@ namespace EspressoFinal
             double Ukupno1 = 0;
             foreach(Stavka stavka in ProdaneStavkeZaIspis)
             {
-                table1.AddCell(stavka.idArtikal.ToString());
-                table1.AddCell(stavka.naziv);
-                table1.AddCell(stavka.cijena.ToString());
-                table1.AddCell(stavka.kolicina.ToString());
-                table1.AddCell((stavka.kolicina * stavka.cijena).ToString());
+                table1.AddCell(new PdfPCell(new Phrase(stavka.idArtikal.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.naziv.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase((stavka.kolicina * stavka.cijena).ToString(),font3)));
                 Ukupno1 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell.Colspan = 4;
             table1.AddCell(cell);
-            table1.AddCell(Ukupno1.ToString());
-            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font3));
+            table1.AddCell(new PdfPCell(new Phrase(Ukupno1.ToString(),font2)));
+            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font2));
             PdfPTable table2 = new PdfPTable(5);
             table2.AddCell("ID storniranog racuna");
             table2.AddCell("ID racuna");
@@ -282,18 +290,19 @@ namespace EspressoFinal
             double Ukupno2 = 0;
             foreach (Stavka stavka in StorniraneStavke)
             {
-                table2.AddCell(stavka.idStorniranRacun.ToString());
-                table2.AddCell(stavka.idRacun.ToString());
-                table2.AddCell(stavka.naziv);
-                table2.AddCell(stavka.cijena.ToString());
-                table2.AddCell(stavka.kolicina.ToString());
+                table2.AddCell(new PdfPCell(new Phrase(stavka.idStorniranRacun.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.idRacun.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.naziv.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+    
                 Ukupno2 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell1 = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell1.Colspan = 4;
             table2.AddCell(cell1);
-            table2.AddCell(Ukupno2.ToString());
-            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font3));
+            table2.AddCell(new PdfPCell(new Phrase(Ukupno2.ToString(),font2)));
+            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font2));
             PdfPTable table3 = new PdfPTable(4);
             table3.AddCell("ID storniranog racuna");
             table3.AddCell("ID racuna");
@@ -302,15 +311,17 @@ namespace EspressoFinal
             double Ukupno3 = 0;
             foreach (Otpis stavka in otpis)
             {
-                table3.AddCell(stavka.idOtpis.ToString());
-                table3.AddCell(stavka.nazivArtikla);
-                table3.AddCell(stavka.cijena.ToString());
-                table3.AddCell(stavka.kolicina.ToString());
+               table3.AddCell(new PdfPCell(new Phrase(stavka.idOtpis.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.nazivArtikla.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+
                 Ukupno3 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell2 = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell2.Colspan = 3;
             table3.AddCell(cell2);
+
             table3.AddCell(Ukupno3.ToString());
             p1.Alignment = Element.ALIGN_CENTER;
             p2.Alignment = Element.ALIGN_CENTER;
@@ -363,13 +374,14 @@ namespace EspressoFinal
             doc1.Open();
             PdfContentByte cb = pdfWriter.DirectContent;
             //Font font = FontFactory.GetFont("HELVETICA", 6);
-            Font font1 = FontFactory.GetFont("HELVETICA", 20);
-            Font font2 = FontFactory.GetFont("HELVETICA", 15);
-            Font font3 = FontFactory.GetFont("HELVETICA", 10);
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1250, false);
+            Font font1 = new Font(bf,20);
+            Font font2 = new Font(bf,15);
+            Font font3 = new Font(bf,10);
             iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
             iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
             iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("MJESECNI IZVJESTAJ ZA " + DateTime.Today.ToString("dd-MM-yyyy").Split('-')[1] + ". MJESEC", font2));
-            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font3));
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font2));
             PdfPTable table1 = new PdfPTable(5);
             table1.AddCell("ID artikla");
             table1.AddCell("Naziv");
@@ -379,18 +391,20 @@ namespace EspressoFinal
             double Ukupno1 = 0;
             foreach (Stavka stavka in MjesecneStavke)
             {
-                table1.AddCell(stavka.idArtikal.ToString());
-                table1.AddCell(stavka.naziv);
-                table1.AddCell(stavka.cijena.ToString());
-                table1.AddCell(stavka.kolicina.ToString());
-                table1.AddCell((stavka.kolicina * stavka.cijena).ToString());
+                table1.AddCell(new PdfPCell(new Phrase(stavka.idArtikal.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.naziv.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase((stavka.kolicina * stavka.cijena).ToString(),font3)));
+
                 Ukupno1 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell.Colspan = 4;
             table1.AddCell(cell);
-            table1.AddCell(Ukupno1.ToString());
-            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font3));
+            table1.AddCell(new PdfPCell(new Phrase(Ukupno1.ToString(),font2)));
+            
+            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font2));
             PdfPTable table2 = new PdfPTable(5);
             table2.AddCell("ID storniranog racuna");
             table2.AddCell("ID racuna");
@@ -400,18 +414,21 @@ namespace EspressoFinal
             double Ukupno2 = 0;
             foreach (Stavka stavka in MjesecneStorniraneStavke)
             {
-                table2.AddCell(stavka.idStorniranRacun.ToString());
-                table2.AddCell(stavka.idRacun.ToString());
-                table2.AddCell(stavka.naziv);
-                table2.AddCell(stavka.cijena.ToString());
-                table2.AddCell(stavka.kolicina.ToString());
+                table2.AddCell(new PdfPCell(new Phrase(stavka.idStorniranRacun.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.idRacun.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.naziv.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+    
                 Ukupno2 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell1 = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell1.Colspan = 4;
             table2.AddCell(cell1);
-            table2.AddCell(Ukupno2.ToString());
-            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font3));
+            table2.AddCell(new PdfPCell(new Phrase(Ukupno2.ToString(),font2)));
+            
+
+            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font2));
             PdfPTable table3 = new PdfPTable(4);
             table3.AddCell("ID storniranog racuna");
             table3.AddCell("ID racuna");
@@ -420,16 +437,18 @@ namespace EspressoFinal
             double Ukupno3 = 0;
             foreach (Otpis stavka in otpis)
             {
-                table3.AddCell(stavka.idOtpis.ToString());
-                table3.AddCell(stavka.nazivArtikla);
-                table3.AddCell(stavka.cijena.ToString());
-                table3.AddCell(stavka.kolicina.ToString());
+                table3.AddCell(new PdfPCell(new Phrase(stavka.idOtpis.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.nazivArtikla.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+
                 Ukupno3 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell2 = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell2.Colspan = 3;
-            table3.AddCell(cell2);
-            table3.AddCell(Ukupno3.ToString());
+            table3.AddCell(cell2);            
+            table3.AddCell(new PdfPCell(new Phrase(Ukupno3.ToString(),font2)));
+
             p1.Alignment = Element.ALIGN_CENTER;
             p2.Alignment = Element.ALIGN_CENTER;
             p3.Alignment = Element.ALIGN_CENTER;
@@ -480,13 +499,14 @@ namespace EspressoFinal
             doc1.Open();
             PdfContentByte cb = pdfWriter.DirectContent;
             //Font font = FontFactory.GetFont("HELVETICA", 6);
-            Font font1 = FontFactory.GetFont("HELVETICA", 20);
-            Font font2 = FontFactory.GetFont("HELVETICA", 15);
-            Font font3 = FontFactory.GetFont("HELVETICA", 10);
+         BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1250, false);
+            Font font1 = new Font(bf,20);
+            Font font2 = new Font(bf,15);
+            Font font3 = new Font(bf,10);
             iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
             iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
             iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("GODISNJI IZVJESTAJ ZA " + DateTime.Today.ToString("dd-MM-yyyy").Split('-')[2] + ". GODINU", font2));
-            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font3));
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font2));
             PdfPTable table1 = new PdfPTable(5);
             table1.AddCell("ID artikla");
             table1.AddCell("Naziv");
@@ -496,18 +516,19 @@ namespace EspressoFinal
             double Ukupno1 = 0;
             foreach (Stavka stavka in GodisnjeStavke)
             {
-                table1.AddCell(stavka.idArtikal.ToString());
-                table1.AddCell(stavka.naziv);
-                table1.AddCell(stavka.cijena.ToString());
-                table1.AddCell(stavka.kolicina.ToString());
-                table1.AddCell((stavka.kolicina * stavka.cijena).ToString());
+               table1.AddCell(new PdfPCell(new Phrase(stavka.idArtikal.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.naziv.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase((stavka.kolicina * stavka.cijena).ToString(),font3)));
                 Ukupno1 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell.Colspan = 4;
             table1.AddCell(cell);
-            table1.AddCell(Ukupno1.ToString());
-            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font3));
+             table1.AddCell(new PdfPCell(new Phrase(Ukupno1.ToString(),font2)));
+
+            iTextSharp.text.Paragraph p4 = new iTextSharp.text.Paragraph(new Chunk("TABELA STORNIRANIH STAVKI", font2));
             PdfPTable table2 = new PdfPTable(5);
             table2.AddCell("ID storniranog racuna");
             table2.AddCell("ID racuna");
@@ -517,18 +538,20 @@ namespace EspressoFinal
             double Ukupno2 = 0;
             foreach (Stavka stavka in GodisnjeStorniraneStavke)
             {
-                table2.AddCell(stavka.idStorniranRacun.ToString());
-                table2.AddCell(stavka.idRacun.ToString());
-                table2.AddCell(stavka.naziv);
-                table2.AddCell(stavka.cijena.ToString());
-                table2.AddCell(stavka.kolicina.ToString());
+                 table2.AddCell(new PdfPCell(new Phrase(stavka.idStorniranRacun.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.idRacun.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.naziv.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table2.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+
                 Ukupno2 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell1 = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell1.Colspan = 4;
             table2.AddCell(cell1);
-            table2.AddCell(Ukupno2.ToString());
-            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font3));
+            table2.AddCell(new PdfPCell(new Phrase(Ukupno2.ToString(),font2)));
+
+            iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font2));
             PdfPTable table3 = new PdfPTable(4);
             table3.AddCell("ID storniranog racuna");
             table3.AddCell("ID racuna");
@@ -537,16 +560,18 @@ namespace EspressoFinal
             double Ukupno3 = 0;
             foreach (Otpis stavka in otpis)
             {
-                table3.AddCell(stavka.idOtpis.ToString());
-                table3.AddCell(stavka.nazivArtikla);
-                table3.AddCell(stavka.cijena.ToString());
-                table3.AddCell(stavka.kolicina.ToString());
+                table3.AddCell(new PdfPCell(new Phrase(stavka.idOtpis.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.nazivArtikla.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.cijena.ToString(),font3)));
+                table3.AddCell(new PdfPCell(new Phrase(stavka.kolicina.ToString(),font3)));
+
                 Ukupno3 += stavka.cijena * stavka.kolicina;
             }
             PdfPCell cell2 = new PdfPCell(new Phrase("Ukupno [KM]"));
             cell2.Colspan = 3;
             table3.AddCell(cell2);
-            table3.AddCell(Ukupno3.ToString());
+            table3.AddCell(new PdfPCell(new Phrase(Ukupno3.ToString(),font2)));
+
             p1.Alignment = Element.ALIGN_CENTER;
             p2.Alignment = Element.ALIGN_CENTER;
             p3.Alignment = Element.ALIGN_CENTER;
