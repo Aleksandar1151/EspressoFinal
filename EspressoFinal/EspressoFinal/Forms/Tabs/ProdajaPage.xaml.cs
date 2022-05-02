@@ -47,6 +47,7 @@ namespace EspressoFinal.Forms.Tabs
 
         int trenutniX=5;
         int trenutniY=10;
+        double canvas_dynamic_height = 0;
 
          string darkColor = "#52796F";
          string lightColor = "#CAD2C5";
@@ -62,6 +63,7 @@ namespace EspressoFinal.Forms.Tabs
             RacunStavke = new ObservableCollection<KliknutaStavka>();
 
             ReceiptListView.ItemsSource = RacunStavke;
+           // button_height = ButtonCanvas.Height;
         }
 
         private void NapraviDugmad(ObservableCollection<Artikal> Kolekcija)
@@ -83,6 +85,7 @@ namespace EspressoFinal.Forms.Tabs
                     btnNew.Foreground = (Brush)bc.ConvertFrom("#CAD2C5"); 
                     
                     ListaDugmad.Add(btnNew);
+
                 }
                 
                 
@@ -95,6 +98,23 @@ namespace EspressoFinal.Forms.Tabs
 
         private void PostaviDugmad()
         {
+
+            if(canvas_dynamic_height < ListaDugmad.Count * 40 && ListaDugmad.Count > 18)
+            {
+                for (int i = 0; i*3 < ListaDugmad.Count; i++)
+                {
+                     canvas_dynamic_height += YSkok;
+                }
+                ButtonCanvas.Height = canvas_dynamic_height;
+            }
+            else
+            {
+
+            }
+            
+
+           // ButtonCanvas.Height = button_height;
+            int broj_reda=1;
             int noviRed = 1;
             foreach(var item in ListaDugmad)
             {
@@ -103,10 +123,17 @@ namespace EspressoFinal.Forms.Tabs
                     trenutniY+=YSkok;                    
                     trenutniX = 5;
                    
+                    
                     Canvas.SetLeft(item,KORAK*trenutniX);
                     Canvas.SetTop(item,trenutniY);
                     trenutniX += 100;
                     noviRed = 1;
+
+                    broj_reda++;
+                   // if(ListaDugmad.Count > broj_reda*3)
+                    //ButtonCanvas.Height += YSkok;
+
+                    Console.WriteLine("ButtonCanvas.Height: "+ButtonCanvas.Height +" ListaDugmad.Count "+ ListaDugmad.Count);
                 }
                 else
                 {

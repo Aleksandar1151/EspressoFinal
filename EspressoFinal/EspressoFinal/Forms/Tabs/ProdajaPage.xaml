@@ -23,13 +23,17 @@
                     </StackPanel>
                     
 
-                </Grid>               
-                    <Canvas Width="700"  x:Name="ButtonCanvas" Background="White">
-                        
-
+                </Grid>
+                <ScrollViewer Width="700" Height="660" VerticalAlignment="Top">
+                    
+                    <Canvas  Width="700" Height="680"  x:Name="ButtonCanvas"   Background="White">
+                   
+                    
                     </Canvas>
-                
-                
+                </ScrollViewer>
+
+
+
             </StackPanel>
             
 
