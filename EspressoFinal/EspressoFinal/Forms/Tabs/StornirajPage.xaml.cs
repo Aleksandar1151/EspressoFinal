@@ -165,7 +165,7 @@ namespace EspressoFinal.Forms.Tabs
             
             iTextSharp.text.Paragraph p4 = new Paragraph(new Chunk("MALOPRODAJNI REKLAMIRANI RACUN", font_naslov));
 
-            iTextSharp.text.Paragraph p5 = new Paragraph(new Chunk("BROJ RAČUNA:" + id_storniranog_racuna.ToString(), font_naslov));
+            iTextSharp.text.Paragraph p5 = new Paragraph(new Chunk("BROJ RAČUNA:" + idRacuna, font_naslov));
             
             //Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F, 100.0F, BaseColor.BLACK, Element.ALIGN_LEFT, 1) + "  "));
             Paragraph p = new Paragraph(new Chunk(new iTextSharp.text.pdf.draw.LineSeparator(0.0F,95.0F, BaseColor.BLACK, Element.ALIGN_CENTER, 1)) );
@@ -269,7 +269,7 @@ namespace EspressoFinal.Forms.Tabs
 
             iTextSharp.text.Paragraph p17 = new Paragraph(new Chunk("BR:", font));
             p17.Add(new Chunk(glue));
-            p17.Add(new Chunk(idRacuna.ToString()+"  ",font));
+            p17.Add(new Chunk(id_storniranog_racuna.ToString()+"  ",font));
 
             iTextSharp.text.Paragraph p18 = new Paragraph(new Chunk("KONOBAR:", font));
             p18.Add(new Chunk(glue));

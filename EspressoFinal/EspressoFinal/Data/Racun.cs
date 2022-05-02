@@ -14,7 +14,7 @@ namespace EspressoFinal.Data
     {
         public int idRacun { get;set;}
         public string datum { get;set;}
-        public double iznos { get;set;}
+        //public double iznos { get;set;}
         public int idNalog { get;set;}
 
        
@@ -27,7 +27,7 @@ namespace EspressoFinal.Data
         {
             this.idRacun = idRacun;
             this.datum = datum;
-            this.iznos = iznos;
+           // this.iznos = iznos;
             this.idNalog = idNalog;
         }
 
@@ -85,21 +85,21 @@ namespace EspressoFinal.Data
             catch (Exception ex) { MessageBox.Show("Greška prilikom unosa racuna u bazu.\nRazlog: " + ex.Message); }
         }
 
-        public void Azuriraj()
-        {
-            try
-            {
-                String query = string.Format("UPDATE racun SET " +
-               "iznos='{0}' WHERE idRacun = '{1}'"
-               , iznos, idRacun);
+        //public void Azuriraj()
+        //{
+        //    try
+        //    {
+        //        String query = string.Format("UPDATE racun SET " +
+        //       "iznos='{0}' WHERE idRacun = '{1}'"
+        //       , iznos, idRacun);
 
-                MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
-                Database.dbConn.Open();
-                cmd.ExecuteNonQuery();
-                Database.dbConn.Close();               
-            }
-            catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja racuna u bazi.\nRazlog: " + ex.Message); }
-        }
+        //        MySqlCommand cmd = new MySqlCommand(query, Database.dbConn);
+        //        Database.dbConn.Open();
+        //        cmd.ExecuteNonQuery();
+        //        Database.dbConn.Close();
+        //    }
+        //    catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja racuna u bazi.\nRazlog: " + ex.Message); }
+        //}
 
         public void PretraziRacun(int id)
         {
