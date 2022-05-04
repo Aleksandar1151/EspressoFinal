@@ -48,23 +48,29 @@ namespace EspressoFinal.Forms.Tabs
 
         private void DodajArtikal_Click(object sender, RoutedEventArgs e)
         {
-            
-            //ComboBoxItem comboBoxItem = (ComboBoxItem)KategorijaCombo.SelectedIndex;
-            //string izabranaKategorija = comboBoxItem.Content.ToString();   
-        
 
-            Artikal artikal = new Artikal(NazivBox.Text,Convert.ToDouble(CijenaBox.Text), Convert.ToInt32(KolicinaBox.Text), (KategorijaCombo.SelectedIndex + 1) );
-            
-            KolekcijaArtikal.Add(artikal);
-            Artikal.Dodaj(artikal);
+            try
+            {
+                 if(NazivBox.Text == "") throw new InvalidOperationException();
+                 if(CijenaBox.Text == "") throw new InvalidOperationException();
+                 if(KolicinaBox.Text == "") throw new InvalidOperationException();
+                 if(KategorijaCombo.SelectedIndex == -1) throw new InvalidOperationException();
 
-            NazivBox.Text = null;
-            CijenaBox.Text = null;
-            KolicinaBox.Text = null;
 
-            KategorijaCombo.SelectedItem = null;
+               CijenaBox.Text = CijenaBox.Text.Replace(",", ".");
+               Artikal artikal = new Artikal(NazivBox.Text,Convert.ToDouble(CijenaBox.Text), Convert.ToInt32(KolicinaBox.Text), (KategorijaCombo.SelectedIndex + 1) );
+               KolekcijaArtikal.Add(artikal);
+               Artikal.Dodaj(artikal);
 
-            
+               
+               NazivBox.Text = null;
+               CijenaBox.Text = null;
+               KolicinaBox.Text = null;
+
+               KategorijaCombo.SelectedItem = null;
+            }
+            catch (Exception) { MessageBox.Show("Format unosa nije validan."); }          
+
         }
 
         private void ListElement_Click(object sender, MouseButtonEventArgs e)
@@ -89,23 +95,28 @@ namespace EspressoFinal.Forms.Tabs
                 }
                (sender as ListView).SelectedItem = null;
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }
+            catch (Exception) { MessageBox.Show("Greška prilikom odabira artikla."); }
         }
 
         private void DodajKolicinu_Click(object sender, RoutedEventArgs e)
         {
-            SkladisteListView.ItemsSource = null;            
-
+             SkladisteListView.ItemsSource = null;       
             int index = KolekcijaArtikal.ToList().FindIndex(num => num.idArtikal == kliknutIdArtikal);
-            KolekcijaArtikal[index].kolicina += Convert.ToInt32(KolicinaDodajBox.Text); 
+            try
+            {
+               
+                KolekcijaArtikal[index].kolicina += Convert.ToInt32(KolicinaDodajBox.Text); 
+                Artikal.Azuriraj(KolekcijaArtikal);
+                
+                KolicinaDodajBox.IsEnabled = false;
+                DodajKolicinuButton.IsEnabled = false;
+                KolicinaDodajBox.Text = null;
+                LabelArtikal.Foreground  = Brushes.LightGray; 
+            }
+            catch (Exception) { MessageBox.Show("Format unosa nije validan."); }
 
-            Artikal.Azuriraj(KolekcijaArtikal);
 
-            SkladisteListView.ItemsSource = KolekcijaArtikal;
-            KolicinaDodajBox.IsEnabled = false;
-            DodajKolicinuButton.IsEnabled = false;
-            KolicinaDodajBox.Text = null;
-            LabelArtikal.Foreground  = Brushes.LightGray;
+           SkladisteListView.ItemsSource = KolekcijaArtikal;
 
         }
     }

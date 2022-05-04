@@ -77,7 +77,7 @@ namespace EspressoFinal.Data
                 }
                 Database.dbConn.Close();
             }
-            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja artikala iz baze!!!!!\nRazlog: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja artikala iz baze.\nRazlog: " + ex.Message); }
 
             return KolekcijaArtikal;
         }
@@ -124,7 +124,7 @@ namespace EspressoFinal.Data
 
                         
             }
-            catch (Exception ex) { MessageBox.Show("Greška prilikom mijenjanja artikla u bazi.\nRazlog: " + ex.Message); }
+            catch (Exception ex) { MessageBox.Show("Greška prilikom dodavanja artikla u bazu.\nRazlog: " + ex.Message); }
         }
 
 

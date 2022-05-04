@@ -61,29 +61,39 @@ namespace EspressoFinal.Forms.Tabs
 
         private void AzurirajNalog_Click(object sender, RoutedEventArgs e)
         {
-            #region popup            
-            myPopup.AllowsTransparency = true;
-            myPopupText.Text = "USPJEŠNO AŽURIRAN NALOG";
-            this.myPopup.IsOpen = true;
-            #endregion
+            try
+            {
+                /*
+                #region popup            
+                myPopup.AllowsTransparency = true;
+                myPopupText.Text = "USPJEŠNO AŽURIRAN NALOG";
+                this.myPopup.IsOpen = true;
+                #endregion
+                */
 
-            string priv = "nema";
-            if(AzurirajPrivilegije.IsChecked == true) priv = "ima";
+                string priv = "nema";
+                if(AzurirajPrivilegije.IsChecked == true) priv = "ima";
 
-            int index = KolekcijaNalog.ToList().FindIndex(num => num.idNalog == kliknutiNalog);
-            KolekcijaNalog[index].privilegije = priv;
-            KolekcijaNalog[index].Azuriraj();
+                int index = KolekcijaNalog.ToList().FindIndex(num => num.idNalog == kliknutiNalog);
+                KolekcijaNalog[index].privilegije = priv;
+                KolekcijaNalog[index].Azuriraj();
 
-            RefreshView();
+                RefreshView();
+            }
+            catch (Exception ex) { MessageBox.Show("Greška.\nRazlog: " + ex.Message); }
+
+           
         }
 
         private void ObrisiNalog_Click(object sender, RoutedEventArgs e)
         {
+            /*
             #region popup
             myPopup.AllowsTransparency = true;
             myPopupText.Text = "USPJEŠNO OBRISAN NALOG";
             this.myPopup.IsOpen = true;
             #endregion
+            */
             int index = KolekcijaNalog.ToList().FindIndex(num => num.idNalog == kliknutiNalog);
             KolekcijaNalog[index].Obrisi();
             KolekcijaNalog.RemoveAt(index);
@@ -98,26 +108,36 @@ namespace EspressoFinal.Forms.Tabs
 
         private void NoviNalog_Click(object sender, RoutedEventArgs e)
         {
+            /*
             #region popup
             myPopup.AllowsTransparency = true;
             myPopupText.Text = "USPJEŠNO KREIRAN NALOG";
             this.myPopup.IsOpen = true;
             #endregion
-            
-            int privilegija_temp = 0;
-            if(PrivilegijeToogle.IsChecked == true)  privilegija_temp = 1;
+            */
+            try
+            {
+                 if(NazivBox.Text == "") throw new InvalidOperationException();
+                 if(LozinkaBox.Text == "") throw new InvalidOperationException();
 
-            Nalog noviNalog = new Nalog(NazivBox.Text,LozinkaBox.Text, privilegija_temp);
-            KolekcijaNalog.Add(noviNalog);
 
-            NalogListView.ItemsSource = null;
-            NalogListView.ItemsSource = KolekcijaNalog;
+                int privilegija_temp = 0;
+                if(PrivilegijeToogle.IsChecked == true)  privilegija_temp = 1;
 
-            noviNalog.Sacuvaj();
+                Nalog noviNalog = new Nalog(NazivBox.Text,LozinkaBox.Text, privilegija_temp);
+                KolekcijaNalog.Add(noviNalog);
 
-            NazivBox.Text = null;
-            LozinkaBox.Text = null;
-            PrivilegijeToogle.IsChecked = false;
+                NalogListView.ItemsSource = null;
+                NalogListView.ItemsSource = KolekcijaNalog;
+
+                noviNalog.Sacuvaj();
+
+                NazivBox.Text = null;
+                LozinkaBox.Text = null;
+                PrivilegijeToogle.IsChecked = false;
+            }
+            catch (Exception) { MessageBox.Show("Format unosa nije validan."); }
+
 
         }
 

@@ -199,7 +199,7 @@ namespace EspressoFinal.Forms.Tabs
             ReceiptListView.ItemsSource = RacunStavke;
 
             UkupnaCijena += stavka.cijena;
-            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
+            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena.ToString("0.00") +" KM"; 
         }
 
         private ObservableCollection<Artikal> IzdvojiArtikle(int kategorija)
@@ -247,22 +247,30 @@ namespace EspressoFinal.Forms.Tabs
 
         private void StampajClick(object sender, RoutedEventArgs e)
         {
-            Racun racun = new Racun();
-            racun.Sacuvaj();
-
-            List<Stavka> ListStavke = new List<Stavka>();
-
-            foreach(KliknutaStavka kliknuta_stavka in RacunStavke)
+            if(RacunStavke.Count > 0)
             {
-                Stavka stavka = new Stavka(racun.idRacun,kliknuta_stavka.idArtikal,kliknuta_stavka.naziv,kliknuta_stavka.cijena,kliknuta_stavka.kolicina);
-                ListStavke.Add(stavka);
+                Racun racun = new Racun();
+                racun.Sacuvaj();
+
+                List<Stavka> ListStavke = new List<Stavka>();
+
+                foreach(KliknutaStavka kliknuta_stavka in RacunStavke)
+                {
+                    Stavka stavka = new Stavka(racun.idRacun,kliknuta_stavka.idArtikal,kliknuta_stavka.naziv,kliknuta_stavka.cijena,kliknuta_stavka.kolicina);
+                    ListStavke.Add(stavka);
+                }
+
+                Stavka.Sacuvaj(ListStavke);
+
+                StampaPDF(racun.idRacun);
+
+                OsvjeziRacun();
             }
-
-            Stavka.Sacuvaj(ListStavke);
-
-            StampaPDF(racun.idRacun);
-
-            OsvjeziRacun();
+            else
+            {
+                MessageBox.Show("Unesite stavke.");
+            }
+            
         }
 
         private void OtpisiClick(object sender, RoutedEventArgs e)
@@ -287,7 +295,7 @@ namespace EspressoFinal.Forms.Tabs
             Artikal.Azuriraj(KolekcijaArtikal);
             RacunStavke.Clear();
             UkupnaCijena = 0;
-            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM"; 
+            UkupnoLabel.Content = "Ukupno: " + UkupnaCijena.ToString("0.00") +" KM"; 
         }
 
         private void ListStavka_Click(object sender, MouseButtonEventArgs e)
@@ -324,7 +332,7 @@ namespace EspressoFinal.Forms.Tabs
                     {
                         UkupnaCijena = 0;
                     }
-                    UkupnoLabel.Content = "Ukupno: " + UkupnaCijena +" KM";
+                    UkupnoLabel.Content = "Ukupno: " + UkupnaCijena.ToString("0.00") +" KM";
 
                     if(RacunStavke[index].kolicina == 0)
                     {

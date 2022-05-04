@@ -12,7 +12,7 @@
             <materialDesign:PackIcon Kind="Person" Foreground="#52796F" Width="100" Height="120" HorizontalAlignment="Center" />
 
             <TextBox x:Name="ImeBox" materialDesign:HintAssist.Hint="Korisničko ime"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextWrapping="Wrap" Text="" Width="500" FontSize="25" />
-            <PasswordBox   x:Name="LozinkaBox" Width="500" FontSize="25"  Margin="0,40,0,0" materialDesign:HintAssist.Hint="Lozinka" />
+            <PasswordBox   x:Name="LozinkaBox" materialDesign:HintAssist.Hint="Lozinka" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Width="500" FontSize="25"  Margin="0,40,0,0"  />
 
 
             <Button Content="Prijava" FontSize="20" Background="#52796F" Margin="80,50,80,0" Height="45" Style="{StaticResource MaterialDesignRaisedDarkButton}" Click="Button_Click"></Button>

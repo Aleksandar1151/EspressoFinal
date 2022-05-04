@@ -45,12 +45,19 @@ namespace EspressoFinal.Forms.Tabs
 
         private void PretraziRacun_Click(object sender, RoutedEventArgs e)
         {
-            idRacuna = RacunBox.Text;                  
-            racun.PretraziRacun(Convert.ToInt32(idRacuna));
 
-            RacunStavke = Stavka.UcitajStavkeRacuna(racun.idRacun);
+            try
+            {
+                idRacuna = RacunBox.Text;                  
+                racun.PretraziRacun(Convert.ToInt32(idRacuna));
+               
 
-            RacunListView.ItemsSource = RacunStavke;
+                RacunStavke = Stavka.UcitajStavkeRacuna(racun.idRacun);
+
+                RacunListView.ItemsSource = RacunStavke;
+            }
+            catch (Exception) { MessageBox.Show("Format unosa nije validan."); }
+            
 
             
         }
@@ -100,36 +107,42 @@ namespace EspressoFinal.Forms.Tabs
         }
 
         private void Stampa_Click(object sender, RoutedEventArgs e)
-        {            
-            StorniranRacun storniranRacun = new StorniranRacun();
-            racun.Sacuvaj();
-            storniranRacun.Sacuvaj(racun.idRacun);
-            id_storniranog_racuna = storniranRacun.idStorniranRacun;
+        {       
+            try
+            {
+                StorniranRacun storniranRacun = new StorniranRacun();
+                racun.Sacuvaj();
+                storniranRacun.Sacuvaj(racun.idRacun);
+                id_storniranog_racuna = storniranRacun.idStorniranRacun;
             
 
-            List<Stavka> ListStavke = new List<Stavka>();
+                List<Stavka> ListStavke = new List<Stavka>();
 
-            foreach(Stavka kliknuta_stavka in KolekcijaStorniran)
-            {
-                Stavka stavka = new Stavka(racun.idRacun,kliknuta_stavka.idArtikal,kliknuta_stavka.naziv,kliknuta_stavka.cijena,kliknuta_stavka.kolicina, storniranRacun.idStorniranRacun);
-                ListStavke.Add(stavka);
+                foreach(Stavka kliknuta_stavka in KolekcijaStorniran)
+                {
+                    Stavka stavka = new Stavka(racun.idRacun,kliknuta_stavka.idArtikal,kliknuta_stavka.naziv,kliknuta_stavka.cijena,kliknuta_stavka.kolicina, storniranRacun.idStorniranRacun);
+                    ListStavke.Add(stavka);
+                }
+
+                Stavka.SacuvajStorniran(ListStavke);
+                AzurirajArtikle();
+
+                RacunStavke.Clear();
+                KolekcijaStorniran.Clear();
+
+                RacunListView.ItemsSource = null;
+                StorniranListView.ItemsSource = null;
+
+                RacunListView.ItemsSource = RacunStavke;
+                StorniranListView.ItemsSource = KolekcijaStorniran;
+
+                RacunBox.Text = null;
+
+                Stampa_PDF(ListStavke);
             }
+            catch (Exception) { MessageBox.Show("Greška prilikom štampe."); }
 
-            Stavka.SacuvajStorniran(ListStavke);
-            AzurirajArtikle();
 
-            RacunStavke.Clear();
-            KolekcijaStorniran.Clear();
-
-            RacunListView.ItemsSource = null;
-            StorniranListView.ItemsSource = null;
-
-            RacunListView.ItemsSource = RacunStavke;
-            StorniranListView.ItemsSource = KolekcijaStorniran;
-
-            RacunBox.Text = null;
-
-            Stampa_PDF(ListStavke);
         }
 
         private void Stampa_PDF(List<Stavka> ListStavke)
@@ -309,8 +322,7 @@ namespace EspressoFinal.Forms.Tabs
             foreach(Stavka stornirana_stavka in KolekcijaStorniran)
             { 
                 int index = KolekcijaArtikal.ToList().FindIndex(num => num.idArtikal == stornirana_stavka.idArtikal);
-                KolekcijaArtikal[index].kolicina += stornirana_stavka.kolicina;
-                Console.WriteLine("Stavka stornirana količina: "+stornirana_stavka.kolicina);
+                KolekcijaArtikal[index].kolicina += stornirana_stavka.kolicina;                
             }
 
             Artikal.Azuriraj(KolekcijaArtikal);
