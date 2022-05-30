@@ -53,7 +53,7 @@
                         <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding kategorija}" Value="1">
-                                    <Setter Property="Background" Value="#8E9AAF" />
+                                    <Setter Property="Background" Value="#bbd0ff" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding kategorija}" Value="2">
                                     <Setter Property="Background" Value="#CBC0D3" />

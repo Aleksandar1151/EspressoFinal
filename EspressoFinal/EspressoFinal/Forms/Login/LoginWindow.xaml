@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EspressoFinal.Forms.Login"
         mc:Ignorable="d"
-        Title="Login" Height="748" Width="1366" WindowStartupLocation="CenterScreen" WindowState="Maximized" KeyDown="PressedEnter">
+        Title="Login" Height="748" Width="1366" WindowStartupLocation="CenterScreen" WindowState="Maximized" KeyDown="PressedEnter" Icon="/EspressoFinal;component/coffee-cup.ico">
     <Grid x:Name="LoginGrid" Background="White">
         <StackPanel Margin="400,100,400,100">
             <materialDesign:PackIcon Kind="Person" Foreground="#52796F" Width="100" Height="120" HorizontalAlignment="Center" />

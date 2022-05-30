@@ -262,6 +262,7 @@ namespace EspressoFinal
             iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
             iTextSharp.text.Paragraph p11 = new iTextSharp.text.Paragraph();
             iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("DNEVNI IZVJESTAJ ZA DATUM " + DateTime.Today.ToString("dd-MM-yyyy"), font2));
+            iTextSharp.text.Paragraph p2_1 = new iTextSharp.text.Paragraph(new Chunk("VRIJEME: " + DateTime.Now.ToString("HH:mm"), font2));
             iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph(new Chunk("TABELA PRODANIH STAVKI", font2));
             PdfPTable table1 = new PdfPTable(5);
             table1.AddCell("ID artikla");
@@ -328,12 +329,14 @@ namespace EspressoFinal
             table3.AddCell(Ukupno3.ToString());
             p1.Alignment = Element.ALIGN_CENTER;
             p2.Alignment = Element.ALIGN_CENTER;
+            p2_1.Alignment = Element.ALIGN_CENTER;
             p3.Alignment = Element.ALIGN_CENTER;
             p4.Alignment = Element.ALIGN_CENTER;
             p5.Alignment = Element.ALIGN_CENTER;
             doc1.Add(p1);
             doc1.Add(Chunk.NEWLINE);
-            doc1.Add(p2);
+            doc1.Add(p2);            
+            doc1.Add(p2_1);
             doc1.Add(Chunk.NEWLINE);
             doc1.Add(Chunk.NEWLINE);
             doc1.Add(p3);
@@ -351,7 +354,7 @@ namespace EspressoFinal
             doc1.Add(table3);
 
             doc1.Close();
-            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\DI-" + datum + ").pdf");
         }
 
         private void Mjesecni_izvjestaj(object sender, RoutedEventArgs e)
@@ -476,7 +479,7 @@ namespace EspressoFinal
             doc1.Add(Chunk.NEWLINE);
             doc1.Add(table3);
             doc1.Close();
-            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\MI-(" + datum + ").pdf");
         }
 
         private void GodisnjiIzvjestaj_Click(object sender, RoutedEventArgs e)
@@ -599,7 +602,7 @@ namespace EspressoFinal
             doc1.Add(Chunk.NEWLINE);
             doc1.Add(table3);
             doc1.Close();
-            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\GI-(" + datum + ").pdf");
         }
 
         private void LogOutClick(object sender, RoutedEventArgs e)

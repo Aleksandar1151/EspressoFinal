@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EspressoFinal"
         mc:Ignorable="d"
-        Title="Espresso" Height="748" Width="1366" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+        Title="Espresso" Height="748" Width="1366" WindowStartupLocation="CenterScreen" WindowState="Maximized" Icon="coffee-cup.ico">
     <Grid x:Name="StartGrid" Background="White">
         <StackPanel>
             <Grid Height="50" Margin="0,0,0,0" VerticalAlignment="Top">

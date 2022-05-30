@@ -60,6 +60,7 @@ namespace EspressoFinal.Forms.Tabs
                CijenaBox.Text = CijenaBox.Text.Replace(",", ".");
                Artikal artikal = new Artikal(NazivBox.Text,Convert.ToDouble(CijenaBox.Text), Convert.ToInt32(KolicinaBox.Text), (KategorijaCombo.SelectedIndex + 1) );
                KolekcijaArtikal.Add(artikal);
+              
                Artikal.Dodaj(artikal);
 
                
@@ -68,6 +69,9 @@ namespace EspressoFinal.Forms.Tabs
                KolicinaBox.Text = null;
 
                KategorijaCombo.SelectedItem = null;
+
+               KolekcijaArtikal  = new ObservableCollection<Artikal>(KolekcijaArtikal.OrderBy(i => i.kategorija));
+               SkladisteListView.ItemsSource = KolekcijaArtikal;
             }
             catch (Exception) { MessageBox.Show("Format unosa nije validan."); }          
 

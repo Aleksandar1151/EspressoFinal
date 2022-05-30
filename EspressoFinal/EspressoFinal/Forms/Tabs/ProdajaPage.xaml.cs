@@ -40,7 +40,7 @@ namespace EspressoFinal.Forms.Tabs
         List<Button> ListaDugmad = new List<Button>();
        
 
-        int SIRINA = 220;
+        int SIRINA = 210;
         int VISINA = 100;
         double KORAK = 2.3;
         int YSkok = 120;
