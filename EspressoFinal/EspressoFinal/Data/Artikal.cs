@@ -79,6 +79,8 @@ namespace EspressoFinal.Data
             }
             catch (Exception ex) { MessageBox.Show("Greška prilikom preuzimanja artikala iz baze.\nRazlog: " + ex.Message); }
 
+            KolekcijaArtikal  = new ObservableCollection<Artikal>(KolekcijaArtikal.OrderBy(i => i.kategorija));
+
             return KolekcijaArtikal;
         }
 

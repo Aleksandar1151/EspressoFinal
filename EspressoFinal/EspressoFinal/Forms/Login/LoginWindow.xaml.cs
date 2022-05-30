@@ -32,8 +32,18 @@ namespace EspressoFinal.Forms.Login
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {             
+            LoginFunction();            
+        }
+
+        private void PressedEnter(object sender, KeyEventArgs e)
         {
-             int index = KolekcijaNaloga.ToList().FindIndex(item => item.ime == ImeBox.Text);
+            if(e.Key == Key.Enter) LoginFunction();
+        }
+
+        private void LoginFunction()
+        {
+            int index = KolekcijaNaloga.ToList().FindIndex(item => item.ime == ImeBox.Text);
              
             if(index != -1)
             {
@@ -63,9 +73,6 @@ namespace EspressoFinal.Forms.Login
                 MessageBox.Show("Greška prilikom prijavljivanja.");
             }
 
-
-
-            
         }
     }
 }

@@ -48,7 +48,30 @@
             <StackPanel Margin="30">
                 <Label Content="ARTIKLI U SKLADIŠTU" FontSize="25" Foreground="LightGray" FontWeight="Bold" Margin="0,00,0,0" />
                 
-                <ListView x:Name="SkladisteListView" Background="White" PreviewMouseLeftButtonUp="ListElement_Click"  >                   
+                <ListView x:Name="SkladisteListView" Background="White" PreviewMouseLeftButtonUp="ListElement_Click" Height="580" >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding kategorija}" Value="1">
+                                    <Setter Property="Background" Value="#8E9AAF" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding kategorija}" Value="2">
+                                    <Setter Property="Background" Value="#CBC0D3" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding kategorija}" Value="3">
+                                    <Setter Property="Background" Value="#EFD3D7" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding kategorija}" Value="4">
+                                    <Setter Property="Background" Value="#FEEAFA" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding kategorija}" Value="5">
+                                    <Setter Property="Background" Value="#DEE2FF" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+
 
                     <ListView.View>
                         <GridView>

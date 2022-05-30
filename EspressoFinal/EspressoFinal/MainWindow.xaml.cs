@@ -50,6 +50,7 @@ namespace EspressoFinal
 
         public static ObservableCollection<Stavka> GodisnjeStavke = new ObservableCollection<Stavka>();
         public static ObservableCollection<Stavka> GodisnjeStorniraneStavke = new ObservableCollection<Stavka>();
+        public static ObservableCollection<Artikal> ArtikliSkladiste = new ObservableCollection<Artikal>();
         #endregion
 
 
@@ -63,6 +64,8 @@ namespace EspressoFinal
                 ButtonTab3.IsEnabled = false;
                 ButtonTab4.IsEnabled = false;
             }
+
+            Title ="Esspreso - Nalog: " + Properties.Settings.Default.Nalog_Naziv;
 
 
             MainGrid.Children.Clear();
@@ -136,7 +139,7 @@ namespace EspressoFinal
         private void ProdaneStavkeZaDnevniIzvjestaj()
         {
             string datum = DateTime.Today.ToString("dd-MM-yyyy"); 
-
+            ProdaneStavkeZaIspis.Clear();
              
 
             Racuni = Racun.UcitajStornirane();
@@ -234,7 +237,7 @@ namespace EspressoFinal
                 Directory.CreateDirectory(dir);
             }
             string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
-            string path = "C:\\Izvjestaji\\" + datum + ".pdf";
+            string path = "C:\\Izvjestaji\\DI-" + datum + ").pdf";
             Document doc1 = new Document();
             doc1.SetMargins(5, 0, 0, 0);
             doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
@@ -304,10 +307,10 @@ namespace EspressoFinal
             table2.AddCell(new PdfPCell(new Phrase(Ukupno2.ToString(),font2)));
             iTextSharp.text.Paragraph p5 = new iTextSharp.text.Paragraph(new Chunk("TABELA OTPISA", font2));
             PdfPTable table3 = new PdfPTable(4);
-            table3.AddCell("ID storniranog racuna");
-            table3.AddCell("ID racuna");
+            table3.AddCell("ID ");            
             table3.AddCell("Naziv");
             table3.AddCell("Cijena [KM]");
+            table3.AddCell("Kolicina");
             double Ukupno3 = 0;
             foreach (Otpis stavka in otpis)
             {
@@ -360,7 +363,7 @@ namespace EspressoFinal
                 Directory.CreateDirectory(dir);
             }
             string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
-            string path = "C:\\Izvjestaji\\" + datum + ".pdf";
+            string path = "C:\\Izvjestaji\\MI-(" + datum + ").pdf";
             Document doc1 = new Document();
             doc1.SetMargins(5, 0, 0, 0);
             doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
@@ -485,7 +488,7 @@ namespace EspressoFinal
                 Directory.CreateDirectory(dir);
             }
             string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
-            string path = "C:\\Izvjestaji\\" + datum + ".pdf";
+            string path = "C:\\Izvjestaji\\GI-(" + datum + ").pdf";
             Document doc1 = new Document();
             doc1.SetMargins(5, 0, 0, 0);
             doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
@@ -598,9 +601,73 @@ namespace EspressoFinal
             doc1.Close();
             System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + datum + ".pdf");
         }
-        
-    
-        
 
+        private void LogOutClick(object sender, RoutedEventArgs e)
+        {
+            Window loginWindow = new EspressoFinal.Forms.Login.LoginWindow();
+            loginWindow.Show();
+            this.Close();
+
+        }
+
+        private void Popis_Click(object sender, RoutedEventArgs e)
+        {
+            ArtikliSkladiste = Artikal.Ucitaj();
+            GodisnjiIzvjestaj();
+
+            string dir = @"C:\\Izvjestaji";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            string datum = DateTime.Now.ToString("dd-MM-yyyy HH_mm_ss");
+            string path = "C:\\Izvjestaji\\" + "Popis("+datum + ").pdf";
+            Document doc1 = new Document();
+            doc1.SetMargins(5, 0, 0, 0);
+            doc1.SetPageSize(new iTextSharp.text.Rectangle(595, 842));
+            PdfWriter pdfWriter = PdfWriter.GetInstance(doc1, new FileStream(path, FileMode.Create));
+            PdfDestination pdfDest = new PdfDestination(PdfDestination.XYZ, 0, doc1.PageSize.Height, 0.75f);
+
+
+
+
+
+            doc1.Open();
+            PdfContentByte cb = pdfWriter.DirectContent;
+            //Font font = FontFactory.GetFont("HELVETICA", 6);
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1250, false);
+            Font font1 = new Font(bf,20);
+            Font font2 = new Font(bf,15);
+            Font font3 = new Font(bf,10);
+            iTextSharp.text.Paragraph p1 = new iTextSharp.text.Paragraph(new Chunk("ESPRESSO DB", font1));
+           
+            iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph(new Chunk("POPIS ZA DATUM " + DateTime.Today.ToString("dd-MM-yyyy"), font2));
+            PdfPTable table1 = new PdfPTable(4);
+
+            table1.AddCell("ID artikla");
+            table1.AddCell("Naziv");
+            table1.AddCell("Cijena [KM]");
+            table1.AddCell("Kolicina [kom.]");           
+           
+            foreach (Artikal artikal in ArtikliSkladiste)
+            {
+                table1.AddCell(new PdfPCell(new Phrase(artikal.idArtikal.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(artikal.naziv.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(artikal.cijena.ToString(),font3)));
+                table1.AddCell(new PdfPCell(new Phrase(artikal.kolicina.ToString(),font3)));
+                
+              
+            }
+
+            p1.Alignment = Element.ALIGN_CENTER;
+            p2.Alignment = Element.ALIGN_CENTER;           
+            doc1.Add(p1);
+            doc1.Add(Chunk.NEWLINE);
+            doc1.Add(p2);
+            doc1.Add(Chunk.NEWLINE);          
+            doc1.Add(table1);
+             doc1.Close();
+            System.Diagnostics.Process.Start("C:\\Izvjestaji\\" + "Popis("+datum + ").pdf");
+        }
     }
 }
